@@ -2,12 +2,10 @@
 Asset Management
 ****************
 
-|Build_Status| |Coverage_Status|
+|Build_Status|
 
-.. |Build_Status| image:: https://circleci.com/gh/AccentDesign/asset_management.svg?style=svg
+.. |Build_Status| image:: https://circleci.com/gh/AccentDesign/asset_management.svg?style=svg&circle-token=52907e221c167f9e4c664b17396da6ca780e2885
    :target: https://circleci.com/gh/AccentDesign/asset_management
-.. |Coverage_Status| image:: http://img.shields.io/coveralls/AccentDesign/asset_management/master.svg
-   :target: https://coveralls.io/r/AccentDesign/asset_management?branch=master
 
 Description
 ***********

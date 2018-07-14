@@ -10,8 +10,10 @@ class TaskInline(admin.StackedInline):
     model = Task
     readonly_fields = [
         'last_due',
+        'last_completed',
         'next_due'
     ]
+
 
 class AssetAdmin(MPTTModelAdmin):
     inlines = [

@@ -1,0 +1,19 @@
+{% load i18n %}
+<header>
+    <div class="container">
+        <ul>
+            <li>
+                <a href="/">{% trans 'Home' %}</a>
+            </li>
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    <li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>
+                {% endif %}
+                <li><a href="{% url 'password_change' %}">{% trans 'Password Change' %}</a></li>
+                <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</header>

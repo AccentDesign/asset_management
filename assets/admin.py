@@ -29,13 +29,16 @@ class TaskAdmin(admin.ModelAdmin):
         '__str__',
         'asset',
         'last_due',
+        'last_completed',
         'next_due'
     ]
     readonly_fields = [
         'last_due',
+        'last_completed',
         'next_due'
     ]
 
 
 admin.site.register(Task, TaskAdmin)
+admin.site.register(TaskCompletion)
 admin.site.register(TaskType)

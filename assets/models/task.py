@@ -13,6 +13,15 @@ from dateutil.rrule import (
 )
 
 
+class TaskManager(models.Manager):
+    def get_queryset(self):
+        """ Returns the base queryset with additional properties """
+
+        return super().get_queryset().annotate(
+            qs_last_completed=models.Max('completions__date')
+        )
+
+
 class Task(models.Model):
     name = models.CharField(
         max_length=255
@@ -49,6 +58,8 @@ class Task(models.Model):
         null=True,
         blank=True
     )
+
+    objects = TaskManager()
 
     class Meta:
         ordering = ['name']
@@ -97,3 +108,9 @@ class Task(models.Model):
                 self.initial_due_date.month,
                 self.initial_due_date.day
             )
+
+    @property
+    def last_completed(self):
+        """ Returns the last completed date from TaskManager.get_queryset """
+
+        return getattr(self, 'qs_last_completed')

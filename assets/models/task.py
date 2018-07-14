@@ -103,15 +103,15 @@ class Task(models.Model):
     def schedule(self):
         """ returns the rrule for the duration of the tasks scheduling """
 
-        if self.repeat_interval is not None and self.repeat_frequency is not None:
-            return rrule(
-                freq=self.repeat_frequency,
-                dtstart=self.initial_due_datetime,
-                interval=self.repeat_interval,
-                until=self.repeat_until_datetime,
-            )
+        if self.repeat_interval is None or self.repeat_frequency is None:
+            return None
 
-        return None
+        return rrule(
+            freq=self.repeat_frequency,
+            dtstart=self.initial_due_datetime,
+            interval=self.repeat_interval,
+            until=self.repeat_until_datetime,
+        )
 
     @property
     def last_due(self):

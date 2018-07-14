@@ -68,15 +68,47 @@ class Task(models.Model):
         return self.name
 
     @property
+    def initial_due_datetime(self):
+        """ returns the initial due date as a datetime"""
+
+        if not self.initial_due_date:
+            return None
+
+        return datetime(
+            self.initial_due_date.year,
+            self.initial_due_date.month,
+            self.initial_due_date.day
+        )
+
+    @property
+    def repeat_until_datetime(self):
+        """ returns the repeat until date as a datetime"""
+
+        if not self.repeat_until:
+            return None
+
+        return datetime(
+            self.repeat_until.year,
+            self.repeat_until.month,
+            self.repeat_until.day
+        )
+
+    @property
+    def now(self):
+        """ returns now """
+
+        return datetime.now()
+
+    @property
     def schedule(self):
         """ returns the rrule for the duration of the tasks scheduling """
 
         if self.repeat_interval is not None and self.repeat_frequency is not None:
             return rrule(
                 freq=self.repeat_frequency,
-                dtstart=self.initial_due_date,
+                dtstart=self.initial_due_datetime,
                 interval=self.repeat_interval,
-                until=self.repeat_until,
+                until=self.repeat_until_datetime,
             )
 
         return None
@@ -86,31 +118,23 @@ class Task(models.Model):
         """ Returns the datetime the task was last due on """
 
         if self.schedule:
-            return self.schedule.before(datetime.now())
+            return self.schedule.before(self.now)
 
-        if self.initial_due_date and self.initial_due_date <= datetime.now().date():
-            return datetime(
-                self.initial_due_date.year,
-                self.initial_due_date.month,
-                self.initial_due_date.day
-            )
+        if self.initial_due_datetime and self.initial_due_datetime <= self.now:
+            return self.initial_due_datetime
 
     @property
     def next_due(self):
         """ Returns the datetime the task is next due on """
 
         if self.schedule:
-            return self.schedule.after(datetime.now())
+            return self.schedule.after(self.now)
 
-        if self.initial_due_date and self.initial_due_date > datetime.now().date():
-            return datetime(
-                self.initial_due_date.year,
-                self.initial_due_date.month,
-                self.initial_due_date.day
-            )
+        if self.initial_due_datetime and self.initial_due_datetime > self.now:
+            return self.initial_due_datetime
 
     @property
     def last_completed(self):
         """ Returns the last completed date from TaskManager.get_queryset """
 
-        return getattr(self, 'qs_last_completed')
+        return getattr(self, 'qs_last_completed', None)

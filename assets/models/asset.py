@@ -1,7 +1,9 @@
 from django.db import models
 
+from mptt.models import MPTTModel, TreeForeignKey
 
-class Asset(models.Model):
+
+class Asset(MPTTModel):
     name = models.CharField(
         max_length=255
     )
@@ -22,15 +24,16 @@ class Asset(models.Model):
         max_length=255,
         blank=True
     )
-    parent = models.ForeignKey(
+    parent = TreeForeignKey(
         'self',
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='children'
     )
 
-    class Meta:
-        ordering = ['name']
+    class MPTTMeta:
+        order_insertion_by = ['name']
 
     def __str__(self):
         return self.name

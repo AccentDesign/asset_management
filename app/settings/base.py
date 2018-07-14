@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'assets',
     'authentication',
 
+    'mptt',
     'storages',
 ]
 

@@ -77,7 +77,12 @@ class Task(models.Model):
         if self.schedule:
             return self.schedule.before(datetime.now())
 
-        return self.initial_due_date
+        if self.initial_due_date and self.initial_due_date <= datetime.now().date():
+            return datetime(
+                self.initial_due_date.year,
+                self.initial_due_date.month,
+                self.initial_due_date.day
+            )
 
     @property
     def next_due(self):
@@ -86,4 +91,9 @@ class Task(models.Model):
         if self.schedule:
             return self.schedule.after(datetime.now())
 
-        return self.initial_due_date
+        if self.initial_due_date and self.initial_due_date > datetime.now().date():
+            return datetime(
+                self.initial_due_date.year,
+                self.initial_due_date.month,
+                self.initial_due_date.day
+            )

@@ -1,6 +1,16 @@
 from django.db import models
 
+from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
+
+
+class AssetManager(TreeManager):
+    def get_queryset(self):
+        """ Returns the base queryset with additional properties """
+
+        return super().get_queryset().annotate(
+            qs_task_count=models.Count('tasks')
+        )
 
 
 class Asset(MPTTModel):
@@ -32,8 +42,16 @@ class Asset(MPTTModel):
         related_name='children'
     )
 
+    objects = AssetManager()
+
     class MPTTMeta:
         order_insertion_by = ['name']
 
     def __str__(self):
         return self.name
+
+    @property
+    def task_count(self):
+        """ Returns the count of tasks for this asset from AssetManager.get_queryset """
+
+        return getattr(self, 'qs_task_count', None)

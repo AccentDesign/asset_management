@@ -35,7 +35,8 @@ class Task(models.Model):
     )
     asset = models.ForeignKey(
         'assets.Asset',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='tasks'
     )
     initial_due_date = models.DateField()
     repeat_interval = models.IntegerField(

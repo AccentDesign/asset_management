@@ -19,6 +19,10 @@ class AssetAdmin(MPTTModelAdmin):
     inlines = [
         TaskInline,
     ]
+    list_display = [
+        '__str__',
+        'task_count'
+    ]
 
 
 admin.site.register(Asset, AssetAdmin)

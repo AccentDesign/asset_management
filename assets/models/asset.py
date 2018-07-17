@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
@@ -49,6 +50,9 @@ class Asset(MPTTModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse_lazy('assets:asset-update', kwargs={'pk': self.pk})
 
     @property
     def task_count(self):

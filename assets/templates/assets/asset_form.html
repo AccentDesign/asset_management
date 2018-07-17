@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags %}
+{% block page_title %}Assets{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            {% if object %}
+                <div class="pull-right">
+                    <a class="button" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Create' %}</a>
+                    <a class="button button-googleplus" href="{% url 'assets:asset-delete' object.pk %}">{% trans 'Delete' %}</a>
+                </div>
+            {% endif %}
+            <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
+            {% if object %}
+            <ul class="breadcrumb muted small">
+                {% recursetree object.get_ancestors %}
+                <li>{{ node.name }}</li>
+                {{ children }}
+                {% endrecursetree %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="container">
+            <p></p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form }}
+                <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

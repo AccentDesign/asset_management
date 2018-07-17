@@ -1,15 +1,37 @@
 // Variables
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
-/*
-* start with a copy of the current varables file:
-* https://github.com/AccentDesign/karma-css/blob/master/scss/_variables.scss
-*/
-
-
 // Typography
+$base-font-size:                13px;
 $code-font-family:              'Inconsolata', monospace;
 
+// Colours
+$colors: (
+  "white":                      rgb(255, 255, 255),
+  "primary":                    rgb(99, 128, 233),
+  "lavender_light":             rgb(249, 250, 254),
+  "lavender_dark":              rgb(238, 241, 251),
+  "googleplus":                 rgb(221, 75, 57),
+);
 
-// forms
-$input-use-full-width:          true !default;
+// Defined colors
+$body-background:               map_get($colors, "lavender_light");
+
+// Buttons
+$button-font-size:              1.3rem;
+$buttons: (
+    googleplus:     map-get($colors, "googleplus")      map-get($colors, "white")
+);
+
+// Forms
+$input-use-full-width:          true;
+$input-font-size:               1.3rem;
+
+// Tables
+$table-margin-bottom:           0;
+$table-cell-padding:            .85rem 1.5rem;
+
+// z-indexes
+$z-layers: (
+  "header": 10
+);

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Example.com | {% block page_title %}{% endblock %}</title>
+        <title>Asset Management | {% block page_title %}{% endblock %}</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="{% static 'dist/css/karma.min.css' %}">
         {% block extra_css %}{% endblock %}
@@ -12,6 +12,17 @@
     <body class="{% block body_class %}{% endblock %}">
         {% block full_outer_content %}
             {% include 'partials/header.html' %}
+            {% block sidebar %}
+                <div class="sidenav">
+                    <h3>Main</h3>
+                    <ul class="nav">
+                        <li>
+                            <a href="{% url 'assets:asset-list' %}">Assets</a>
+                            <a class="pull-right" href="{% url 'assets:asset-create' %}"><i class="icon-plus-circled"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            {% endblock %}
             {% block inner_content %}{% endblock %}
             {% include 'partials/footer.html' %}
         {% endblock %}

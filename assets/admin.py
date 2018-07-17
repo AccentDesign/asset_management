@@ -5,20 +5,7 @@ from mptt.admin import MPTTModelAdmin
 from assets.models import *
 
 
-class TaskInline(admin.StackedInline):
-    extra = 0
-    model = Task
-    readonly_fields = [
-        'last_due',
-        'last_completed',
-        'next_due'
-    ]
-
-
 class AssetAdmin(MPTTModelAdmin):
-    inlines = [
-        TaskInline,
-    ]
     list_display = [
         '__str__',
         'task_count'

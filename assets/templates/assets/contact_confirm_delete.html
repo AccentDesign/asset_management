@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags %}
+{% block page_title %}Contacts{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <a class="button pull-right" href="{% url 'assets:contact-update' object.pk %}">{% trans 'Cancel' %}</a>
+            <h2>{% trans 'Delete' %}</h2>
+        </div>
+        <div class="container">
+            <p></p>
+            <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form }}
+                <button class="button button-googleplus" type="submit">{% trans 'Delete' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

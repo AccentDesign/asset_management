@@ -4,3 +4,9 @@ from .asset import (
     AssetUpdate,
     AssetDelete
 )
+from .contact import (
+    ContactList,
+    ContactCreate,
+    ContactUpdate,
+    ContactDelete
+)

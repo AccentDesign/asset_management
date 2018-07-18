@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block page_title %}Contacts{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'Contacts' %}</h2>
+        </div>
+        <table class="table-hover">
+            <thead>
+                <tr>
+                    <th>{% trans 'Name' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object_list %}
+                <tr>
+                    <td><a href="{% url 'assets:contact-update' ob.pk %}">{{ ob }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

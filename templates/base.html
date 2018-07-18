@@ -22,12 +22,19 @@
                     <h3>Main</h3>
                     <ul class="nav">
                         <li>
-                            <a href="{% url 'assets:asset-list' %}">Assets</a>
+                            <a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a>
                             <a class="pull-right" href="{% url 'assets:asset-create' %}"><i class="icon-plus-circled"></i></a>
                         </li>
                         <li>
-                            <a href="{% url 'assets:contact-list' %}">Contacts</a>
+                            <a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a>
                             <a class="pull-right" href="{% url 'assets:contact-create' %}"><i class="icon-plus-circled"></i></a>
+                        </li>
+                    </ul>
+                    <h3>Setup</h3>
+                    <ul class="nav">
+                        <li>
+                            <a href="{% url 'assets:asset-type-list' %}">{% trans 'Asset Types' %}</a>
+                            <a class="pull-right" href="{% url 'assets:asset-type-create' %}"><i class="icon-plus-circled"></i></a>
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,31 @@
+// Main
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.main {
+  background: color("white");
+  border-left: solid 1px $border-color;
+  margin-left: 20rem;
+  min-height: 100vh;
+  padding-top: 6rem;
+}
+
+.main-info {
+  padding: 2rem 1.5rem;
+
+  * {
+    margin-bottom: 0;
+  }
+
+  .breadcrumb {
+    list-style-type: none;
+
+    li {
+      display: inline;
+    }
+
+    li+li:before {
+      @include pseudo($display: inline, $pos: relative, $content: '>');
+      padding: 0 .6rem 0 .4rem;
+    }
+  }
+}

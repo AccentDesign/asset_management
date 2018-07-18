@@ -6,6 +6,8 @@
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
 <missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="attention-circled" unicode="&#xe800;" d="M429 779q116 0 215-58t156-156 57-215-57-215-156-156-215-58-216 58-155 156-58 215 58 215 155 156 216 58z m71-696v106q0 8-5 13t-12 5h-107q-8 0-13-5t-6-13v-106q0-8 6-13t13-6h107q7 0 12 6t5 13z m-1 192l10 346q0 7-6 10-5 5-13 5h-123q-8 0-13-5-6-3-6-10l10-346q0-6 5-10t14-4h103q8 0 13 4t6 10z" horiz-adv-x="857.1" />
+
 <glyph glyph-name="plus-circled" unicode="&#xe801;" d="M679 314v72q0 14-11 25t-25 10h-143v143q0 15-11 25t-25 11h-71q-15 0-25-11t-11-25v-143h-143q-14 0-25-10t-10-25v-72q0-14 10-25t25-10h143v-143q0-15 11-25t25-11h71q15 0 25 11t11 25v143h143q14 0 25 10t11 25z m178 36q0-117-57-215t-156-156-215-58-216 58-155 156-58 215 58 215 155 156 216 58 215-58 156-156 57-215z" horiz-adv-x="857.1" />
 </font>
 </defs>

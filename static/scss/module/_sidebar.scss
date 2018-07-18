@@ -1,0 +1,18 @@
+// Sidebar
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.sidenav {
+  @include position(0, auto, auto, 0, fixed);
+  height: 100%;
+  width: 20rem;
+  overflow-x: hidden;
+  padding: 8rem 2rem;
+}
+
+.sidenav .nav {
+  list-style-type: none;
+
+  li {
+    margin-bottom: 1rem;
+  }
+}

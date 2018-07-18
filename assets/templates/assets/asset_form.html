@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n mptt_tags %}
+{% load i18n mptt_tags static %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
 {% block sidebar %}{{ block.super }}{% endblock %}
@@ -22,13 +22,26 @@
             </ul>
             {% endif %}
         </div>
+        <ul class="tabs">
+            <li data-tab-id="detail" class="active"><a>Detail</a></li>
+            <li data-tab-id="tasks"><a>Tasks</a></li>
+        </ul>
         <div class="container">
-            <p></p>
             <form method="post" novalidate>
                 {% csrf_token %}
-                {{ form }}
+                <fieldset data-tab="detail">
+                    {{ form }}
+                </fieldset>
+                <fieldset data-tab="tasks" class="d-hidden">
+                    Tasks
+                </fieldset>
                 <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'dist/js/tabs.js' %}"></script>
+    <script>$('.tabs').tabs();</script>
 {% endblock %}

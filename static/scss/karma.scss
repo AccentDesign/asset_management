@@ -9,8 +9,11 @@
 
 /* add your custom modules here */
 @import "fontello/css/fontello";
-@import "module/layout";
+@import "module/header";
 @import "module/login";
+@import "module/main";
+@import "module/sidebar";
+@import "module/tabs";
 
 /* karma-css utilities */
 @import "node_modules/karma-css/scss/utilities";

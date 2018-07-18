@@ -1,0 +1,25 @@
+// Header
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+header {
+  @include position(0, 0, auto, 0, fixed);
+  background: color("primary");
+  display: flex;
+  align-items: center;
+  min-height: 6rem;
+  z-index: zindex("header");
+}
+
+header .nav {
+  list-style-type: none;
+  margin: 0 0 0 20rem;
+
+  li {
+    display: inline-block;
+
+    a {
+      color: color("white");
+      padding: 0 1.5rem;
+    }
+  }
+}

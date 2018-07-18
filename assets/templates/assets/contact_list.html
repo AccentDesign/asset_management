@@ -17,7 +17,7 @@
             <tbody>
                 {% for ob in object_list %}
                 <tr>
-                    <td><a href="{% url 'assets:contact-update' ob.pk %}">{{ ob }}</a></td>
+                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

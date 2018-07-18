@@ -6,7 +6,7 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <a class="button pull-right" href="{% url 'assets:asset-update' object.pk %}">{% trans 'Cancel' %}</a>
+            <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
             <h2>{% trans 'Delete' %}</h2>
             {% if object %}
             <ul class="breadcrumb muted small">

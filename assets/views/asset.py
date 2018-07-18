@@ -17,8 +17,7 @@ class AssetCreate(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         parent = self.request.GET.get('parent')
-        if parent:
-            kwargs['initial']['parent'] = parent
+        kwargs['initial']['parent'] = parent
         return kwargs
 
 

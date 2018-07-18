@@ -14,7 +14,7 @@ class AssetAdmin(MPTTModelAdmin):
 
 admin.site.register(Asset, AssetAdmin)
 admin.site.register(AssetType)
-admin.site.register(Manufacturer)
+admin.site.register(Contact)
 
 
 class TaskAdmin(admin.ModelAdmin):

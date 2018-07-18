@@ -25,15 +25,11 @@ class Asset(MPTTModel):
         'assets.AssetType',
         on_delete=models.PROTECT
     )
-    manufacturer = models.ForeignKey(
-        'assets.Manufacturer',
+    contact = models.ForeignKey(
+        'assets.Contact',
         null=True,
         blank=True,
         on_delete=models.SET_NULL
-    )
-    serial_no = models.CharField(
-        max_length=255,
-        blank=True
     )
     parent = TreeForeignKey(
         'self',

@@ -33,7 +33,18 @@
                     {{ form }}
                 </fieldset>
                 <fieldset data-tab="tasks" class="d-hidden">
-                    Tasks
+                    {{ formset.management_form }}
+                    <div class="formsets" data-formset-prefix="tasks">
+                        {% for formset_form in formset.forms %}
+                            <div class="formset">
+                                {{ formset_form }}
+                            </div>
+                        {% endfor %}
+                        <div class="formset-empty">
+                            {{ formset.empty_form }}
+                        </div>
+                        <a class="button pull-right formset-add">Add Task</a>
+                    </div>
                 </fieldset>
                 <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
             </form>
@@ -43,5 +54,7 @@
 
 {% block extra_js %}
     <script src="{% static 'dist/js/tabs.js' %}"></script>
+    <script src="{% static 'dist/js/formset.js' %}"></script>
     <script>$('.tabs').tabs();</script>
+    <script>$('.formsets').formset();</script>
 {% endblock %}

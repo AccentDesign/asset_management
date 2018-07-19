@@ -4,3 +4,15 @@
 .errorlist {
   color: color("googleplus");
 }
+
+// formsets
+
+.formset {
+  padding-bottom: 3rem;
+  border-bottom: solid 1px $border-color;
+  margin-bottom: 3rem;
+}
+
+.formset-empty {
+  display: none;
+}

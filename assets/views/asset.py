@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from app.views.mixins import ProtectedDeleteMixin
+from assets.forms import AssetTaskFormset
 from assets.models import Asset
 
 
@@ -13,7 +15,26 @@ class AssetList(LoginRequiredMixin, ListView):
 class AssetCreate(LoginRequiredMixin, CreateView):
     model = Asset
     fields = '__all__'
+    formset_class = AssetTaskFormset
     success_url = reverse_lazy('assets:asset-list')
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = self.formset_class()
+        context = self.get_context_data(form=form, formset=formset)
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = self.formset_class(request.POST)
+        if form.is_valid() and formset.is_valid():
+            return self.form_valid(form, formset)
+        else:
+            return self.form_invalid(form, formset)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -21,11 +42,50 @@ class AssetCreate(LoginRequiredMixin, CreateView):
         kwargs['initial']['parent'] = parent
         return kwargs
 
+    def form_valid(self, form, formset):
+        self.object = form.save()
+        formset.instance = self.object
+        formset.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, formset):
+        context = self.get_context_data(form=form, formset=formset)
+        return self.render_to_response(context)
+
 
 class AssetUpdate(LoginRequiredMixin, UpdateView):
     model = Asset
     fields = '__all__'
+    formset_class = AssetTaskFormset
     success_url = reverse_lazy('assets:asset-list')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = self.formset_class(instance=self.object)
+        context = self.get_context_data(form=form, formset=formset)
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset = self.formset_class(request.POST, instance=self.object)
+        if form.is_valid() and formset.is_valid():
+            return self.form_valid(form, formset)
+        else:
+            return self.form_invalid(form, formset)
+
+    def form_valid(self, form, formset):
+        self.object = form.save()
+        formset.instance = self.object
+        formset.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, formset):
+        context = self.get_context_data(form=form, formset=formset)
+        return self.render_to_response(context)
 
 
 class AssetDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):

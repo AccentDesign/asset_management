@@ -1572,6 +1572,16 @@ sup {
   color: #dd4b39;
 }
 
+.formset {
+  padding-bottom: 3rem;
+  border-bottom: solid 1px #e6e6e6;
+  margin-bottom: 3rem;
+}
+
+.formset-empty {
+  display: none;
+}
+
 header {
   position: fixed;
   top: 0;
@@ -1599,10 +1609,6 @@ header .nav li {
 header .nav li a {
   color: white;
   padding: 0 1.5rem;
-}
-
-.login-home-link {
-  margin-bottom: 2rem;
 }
 
 .main {

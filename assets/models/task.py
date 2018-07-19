@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.urls import reverse_lazy
 
 from dateutil.rrule import (
     rrule,
@@ -67,6 +68,10 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        # only front end endpoint is for the asset
+        return reverse_lazy('assets:asset-update', kwargs={'pk': self.asset_id})
 
     @property
     def initial_due_datetime(self):

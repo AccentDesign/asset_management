@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags static %}
+{% block page_title %}Task Types{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            {% if object %}
+                <div class="pull-right">
+                    <a class="button button-googleplus" href="{% url 'assets:task-type-delete' object.pk %}">{% trans 'Delete' %}</a>
+                </div>
+            {% endif %}
+            <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
+        </div>
+        <div class="container">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <fieldset>
+                    {{ form }}
+                </fieldset>
+                <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

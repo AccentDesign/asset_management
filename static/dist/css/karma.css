@@ -1573,9 +1573,9 @@ sup {
 }
 
 .formset {
-  padding-bottom: 3rem;
-  border-bottom: solid 1px #e6e6e6;
-  margin-bottom: 3rem;
+  background: #f9fafe;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .formset-empty {

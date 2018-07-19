@@ -36,6 +36,10 @@
                             <a href="{% url 'assets:asset-type-list' %}">{% trans 'Asset Types' %}</a>
                             <a class="pull-right" href="{% url 'assets:asset-type-create' %}"><i class="icon-plus-circled"></i></a>
                         </li>
+                        <li>
+                            <a href="{% url 'assets:task-type-list' %}">{% trans 'Task Types' %}</a>
+                            <a class="pull-right" href="{% url 'assets:task-type-create' %}"><i class="icon-plus-circled"></i></a>
+                        </li>
                     </ul>
                 </div>
             {% endblock %}

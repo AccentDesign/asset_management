@@ -1578,6 +1578,11 @@ sup {
   margin-bottom: 1.5rem;
 }
 
+.formset-deleted {
+  background: #eef1fb;
+  opacity: .75;
+}
+
 .formset-empty {
   display: none;
 }

@@ -34,9 +34,9 @@ $.fn.formset = function (options) {
 
     $(_this).on('change', settings.formsetDeleteSelector, function () {
         if ($(this).is(':checked')) {
-            $(this).closest('.' + settings.formCls).addClass(settings.deletedCls);
+            $(this).closest('.' + settings.formsetCls).addClass(settings.deletedCls);
         } else {
-            $(this).closest('.' + settings.formCls).removeClass(settings.deletedCls);
+            $(this).closest('.' + settings.formsetCls).removeClass(settings.deletedCls);
         }
     });
 

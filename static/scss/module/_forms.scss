@@ -13,6 +13,11 @@
   margin-bottom: 1.5rem;
 }
 
+.formset-deleted {
+  background: color("lavender_dark");
+  opacity: .75;
+}
+
 .formset-empty {
   display: none;
 }

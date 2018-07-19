@@ -26,6 +26,6 @@ AssetTaskFormset = forms.inlineformset_factory(
     Task,
     form=TaskForm,
     extra=0,
-    can_delete=False,
+    can_delete=True,
     can_order=False
 )

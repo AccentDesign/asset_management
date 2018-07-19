@@ -1568,6 +1568,10 @@ sup {
 }
 
 /* '' */
+.errorlist {
+  color: #dd4b39;
+}
+
 header {
   position: fixed;
   top: 0;

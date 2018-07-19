@@ -6,7 +6,7 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <h2>{% trans 'Assets' %}</h2>
+            <h2>{% trans 'Assets' %} <a href="{% url 'assets:asset-create' %}"><i class="icon-plus-circled"></i></a></h2>
         </div>
         <table class="table-hover">
             <thead>

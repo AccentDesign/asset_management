@@ -6,7 +6,7 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <h2>{% trans 'Contacts' %}</h2>
+            <h2>{% trans 'Contacts' %} <a href="{% url 'assets:contact-create' %}"><i class="icon-plus-circled"></i></a></h2>
         </div>
         <table class="table-hover">
             <thead>

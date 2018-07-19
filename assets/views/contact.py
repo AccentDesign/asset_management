@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from app.views.mixins import ProtectedDeleteMixin
 from assets.models import Contact
 
 
@@ -21,6 +22,6 @@ class ContactUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('assets:contact-list')
 
 
-class ContactDelete(LoginRequiredMixin, DeleteView):
+class ContactDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = Contact
     success_url = reverse_lazy('assets:contact-list')

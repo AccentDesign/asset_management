@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from app.views.mixins import ProtectedDeleteMixin
 from assets.models import AssetType
 
 
@@ -21,6 +22,6 @@ class AssetTypeUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('assets:asset-type-list')
 
 
-class AssetTypeDelete(LoginRequiredMixin, DeleteView):
+class AssetTypeDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = AssetType
     success_url = reverse_lazy('assets:asset-type-list')

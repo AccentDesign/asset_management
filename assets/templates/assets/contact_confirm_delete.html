@@ -10,13 +10,21 @@
             <h2>{% trans 'Delete' %}</h2>
         </div>
         <div class="container">
-            <p></p>
+            {% if protected %}
+            <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
+            <ul>
+                {% for item in protected %}
+                    <li>{{ item.verbose_name|capfirst }}: <a href="{{ item.object.get_absolute_url }}">{{ item.object }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
             <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
             <form method="post" novalidate>
                 {% csrf_token %}
                 {{ form }}
                 <button class="button button-googleplus" type="submit">{% trans 'Delete' %}</button>
             </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

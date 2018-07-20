@@ -3,6 +3,7 @@
 
 .sidenav {
   @include position(0, auto, auto, 0, fixed);
+  background: color("lavender_light");
   height: 100%;
   width: 20rem;
   overflow-x: hidden;

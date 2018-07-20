@@ -18,7 +18,6 @@ class DatePicker(forms.widgets.DateInput):
         css = {
             'all': (
                 static('dist/css/jquery-ui.min.css'),
-                static('dist/css/jquery-ui.theme.min.css'),
             )
         }
         js = (

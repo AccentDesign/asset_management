@@ -917,7 +917,7 @@ body {
   font-size: 13px;
   font-weight: 400;
   color: #3e3e3e;
-  background: #f9fafe;
+  background: white;
 }
 
 main {
@@ -1655,6 +1655,10 @@ header .nav li a {
   padding: 0 1.5rem;
 }
 
+.login-page {
+  background: #f9fafe;
+}
+
 .main {
   background: white;
   border-left: solid 1px #e6e6e6;
@@ -1692,6 +1696,7 @@ header .nav li a {
   right: auto;
   bottom: auto;
   left: 0;
+  background: #f9fafe;
   height: 100%;
   width: 20rem;
   overflow-x: hidden;

@@ -15,9 +15,6 @@ $colors: (
   "olive":                      rgb(61, 153, 112)
 );
 
-// Defined colors
-$body-background:               map_get($colors, "lavender_light");
-
 // Buttons
 $button-font-size:              1.3rem;
 $buttons: (

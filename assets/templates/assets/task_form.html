@@ -8,7 +8,11 @@
         <div class="main-info">
             <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
         </div>
-        <div class="container">
+        <ul class="tabs">
+            <li data-tab-id="detail" class="active"><a>Detail</a></li>
+            <li data-tab-id="history"><a>History</a></li>
+        </ul>
+        <div data-tab="detail" class="container">
             <form method="post" novalidate>
                 {% csrf_token %}
                 <fieldset>
@@ -17,9 +21,31 @@
                 <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
             </form>
         </div>
+        <table data-tab="history" class="d-hidden">
+            <thead>
+                <tr>
+                    <th>{% trans 'Date' %}</th>
+                    <th>{% trans 'Notes' %}</th>
+                    <th>{% trans 'User' %}</th>
+                    <th>{% trans 'Status' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object.history.all %}
+                <tr>
+                    <td class="nowrap">{{ ob.date.date }}<br>{{ ob.date.time }}</td>
+                    <td>{{ ob.notes|linebreaks|default:'-' }}</td>
+                    <td>{{ ob.user|default_if_none:'-' }}</td>
+                    <td>{{ ob.status|default_if_none:'-' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 
 {% block extra_js %}
     {{ form.media }}
+    <script src="{% static 'dist/js/tabs.js' %}"></script>
+    <script>$('.tabs').tabs();</script>
 {% endblock %}

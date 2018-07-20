@@ -2,8 +2,9 @@ import calendar
 import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 
+from assets.forms import TaskForm
 from assets.models import Task
 
 
@@ -29,3 +30,8 @@ class TaskList(LoginRequiredMixin, ListView):
             'date': self.get_date()
         })
         return context
+
+
+class TaskUpdate(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = TaskForm

@@ -79,8 +79,7 @@ class Task(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        # only front end endpoint is for the asset
-        return reverse_lazy('assets:asset-update', kwargs={'pk': self.asset_id})
+        return reverse_lazy('assets:task-update', kwargs={'pk': self.pk})
 
     @property
     def initial_due_datetime(self):

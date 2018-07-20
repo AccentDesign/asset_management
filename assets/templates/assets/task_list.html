@@ -24,7 +24,7 @@
                     <tbody>
                         {% for ob in object_list %}
                         <tr>
-                            <td>{{ ob }}</td>
+                            <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
                             <td><a href="{{ ob.asset.get_absolute_url }}">{{ ob.asset }}</a></td>
                             <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
                             <td>{{ ob.due_date|default:'-' }}</td>

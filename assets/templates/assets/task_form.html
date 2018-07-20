@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags static %}
+{% block page_title %}Tasks{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
+        </div>
+        <div class="container">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <fieldset>
+                    {{ form }}
+                </fieldset>
+                <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
+{% endblock %}

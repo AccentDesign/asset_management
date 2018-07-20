@@ -20,7 +20,10 @@ class TaskManager(models.Manager):
         """ Returns the base queryset with additional properties """
 
         return super().get_queryset().annotate(
-            qs_last_completed=models.Max('completions__date')
+            qs_last_completed=models.Max(
+                'history__date',
+                filter=models.Q(history__status__name='Completed')
+            )
         )
 
     def due_by_date(self, date):

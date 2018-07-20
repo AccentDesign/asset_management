@@ -33,5 +33,21 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Task, TaskAdmin)
-admin.site.register(TaskCompletion)
+
+
+class TaskHistoryAdmin(admin.ModelAdmin):
+    list_display = [
+        'task',
+        'date',
+        'user',
+        'status'
+    ]
+    readonly_fields = [
+        'date',
+        'user'
+    ]
+
+
+admin.site.register(TaskHistory, TaskHistoryAdmin)
+admin.site.register(TaskStatus)
 admin.site.register(TaskType)

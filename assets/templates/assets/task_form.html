@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n mptt_tags static %}
+{% load i18n mptt_tags static tz %}
 {% block page_title %}Tasks{% endblock %}
 {% block body_class %}{% endblock %}
 {% block sidebar %}{{ block.super }}{% endblock %}
@@ -33,7 +33,7 @@
                 <tbody>
                     {% for ob in object.history.all %}
                     <tr>
-                        <td class="nowrap">{{ ob.date.date }}<br>{{ ob.date.time }}</td>
+                        <td class="nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
                         <td>{{ ob.notes|linebreaks|default:'-' }}</td>
                         <td>{{ ob.user|default_if_none:'-' }}</td>
                         <td>{{ ob.status|default_if_none:'-' }}</td>

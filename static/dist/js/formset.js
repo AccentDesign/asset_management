@@ -30,6 +30,12 @@ $.fn.formset = function (options) {
         $('#id_' + prefix + '-TOTAL_FORMS').val($total);
 
         $($original).before($copy);
+
+        // reinit jquery datepickers
+        $copy.find('.datepicker').each(function() {
+            $(this).removeClass('hasDatepicker');
+            $('.datepicker').datepicker();
+        });
     });
 
     $(_this).on('change', settings.formsetDeleteSelector, function () {

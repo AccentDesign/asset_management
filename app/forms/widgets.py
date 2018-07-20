@@ -16,9 +16,12 @@ class DatePicker(forms.widgets.DateInput):
 
     class Media:
         css = {
-            'all': ('//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', )
+            'all': (
+                static('dist/css/jquery-ui.min.css'),
+                static('dist/css/jquery-ui.theme.min.css'),
+            )
         }
         js = (
-            '//code.jquery.com/ui/1.12.1/jquery-ui.js',
+            static('dist/js/jquery-ui.min.js'),
             static('dist/js/datepicker.js'),
         )

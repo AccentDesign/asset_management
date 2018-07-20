@@ -12,6 +12,7 @@ from dateutil.rrule import (
     WEEKLY,
     YEARLY
 )
+from django.utils.timezone import make_naive
 
 
 class TaskManager(models.Manager):
@@ -20,6 +21,14 @@ class TaskManager(models.Manager):
 
         return super().get_queryset().annotate(
             qs_last_completed=models.Max('completions__date')
+        )
+
+    def due_by_date(self, date):
+        """ Returns tasks that are due upto and including a date """
+
+        return (
+            task for task in self.get_queryset()
+            if task.due_date <= date
         )
 
 
@@ -118,6 +127,17 @@ class Task(models.Model):
             interval=self.repeat_interval,
             until=self.repeat_until_datetime,
         )
+
+    @property
+    def due_date(self):
+        """ returns the due date of the task """
+
+        if self.last_due and not self.last_completed:
+            return self.last_due.date()
+        if self.last_due and self.last_completed and self.last_due > make_naive(self.last_completed):
+            return self.last_due.date()
+        if self.next_due:
+            return self.next_due.date()
 
     @property
     def last_due(self):

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load i18n tz %}
+{% block page_title %}Tasks{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}
+    {{ block.super }}
+{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'Tasks' %}</h2>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <table class="table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Name' %}</th>
+                            <th>{% trans 'Asset' %}</th>
+                            <th>{% trans 'Last Completed' %}</th>
+                            <th>{% trans 'Due Date' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ob in object_list %}
+                        <tr>
+                            <td>{{ ob }}</td>
+                            <td><a href="{{ ob.asset.get_absolute_url }}">{{ ob.asset }}</a></td>
+                            <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
+                            <td>{{ ob.due_date|default:'-' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-3">
+                <div style="padding: .7rem 0;"><strong>Due Date</strong></div>
+                <div id="datepicker"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+
+    $("#datepicker")
+        .datepicker()
+        .datepicker("setDate", new Date("{{ date.isoformat }}"))
+        .on( "change", function() {
+            var date = getDate(this);
+            if (date) {
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                var params = `?year=${year}&month=${month}&day=${day}`;
+                window.location.href = window.location.href.replace(/[\?#].*|$/, params);
+            }
+        });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate("mm/dd/yy", element.value);
+        } catch( error ) {
+            date = null;
+        }
+        return date;
+    }
+
+});
+</script>
+{% endblock %}

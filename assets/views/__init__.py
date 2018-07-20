@@ -16,6 +16,9 @@ from .contact import (
     ContactUpdate,
     ContactDelete
 )
+from .task import (
+    TaskList
+)
 from .task_type import (
     TaskTypeList,
     TaskTypeCreate,

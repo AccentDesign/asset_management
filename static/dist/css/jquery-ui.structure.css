@@ -752,6 +752,7 @@ button.ui-button::-moz-focus-inner {
 /* support: IE8 - See #6727 */
 .ui-slider.ui-state-disabled .ui-slider-handle,
 .ui-slider.ui-state-disabled .ui-slider-range {
+	-webkit-filter: inherit;
 	filter: inherit;
 }
 
@@ -884,3 +885,5 @@ button.ui-button::-moz-focus-inner {
 body .ui-tooltip {
 	border-width: 2px;
 }
+
+/*# sourceMappingURL=jquery-ui.structure.css.map */

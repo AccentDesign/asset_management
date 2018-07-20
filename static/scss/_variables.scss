@@ -12,6 +12,7 @@ $colors: (
   "lavender_light":             rgb(249, 250, 254),
   "lavender_dark":              rgb(238, 241, 251),
   "googleplus":                 rgb(221, 75, 57),
+  "olive":                      rgb(61, 153, 112)
 );
 
 // Defined colors
@@ -20,7 +21,8 @@ $body-background:               map_get($colors, "lavender_light");
 // Buttons
 $button-font-size:              1.3rem;
 $buttons: (
-    googleplus:     map-get($colors, "googleplus")      map-get($colors, "white")
+    googleplus:     map-get($colors, "googleplus")      map-get($colors, "white"),
+    olive:          map-get($colors, "olive")      map-get($colors, "white")
 );
 
 // Forms

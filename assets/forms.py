@@ -1,7 +1,7 @@
 from django import forms
 
 from app.forms.widgets import DatePicker
-from assets.models import Asset, Task
+from assets.models import Asset, Task, TaskHistory
 
 
 class TaskForm(forms.ModelForm):
@@ -29,3 +29,16 @@ AssetTaskFormset = forms.inlineformset_factory(
     can_delete=True,
     can_order=False
 )
+
+
+class TaskHistoryForm(forms.ModelForm):
+    notes = forms.CharField(
+        widget=forms.widgets.Textarea
+    )
+
+    class Meta:
+        model = TaskHistory
+        fields = ('task', 'notes', )
+        widgets = {
+            'task': forms.widgets.HiddenInput
+        }

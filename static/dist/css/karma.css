@@ -1121,6 +1121,45 @@ button,
   outline: 0;
 }
 
+.button.button-olive {
+  color: white;
+  background-color: #3d9970;
+  border-color: #368763;
+}
+
+.button.button-olive:hover, .button.button-olive:focus {
+  color: white;
+  background-color: #2e7555;
+  border-color: #276248;
+  outline: 0;
+}
+
+.button.button-outline.button-olive {
+  color: #3d9970;
+  background-color: transparent;
+  border-color: #3d9970;
+}
+
+.button.button-outline.button-olive:hover, .button.button-outline.button-olive:focus {
+  color: #2e7555;
+  background-color: transparent;
+  border-color: #2e7555;
+  outline: 0;
+}
+
+.button.button-clear.button-olive {
+  color: #3d9970;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.button.button-clear.button-olive:hover, .button.button-clear.button-olive:focus {
+  color: #2e7555;
+  background-color: transparent;
+  border-color: transparent;
+  outline: 0;
+}
+
 code,
 kbd,
 pre,

@@ -18,19 +18,20 @@ class AssetCreate(LoginRequiredMixin, CreateView):
     formset_class = AssetTaskFormset
     success_url = reverse_lazy('assets:asset-list')
 
+    def get_formset(self, **kwargs):
+        return self.formset_class(**kwargs)
+
     def get(self, request, *args, **kwargs):
         self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formset = self.formset_class()
+        form = self.get_form()
+        formset = self.get_formset()
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formset = self.formset_class(request.POST)
+        form = self.get_form()
+        formset = self.get_formset(data=request.POST)
         if form.is_valid() and formset.is_valid():
             return self.form_valid(form, formset)
         else:
@@ -38,8 +39,7 @@ class AssetCreate(LoginRequiredMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        parent = self.request.GET.get('parent')
-        kwargs['initial']['parent'] = parent
+        kwargs['initial']['parent'] = self.request.GET.get('parent')
         return kwargs
 
     def form_valid(self, form, formset):
@@ -59,19 +59,20 @@ class AssetUpdate(LoginRequiredMixin, UpdateView):
     formset_class = AssetTaskFormset
     success_url = reverse_lazy('assets:asset-list')
 
+    def get_formset(self, **kwargs):
+        return self.formset_class(**kwargs)
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formset = self.formset_class(instance=self.object)
+        form = self.get_form()
+        formset = self.get_formset(instance=self.object)
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        formset = self.formset_class(request.POST, instance=self.object)
+        form = self.get_form()
+        formset = self.get_formset(data=request.POST, instance=self.object)
         if form.is_valid() and formset.is_valid():
             return self.form_valid(form, formset)
         else:

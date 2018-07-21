@@ -19,6 +19,7 @@
                             <th>{% trans 'Asset' %}</th>
                             <th>{% trans 'Last Completed' %}</th>
                             <th>{% trans 'Due Date' %}</th>
+                            <th>{% trans 'Schedule' %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +29,7 @@
                             <td><a href="{{ ob.asset.get_absolute_url }}">{{ ob.asset }}</a></td>
                             <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
                             <td>{{ ob.due_date|default:'-' }}</td>
+                            <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

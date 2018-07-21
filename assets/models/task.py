@@ -3,6 +3,7 @@ from datetime import datetime
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse_lazy
+from django.utils.timezone import make_naive
 
 from dateutil.rrule import (
     rrule,
@@ -12,7 +13,6 @@ from dateutil.rrule import (
     WEEKLY,
     YEARLY
 )
-from django.utils.timezone import make_naive
 
 
 class TaskManager(models.Manager):
@@ -88,7 +88,7 @@ class Task(models.Model):
 
     @property
     def initial_due_datetime(self):
-        """ returns the initial due date as a datetime"""
+        """ returns the initial due date as a datetime """
 
         if not self.initial_due_date:
             return None
@@ -101,7 +101,7 @@ class Task(models.Model):
 
     @property
     def repeat_until_datetime(self):
-        """ returns the repeat until date as a datetime"""
+        """ returns the repeat until date as a datetime """
 
         if not self.repeat_until:
             return None
@@ -130,6 +130,18 @@ class Task(models.Model):
             dtstart=self.initial_due_datetime,
             interval=self.repeat_interval,
             until=self.repeat_until_datetime,
+        )
+
+    @property
+    def schedule_text(self):
+        """ returns a friendly string describing the schedule """
+
+        if self.repeat_interval is None or self.repeat_frequency is None:
+            return None
+
+        return 'Every {} {}'.format(
+            self.repeat_interval,
+            self.get_repeat_frequency_display()
         )
 
     @property

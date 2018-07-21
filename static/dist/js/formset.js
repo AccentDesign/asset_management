@@ -34,7 +34,7 @@ $.fn.formset = function (options) {
         // reinit jquery datepickers
         $copy.find('.datepicker').each(function() {
             $(this).removeClass('hasDatepicker');
-            $('.datepicker').datepicker();
+            $(this).datepicker({'dateFormat': 'dd/mm/yy'});
         });
     });
 

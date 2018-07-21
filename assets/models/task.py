@@ -29,9 +29,9 @@ class TaskManager(models.Manager):
     def due_by_date(self, date):
         """ Returns tasks that are due upto and including a date """
 
-        return (
-            task for task in self.get_queryset()
-            if task.due_date <= date
+        return sorted(
+            (task for task in self.get_queryset() if task.due_date <= date),
+            key=lambda task: task.due_date
         )
 
 

@@ -29,8 +29,10 @@ class TaskManager(models.Manager):
     def due_by_date(self, date):
         """ Returns tasks that are due upto and including a date """
 
+        queryset = self.get_queryset().select_related('asset')
+
         return sorted(
-            (task for task in self.get_queryset() if task.due_date <= date),
+            (task for task in queryset if task.due_date <= date),
             key=lambda task: task.due_date
         )
 

@@ -7,14 +7,19 @@
 @import "node_modules/karma-css/scss/variables";
 @import "node_modules/karma-css/scss/import";
 
+/* components */
+@import "component-variables";
+@import "node_modules/karma-css-components/scss/components/input-group";
+
 /* add your custom modules here */
 @import "fontello/css/fontello";
 @import "module/forms";
 @import "module/header";
-@import "module/login_page";
+@import "module/login-page";
 @import "module/main";
 @import "module/sidebar";
 @import "module/tabs";
+@import "module/utils";
 
 /* karma-css utilities */
 @import "node_modules/karma-css/scss/utilities";

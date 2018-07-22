@@ -8,52 +8,48 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
+            <div class="input-group pull-right w-auto mb-auto">
+                <div class="b-secondary c-primary input-group-addon"><i class="icon-calendar"></i></div>
+                <input type="button" class="button button-secondary datepicker">
+            </div>
             <h2>{% trans 'Tasks' %}</h2>
         </div>
-        <div class="row">
-            <div class="col-9">
-                <table class="table-hover">
-                    <thead>
-                        <tr>
-                            <th>{% trans 'Name' %}</th>
-                            <th>{% trans 'Asset' %}</th>
-                            <th>{% trans 'Last Completed' %}</th>
-                            <th>{% trans 'Due Date' %}</th>
-                            <th>{% trans 'Schedule' %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ob in object_list %}
-                        <tr>
-                            <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
-                            <td><a href="{{ ob.asset.get_absolute_url }}">{{ ob.asset }}</a></td>
-                            <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
-                            <td>{{ ob.due_date|default:'-' }}</td>
-                            <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-3">
-                <div style="padding: .7rem 0;"><strong>Due Date</strong></div>
-                <div id="datepicker"></div>
-            </div>
-        </div>
+        <table class="table-hover">
+            <thead>
+                <tr>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Asset' %}</th>
+                    <th>{% trans 'Last Completed' %}</th>
+                    <th>{% trans 'Due Date' %}</th>
+                    <th>{% trans 'Schedule' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object_list %}
+                <tr>
+                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                    <td><a href="{{ ob.asset.get_absolute_url }}">{{ ob.asset }}</a></td>
+                    <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
+                    <td>{{ ob.due_date|default:'-' }}</td>
+                    <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'dist/css/jquery-ui.min.css' %}">
+<link rel="stylesheet" href="{% static 'dist/ext/jquery/jquery-ui.min.css' %}">
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'dist/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'dist/ext/jquery/jquery-ui.min.js' %}"></script>
 <script>
 $( function() {
 
-    $("#datepicker")
-        .datepicker()
+    $(".datepicker")
+        .datepicker({'dateFormat': 'dd/mm/yy'})
         .datepicker("setDate", new Date("{{ date.isoformat }}"))
         .on( "change", function() {
             var date = getDate(this);
@@ -69,7 +65,7 @@ $( function() {
     function getDate(element) {
         var date;
         try {
-            date = $.datepicker.parseDate("mm/dd/yy", element.value);
+            date = $.datepicker.parseDate("dd/mm/yy", element.value);
         } catch( error ) {
             date = null;
         }

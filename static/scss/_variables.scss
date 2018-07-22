@@ -19,7 +19,7 @@ $colors: (
 $button-font-size:              1.3rem;
 $buttons: (
     googleplus:     map-get($colors, "googleplus")      map-get($colors, "white"),
-    olive:          map-get($colors, "olive")      map-get($colors, "white")
+    olive:          map-get($colors, "olive")           map-get($colors, "white")
 );
 
 // Forms

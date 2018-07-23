@@ -20,17 +20,4 @@
   * {
     margin-bottom: 0 !important;
   }
-
-  .breadcrumb {
-    list-style-type: none;
-
-    li {
-      display: inline;
-    }
-
-    li+li:before {
-      @include pseudo($display: inline, $pos: relative, $content: '>');
-      padding: 0 .6rem 0 .4rem;
-    }
-  }
 }

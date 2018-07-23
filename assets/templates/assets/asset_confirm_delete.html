@@ -9,12 +9,7 @@
             <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
             <h2>{% trans 'Delete' %}</h2>
             {% if object %}
-            <ul class="breadcrumb muted small">
-                {% recursetree object.get_ancestors %}
-                <li>{{ node.name }}</li>
-                {{ children }}
-                {% endrecursetree %}
-            </ul>
+                <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}
         </div>
         <div class="container">

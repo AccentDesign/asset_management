@@ -14,12 +14,7 @@
             {% endif %}
             <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
             {% if object %}
-            <ul class="breadcrumb muted small">
-                {% recursetree object.get_ancestors %}
-                <li>{{ node.name }}</li>
-                {{ children }}
-                {% endrecursetree %}
-            </ul>
+                <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}
         </div>
         <ul class="tabs">

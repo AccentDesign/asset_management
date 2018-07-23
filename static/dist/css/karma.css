@@ -1788,21 +1788,6 @@ header .nav li a {
   margin-bottom: 0 !important;
 }
 
-.main-info .breadcrumb {
-  list-style-type: none;
-}
-
-.main-info .breadcrumb li {
-  display: inline;
-}
-
-.main-info .breadcrumb li + li:before {
-  position: relative;
-  display: inline;
-  content: ">";
-  padding: 0 .6rem 0 .4rem;
-}
-
 .sidenav {
   position: fixed;
   top: 0;

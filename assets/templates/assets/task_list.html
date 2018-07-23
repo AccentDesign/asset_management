@@ -22,6 +22,7 @@
                     <th>{% trans 'Last Completed' %}</th>
                     <th>{% trans 'Due Date' %}</th>
                     <th>{% trans 'Schedule' %}</th>
+                    <th>{% trans 'Assigned To' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +33,7 @@
                     <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
                     <td>{{ ob.due_date|default:'-' }}</td>
                     <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
+                    <td>{{ ob.assigned_to|default:'-' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -53,6 +53,12 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name='tasks'
     )
+    assigned_to = models.ForeignKey(
+        'authentication.User',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     initial_due_date = models.DateField()
     repeat_interval = models.IntegerField(
         null=True,

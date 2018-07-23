@@ -2,6 +2,7 @@ boto3
 django
 django-mptt
 django-storages
+docutils
 pillow
 psycopg2-binary
 python-dateutil

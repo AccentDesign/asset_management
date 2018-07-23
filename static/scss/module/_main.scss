@@ -10,10 +10,15 @@
 }
 
 .main-info {
+  @include clearfix;
   padding: 2rem 1.5rem;
 
+  h2 {
+    line-height: $input-height;
+  }
+
   * {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 
   .breadcrumb {

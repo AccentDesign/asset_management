@@ -1,10 +1,10 @@
-import datetime
+from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, UpdateView
 
-from assets.forms import TaskForm, TaskHistoryForm
+from assets.forms import TaskForm, TaskHistoryForm, TaskListFilterForm
 from assets.models import Task, TaskStatus
 
 
@@ -12,22 +12,28 @@ class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'assets/task_list.html'
 
-    def get_date(self):
-        year = self.request.GET.get('year')
-        month = self.request.GET.get('month')
-        day = self.request.GET.get('day')
-        if year and month and day:
-            return datetime.date(int(year), int(month), int(day))
-        return datetime.datetime.today().date()
+    def get_filter_form(self):
+        if 'due_date' in self.request.GET:
+            return TaskListFilterForm(self.request.GET)
+        return TaskListFilterForm(initial={'due_date': datetime.today().date()})
 
     def get_queryset(self):
-        queryset = Task.objects.due_by_date(self.get_date())
+        filters = self.get_filter_form()
+
+        if filters.is_valid():
+            queryset = Task.objects.due_by_date(
+                date=filters.cleaned_data['due_date'],
+                assigned_to=filters.cleaned_data.get('assigned_to')
+            )
+        else:
+            queryset = Task.objects.due_by_date()
+
         return queryset
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context.update({
-            'date': self.get_date()
+            'filter_form': self.get_filter_form()
         })
         return context
 

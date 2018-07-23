@@ -26,10 +26,16 @@ class TaskManager(models.Manager):
             )
         )
 
-    def due_by_date(self, date):
-        """ Returns tasks that are due upto and including a date """
+    def due_by_date(self, date=datetime.today().date(), assigned_to=None):
+        """
+        Returns tasks sorted by due_date that are due up to and including the date parameter.
+        Optionally filters by the assigned to user
+        """
 
-        queryset = self.get_queryset().select_related('asset')
+        queryset = self.get_queryset().select_related('asset', 'assigned_to')
+
+        if assigned_to:
+            queryset = queryset.filter(assigned_to=assigned_to)
 
         return sorted(
             (task for task in queryset if task.due_date <= date),

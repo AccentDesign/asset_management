@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from django import forms
 
 from app.forms.widgets import DatePicker
 from assets.models import Asset, Task, TaskHistory
+from authentication.models import User
 
 
 class TaskForm(forms.ModelForm):
@@ -42,3 +45,14 @@ class TaskHistoryForm(forms.ModelForm):
         widgets = {
             'task': forms.widgets.HiddenInput
         }
+
+
+class TaskListFilterForm(forms.Form):
+    due_date = forms.DateField(
+        input_formats=('%d/%m/%Y', ),
+        widget=DatePicker,
+    )
+    assigned_to = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=False
+    )

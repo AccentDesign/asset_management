@@ -8,10 +8,16 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <div class="input-group pull-right w-auto mb-auto">
-                <div class="b-secondary c-primary input-group-addon"><i class="icon-calendar"></i></div>
-                <input type="button" class="button button-secondary datepicker">
-            </div>
+            <form method="get" class="filters pull-right">
+                <div class="input-group w-auto">
+                    <div class="input-group-addon">{{ filter_form.due_date.label }}</div>
+                    {{ filter_form.due_date }}
+                </div>
+                <div class="input-group w-auto">
+                    <div class="input-group-addon">{{ filter_form.assigned_to.label }}</div>
+                    {{ filter_form.assigned_to }}
+                </div>
+            </form>
             <h2>{% trans 'Tasks' %}</h2>
         </div>
         <table class="table-hover">
@@ -41,39 +47,11 @@
     </div>
 {% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'dist/ext/jquery/jquery-ui.min.css' %}">
-{% endblock %}
-
 {% block extra_js %}
-<script src="{% static 'dist/ext/jquery/jquery-ui.min.js' %}"></script>
-<script>
-$( function() {
-
-    $(".datepicker")
-        .datepicker({'dateFormat': 'dd/mm/yy'})
-        .datepicker("setDate", new Date("{{ date.isoformat }}"))
-        .on( "change", function() {
-            var date = getDate(this);
-            if (date) {
-                var day = date.getDate();
-                var month = date.getMonth() + 1;
-                var year = date.getFullYear();
-                var params = `?year=${year}&month=${month}&day=${day}`;
-                window.location.href = window.location.href.replace(/[\?#].*|$/, params);
-            }
+    {{ filter_form.media }}
+    <script>
+        $('form.filters').on('change', 'input, select', function () {
+            $(this).closest('form').submit();
         });
-
-    function getDate(element) {
-        var date;
-        try {
-            date = $.datepicker.parseDate("dd/mm/yy", element.value);
-        } catch( error ) {
-            date = null;
-        }
-        return date;
-    }
-
-});
-</script>
+    </script>
 {% endblock %}

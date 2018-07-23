@@ -1,6 +1,11 @@
 // Utils
 // --------------------------
 
+.b-radius {
+  border-radius: $global-radius;
+}
+
 .w-auto {
   width: auto;
 }
+

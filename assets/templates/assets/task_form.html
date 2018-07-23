@@ -6,7 +6,7 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
+            {% include 'partials/object_intro_header.html' %}
         </div>
         <ul class="tabs">
             <li data-tab-id="detail" class="active"><a>Detail</a></li>

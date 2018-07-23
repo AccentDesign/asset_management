@@ -12,7 +12,7 @@
                     <a class="button button-googleplus" href="{% url 'assets:asset-delete' object.pk %}">{% trans 'Delete' %}</a>
                 </div>
             {% endif %}
-            <h2>{% if object %}{% trans 'Update' %}{% else %}{% trans 'Create' %}{% endif %}</h2>
+            {% include 'partials/object_intro_header.html' %}
             {% if object %}
                 <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}

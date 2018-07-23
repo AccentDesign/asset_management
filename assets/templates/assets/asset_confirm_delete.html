@@ -7,7 +7,7 @@
     <div class="main">
         <div class="main-info">
             <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
-            <h2>{% trans 'Delete' %}</h2>
+            {% include 'partials/object_intro_header.html' with delete=True %}
             {% if object %}
                 <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}

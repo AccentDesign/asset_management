@@ -1,0 +1,10 @@
+{% load i18n %}
+<h2>
+    {% if object and delete %}
+        {% blocktrans with ob=object %}Delete <small class="muted">{{ ob }}</small>{% endblocktrans %}
+    {% elif object %}
+        {% blocktrans with ob=object %}Update <small class="muted">{{ ob }}</small>{% endblocktrans %}
+    {% else %}
+        {% blocktrans %}Create <small class="muted">New</small>{% endblocktrans %}
+    {% endif %}
+</h2>

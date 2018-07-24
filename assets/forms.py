@@ -1,7 +1,6 @@
-from datetime import datetime
-
 from django import forms
 
+from app.forms.forms import InlineFormSet
 from app.forms.widgets import DatePicker
 from assets.models import Asset, Task, TaskHistory
 from authentication.models import User
@@ -28,6 +27,7 @@ AssetTaskFormset = forms.inlineformset_factory(
     Asset,
     Task,
     form=TaskForm,
+    formset=InlineFormSet,
     extra=0,
     can_delete=True,
     can_order=False

@@ -2,6 +2,10 @@ from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
+class CheckboxInput(forms.widgets.CheckboxInput):
+    template_name = 'app/forms/widgets/checkbox_input.html'
+
+
 class DatePicker(forms.widgets.DateInput):
     def __init__(self, attrs=None, format=None):
         if not attrs:

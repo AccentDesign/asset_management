@@ -46,6 +46,10 @@ class TaskUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     prefix = 'task_form'
     success_message = 'updated successfully'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.prefetch_related('history__user')
+
     def get_history_form(self):
         if self.request.method == 'POST':
             return TaskHistoryForm(self.request.POST, prefix='history_form')

@@ -1,14 +1,16 @@
 from datetime import datetime
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.urls import reverse_lazy
 from django.utils.timezone import make_naive
 
 from dateutil.rrule import (
     rrule,
     DAILY,
-    HOURLY,
     MONTHLY,
     WEEKLY,
     YEARLY
@@ -32,14 +34,16 @@ class TaskManager(models.Manager):
         Optionally filters by the assigned to user
         """
 
-        queryset = self.get_queryset().select_related('asset', 'assigned_to')
+        filters = {'due_date__lte': date}
 
         if assigned_to:
-            queryset = queryset.filter(assigned_to=assigned_to)
+            filters['assigned_to'] = assigned_to
 
-        return sorted(
-            (task for task in queryset if task.due_date <= date),
-            key=lambda task: task.due_date
+        return (
+            self.get_queryset()
+            .filter(**filters)
+            .select_related('asset', 'assigned_to')
+            .order_by('due_date')
         )
 
 
@@ -73,7 +77,6 @@ class Task(models.Model):
     )
     repeat_frequency = models.IntegerField(
         choices=(
-            (HOURLY, 'Hour(s)'),
             (DAILY, 'Day(s)'),
             (WEEKLY, 'Week(s)'),
             (MONTHLY, 'Month(s)'),
@@ -87,6 +90,12 @@ class Task(models.Model):
         blank=True
     )
 
+    # managed via model signals
+    due_date = models.DateField(
+        null=True,
+        editable=False
+    )
+
     objects = TaskManager()
 
     class Meta:
@@ -97,32 +106,6 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('assets:task-update', kwargs={'pk': self.pk})
-
-    @property
-    def initial_due_datetime(self):
-        """ returns the initial due date as a datetime """
-
-        if not self.initial_due_date:
-            return None
-
-        return datetime(
-            self.initial_due_date.year,
-            self.initial_due_date.month,
-            self.initial_due_date.day
-        )
-
-    @property
-    def repeat_until_datetime(self):
-        """ returns the repeat until date as a datetime """
-
-        if not self.repeat_until:
-            return None
-
-        return datetime(
-            self.repeat_until.year,
-            self.repeat_until.month,
-            self.repeat_until.day
-        )
 
     @property
     def now(self):
@@ -139,9 +122,9 @@ class Task(models.Model):
 
         return rrule(
             freq=self.repeat_frequency,
-            dtstart=self.initial_due_datetime,
+            dtstart=self.initial_due_date,
             interval=self.repeat_interval,
-            until=self.repeat_until_datetime,
+            until=self.repeat_until,
         )
 
     @property
@@ -157,38 +140,61 @@ class Task(models.Model):
         )
 
     @property
-    def due_date(self):
-        """ returns the due date of the task """
-
-        if self.last_due and not self.last_completed:
-            return self.last_due.date()
-        if self.last_due and self.last_completed and self.last_due > make_naive(self.last_completed):
-            return self.last_due.date()
-        if self.next_due:
-            return self.next_due.date()
-
-    @property
     def last_due(self):
-        """ Returns the datetime the task was last due on """
+        """ Returns the date the task was last due on """
 
         if self.schedule:
-            return self.schedule.before(self.now)
+            due = self.schedule.before(self.now)
+            return due.date() if due else None
 
-        if self.initial_due_datetime and self.initial_due_datetime <= self.now:
-            return self.initial_due_datetime
+        if self.initial_due_date and self.initial_due_date <= self.now.date():
+            return self.initial_due_date
 
     @property
     def next_due(self):
-        """ Returns the datetime the task is next due on """
+        """ Returns the date the task is next due on """
 
         if self.schedule:
-            return self.schedule.after(self.now)
+            due = self.schedule.after(self.now)
+            return due.date() if due else None
 
-        if self.initial_due_datetime and self.initial_due_datetime > self.now:
-            return self.initial_due_datetime
+        if self.initial_due_date and self.initial_due_date > self.now.date():
+            return self.initial_due_date
 
     @property
     def last_completed(self):
-        """ Returns the last completed date from TaskManager.get_queryset """
+        """
+        Returns the last completed date from TaskManager.get_queryset
+        falls back to running the query inline
+        """
 
-        return getattr(self, 'qs_last_completed', None)
+        if hasattr(self, 'qs_last_completed'):
+            return getattr(self, 'qs_last_completed')
+
+        try:
+            return self.history.filter(status__name='Completed').latest('date')
+        except ObjectDoesNotExist:
+            return None
+
+    def get_current_schedule_dates(self):
+        """ calculate the current due date of the task """
+
+        due_date = None
+        last_completed = self.last_completed
+
+        if self.last_due and not last_completed:
+            due_date = self.last_due
+        elif self.last_due and last_completed and self.last_due > make_naive(last_completed).date():
+            due_date = self.last_due
+        elif self.next_due:
+            due_date = self.next_due
+
+        return due_date, last_completed
+
+
+@receiver(pre_save, sender=Task)
+def pre_save_task(instance, **kwargs):
+    """ On pre save of a task update its schedule """
+
+    due_date, last_completed = instance.get_current_schedule_dates()
+    instance.due_date = due_date

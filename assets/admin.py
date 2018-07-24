@@ -23,12 +23,14 @@ class TaskAdmin(admin.ModelAdmin):
         'asset',
         'last_due',
         'last_completed',
-        'next_due'
+        'next_due',
+        'due_date',
     ]
     readonly_fields = [
         'last_due',
         'last_completed',
-        'next_due'
+        'next_due',
+        'due_date',
     ]
 
 

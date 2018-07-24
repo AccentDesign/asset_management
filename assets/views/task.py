@@ -17,7 +17,7 @@ class TaskList(LoginRequiredMixin, ListView):
     def get_filter_form(self):
         if 'due_date' in self.request.GET:
             return TaskListFilterForm(self.request.GET)
-        return TaskListFilterForm(initial={'due_date': datetime.today().date()})
+        return TaskListFilterForm({'due_date': datetime.now().date()})
 
     def get_queryset(self):
         filters = self.get_filter_form()

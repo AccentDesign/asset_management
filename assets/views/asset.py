@@ -1,9 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from app.views.mixins import ProtectedDeleteMixin
+from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.forms import AssetTaskFormset
 from assets.models import Asset
 
@@ -12,10 +14,11 @@ class AssetList(LoginRequiredMixin, ListView):
     model = Asset
 
 
-class AssetCreate(LoginRequiredMixin, CreateView):
+class AssetCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Asset
     fields = '__all__'
     formset_class = AssetTaskFormset
+    success_message = 'created successfully'
     success_url = reverse_lazy('assets:asset-list')
 
     def get_formset(self, **kwargs):
@@ -46,6 +49,12 @@ class AssetCreate(LoginRequiredMixin, CreateView):
         self.object = form.save()
         formset.instance = self.object
         formset.save()
+
+        # create success message
+        success_message = self.get_success_message(form.cleaned_data)
+        if success_message:
+            messages.success(self.request, success_message)
+
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, formset):
@@ -53,10 +62,11 @@ class AssetCreate(LoginRequiredMixin, CreateView):
         return self.render_to_response(context)
 
 
-class AssetUpdate(LoginRequiredMixin, UpdateView):
+class AssetUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
     fields = '__all__'
     formset_class = AssetTaskFormset
+    success_message = 'updated successfully'
     success_url = reverse_lazy('assets:asset-list')
 
     def get_formset(self, **kwargs):
@@ -82,6 +92,12 @@ class AssetUpdate(LoginRequiredMixin, UpdateView):
         self.object = form.save()
         formset.instance = self.object
         formset.save()
+
+        # create success message
+        success_message = self.get_success_message(form.cleaned_data)
+        if success_message:
+            messages.success(self.request, success_message)
+
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, formset):
@@ -89,6 +105,6 @@ class AssetUpdate(LoginRequiredMixin, UpdateView):
         return self.render_to_response(context)
 
 
-class AssetDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
+class AssetDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = Asset
     success_url = reverse_lazy('assets:asset-list')

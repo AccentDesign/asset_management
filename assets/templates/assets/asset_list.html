@@ -8,6 +8,7 @@
         <div class="main-info">
             <h2>{% trans 'Assets' %} <a href="{% url 'assets:asset-create' %}"><i class="icon-plus-circled"></i></a></h2>
         </div>
+        {{ block.super }}
         <table class="table-hover">
             <thead>
                 <tr>

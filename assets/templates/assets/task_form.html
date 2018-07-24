@@ -13,6 +13,7 @@
             <li data-tab-id="history"><a>History</a></li>
             <li data-tab-id="complete"><a>Completion and Notes</a></li>
         </ul>
+        {{ block.super }}
         <form method="post" novalidate>
             {% csrf_token %}
             <div data-tab="detail" class="container">

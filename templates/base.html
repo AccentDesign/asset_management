@@ -46,7 +46,9 @@
                     </ul>
                 </div>
             {% endblock %}
-            {% block inner_content %}{% endblock %}
+            {% block inner_content %}
+                {% include 'partials/messages.html' %}
+            {% endblock %}
             {% include 'partials/footer.html' %}
         {% endblock %}
         {% block extra_js %}{% endblock %}

@@ -1551,6 +1551,52 @@ sup {
 }
 
 /* components */
+/* base alert style */
+.alert {
+  position: relative;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e6e6e6;
+  border-radius: 0.25rem;
+}
+
+/* coloured variations */
+.alert-primary {
+  background: #e9edfc;
+  border: 1px solid #d3dbf9;
+  color: #3e3e3e;
+}
+
+.alert-secondary {
+  background: #f0f0f0;
+  border: 1px solid #e3e3e3;
+  color: #3e3e3e;
+}
+
+.alert-success {
+  background: #bcf0c2;
+  border: 1px solid #a8ebaf;
+  color: #3e3e3e;
+}
+
+.alert-danger {
+  background: #ffd2cf;
+  border: 1px solid #ffbab6;
+  color: #3e3e3e;
+}
+
+.alert-warning {
+  background: #fff5b3;
+  border: 1px solid #fff199;
+  color: #3e3e3e;
+}
+
+.alert-info {
+  background: #ccf1ff;
+  border: 1px solid #b2e9ff;
+  color: #3e3e3e;
+}
+
 ul.checkboxes,
 ul.radios {
   list-style: none;

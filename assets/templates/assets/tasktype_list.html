@@ -8,6 +8,7 @@
         <div class="main-info">
             <h2>{% trans 'Task Types' %} <a href="{% url 'assets:task-type-create' %}"><i class="icon-plus-circled"></i></a></h2>
         </div>
+        {{ block.super }}
         <table class="table-hover">
             <thead>
                 <tr>

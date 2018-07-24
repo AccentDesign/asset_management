@@ -1,6 +1,8 @@
 from datetime import datetime
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, UpdateView
 
@@ -38,10 +40,11 @@ class TaskList(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskUpdate(LoginRequiredMixin, UpdateView):
+class TaskUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     prefix = 'task_form'
+    success_message = 'updated successfully'
 
     def get_history_form(self):
         if self.request.method == 'POST':
@@ -64,12 +67,14 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
 
         if 'history_notes' in self.request.POST and history_form.is_valid():
             history_form.save()
+            messages.success(request, 'notes added successfully')
             return HttpResponseRedirect(self.get_success_url())
 
         if 'history_complete' in self.request.POST and history_form.is_valid():
             status, created = TaskStatus.objects.get_or_create(name='Completed')
             history_form.instance.status = status
             history_form.save()
+            messages.success(request, 'completed successfully')
             return HttpResponseRedirect(self.get_success_url())
 
         context = self.get_context_data(form=form, history_form=history_form)

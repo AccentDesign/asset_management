@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.admin.utils import NestedObjects
 from django.db import router
 
@@ -26,3 +27,14 @@ class ProtectedDeleteMixin:
             'protected': self._get_protected()
         })
         return context
+
+
+class DeleteSuccessMessageMixin:
+    """ Adds a success message for a delete view. """
+
+    success_message = 'deleted successfully'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)

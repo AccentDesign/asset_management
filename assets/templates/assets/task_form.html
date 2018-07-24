@@ -10,7 +10,7 @@
         </div>
         <ul class="tabs">
             <li data-tab-id="detail" class="active"><a>Detail</a></li>
-            <li data-tab-id="history"><a>History</a></li>
+            <li data-tab-id="history"><a>History</a> <span class="muted">({{ object.history.all|length }})</span></li>
             <li data-tab-id="complete"><a>Completion and Notes</a></li>
         </ul>
         {{ block.super }}

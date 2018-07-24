@@ -21,10 +21,10 @@ class DatePicker(forms.widgets.DateInput):
     class Media:
         css = {
             'all': (
-                static('dist/ext/jquery/jquery-ui.min.css'),
+                static('dist/ext/flatpickr/themes/primary.css'),
             )
         }
         js = (
-            static('dist/ext/jquery/jquery-ui.min.js'),
+            static('dist/ext/flatpickr/flatpickr.js'),
             static('dist/js/datepicker.js'),
         )

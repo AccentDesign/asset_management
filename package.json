@@ -19,6 +19,7 @@
     "autoprefixer": "^7.2.5",
     "clean-css-cli": "^4.1.10",
     "cpy-cli": "^1.0.1",
+    "flatpickr": "^4.5.1",
     "fontello-cli": "^0.4.0",
     "karma-css": "git+https://git@github.com/accentdesign/karma-css.git",
     "karma-css-components": "git+https://git@github.com/accentdesign/karma-css-components.git",

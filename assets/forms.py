@@ -1,9 +1,24 @@
 from django import forms
 
 from app.forms.forms import InlineFormSet
-from app.forms.widgets import DatePicker
-from assets.models import Asset, Task, TaskHistory
+from app.forms.widgets import DatePicker, CheckboxInputs
+from assets.models import Asset, Task, TaskHistory, Note
 from authentication.models import User
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = '__all__'
+        widgets = {
+            'shared_users': CheckboxInputs
+        }
+
+
+class NoteSharedForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        exclude = ('shared_users', )
 
 
 class TaskForm(forms.ModelForm):

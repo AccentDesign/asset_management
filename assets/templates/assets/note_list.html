@@ -9,7 +9,7 @@
             <h2>{% trans 'My Notes' %} <a href="{% url 'assets:note-create' %}"><i class="icon-plus-circled"></i></a></h2>
         </div>
         {{ block.super }}
-        <table class="table-hover">
+        <table class="table-hover mb-md">
             <thead>
                 <tr>
                     <th class="full-width">{% trans 'Title' %}</th>
@@ -25,5 +25,33 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% if shared_notes %}
+
+        <div class="container-fluid">
+            <h3>{% trans 'Shared With Me' %}</h3>
+        </div>
+
+        <table class="table-hover">
+            <thead>
+                <tr>
+                    <th class="full-width">{% trans 'Title' %}</th>
+                    <th class="nowrap">{% trans 'Shared By' %}</th>
+                    <th class="nowrap">{% trans 'Last Updated' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in shared_notes %}
+                <tr>
+                    <td class="full-width"><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                    <td class="nowrap">{{ ob.user }}</td>
+                    <td class="nowrap">{{ ob.updated_on }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+
     </div>
 {% endblock %}

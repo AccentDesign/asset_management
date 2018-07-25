@@ -27,6 +27,11 @@ class Note(models.Model):
         auto_now=True,
         editable=False
     )
+    shared_users = models.ManyToManyField(
+        'authentication.User',
+        blank=True,
+        related_name='shared_notes'
+    )
 
     class Meta:
         ordering = ['title']

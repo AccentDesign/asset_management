@@ -1976,6 +1976,10 @@ header .nav li a {
   width: auto;
 }
 
+.mb-md {
+  margin-bottom: 3rem;
+}
+
 /* karma-css utilities */
 .align-top {
   vertical-align: top;

@@ -6,19 +6,48 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            {% if object %}
+            {# only show delete if its the logged in users note #}
+            {% if object and object.user == request.user %}
                 <div class="pull-right">
                     <a class="button button-googleplus" href="{% url 'assets:note-delete' object.pk %}">{% trans 'Delete' %}</a>
                 </div>
             {% endif %}
             {% include 'partials/object_intro_header.html' %}
         </div>
+
+        {% if 'shared_users' in form.fields %}
+        <ul class="tabs">
+            <li data-tab-id="detail" class="active"><a>Detail</a></li>
+            <li data-tab-id="share"><a>Share</a></li>
+        </ul>
+        {% endif %}
+
         <div class="container">
             <form method="post" novalidate>
                 {% csrf_token %}
-                <fieldset>
-                    {{ form }}
+                {{ form.non_field_errors }}
+
+                <fieldset data-tab="detail">
+                    {{ form.title.label_tag }}
+                    {{ form.title.errors }}
+                    {{ form.title }}
+                    {% if form.title.help_text %}<div class="helptext">{{ form.title.help_text }}</div>{% endif %}
+
+                    {{ form.content.label_tag }}
+                    {{ form.content.errors }}
+                    {{ form.content }}
+                    {% if form.content.help_text %}<div class="helptext">{{ form.content.help_text }}</div>{% endif %}
                 </fieldset>
+            
+                {% if 'shared_users' in form.fields %}
+                <fieldset data-tab="share" class="d-hidden">
+                    {{ form.shared_users.label_tag }}
+                    {{ form.shared_users.errors }}
+                    {{ form.shared_users }}
+                    {% if form.shared_users.help_text %}<div class="helptext">{{ form.shared_users.help_text }}</div>{% endif %}
+                </fieldset>
+                {% endif %}
+
                 <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
             </form>
         </div>
@@ -27,6 +56,8 @@
 
 {% block extra_js %}
     {{ form.media }}
+    <script src="{% static 'dist/js/tabs.js' %}"></script>
+    <script>$('.tabs').tabs();</script>
     {% if object %}
     <script>
     $(function() {

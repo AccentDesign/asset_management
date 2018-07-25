@@ -6,6 +6,15 @@ class CheckboxInput(forms.widgets.CheckboxInput):
     template_name = 'app/forms/widgets/checkbox_input.html'
 
 
+class CheckboxInputs(forms.widgets.CheckboxSelectMultiple):
+    option_template_name = 'app/forms/widgets/checkbox_option.html'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['attrs']['class'] = 'list-style-none'
+        return context
+
+
 class DatePicker(forms.widgets.DateInput):
     def __init__(self, attrs=None, format=None):
         if not attrs:

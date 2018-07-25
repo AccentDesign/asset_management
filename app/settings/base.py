@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'authentication',
 
     'mptt',
+    'simplemde',
     'storages',
 ]
 
@@ -157,3 +158,13 @@ AWS_QUERYSTRING_EXPIRE = 3600
 AWS_S3_FILE_OVERWRITE = False
 AWS_IS_GZIPPED = True
 AWS_AUTO_CREATE_BUCKET = True
+
+
+# Simple MDE
+
+SIMPLEMDE_OPTIONS = {
+    'status': False,
+    'autosave': {
+        'enabled': True
+    }
+}

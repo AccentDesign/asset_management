@@ -1,6 +1,7 @@
 boto3
 django
 django-mptt
+django-simplemde
 django-storages
 docutils
 pillow

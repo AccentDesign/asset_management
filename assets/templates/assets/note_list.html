@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block page_title %}My Notes{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'My Notes' %} <a href="{% url 'assets:note-create' %}"><i class="icon-plus-circled"></i></a></h2>
+        </div>
+        {{ block.super }}
+        <table class="table-hover">
+            <thead>
+                <tr>
+                    <th class="full-width">{% trans 'Title' %}</th>
+                    <th class="nowrap">{% trans 'Last Updated' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object_list %}
+                <tr>
+                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                    <td class="nowrap">{{ ob.updated_on }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

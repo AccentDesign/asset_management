@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block page_title %}Notes{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            {% if object %}
+                <div class="pull-right">
+                    <a class="button button-googleplus" href="{% url 'assets:note-delete' object.pk %}">{% trans 'Delete' %}</a>
+                </div>
+            {% endif %}
+            {% include 'partials/object_intro_header.html' %}
+        </div>
+        <div class="container">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <fieldset>
+                    {{ form }}
+                </fieldset>
+                <button class="button button-primary" type="submit">{% trans 'Save' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
+    {% if object %}
+    <script>
+    $(function() {
+        var simplemdes = $('.simplemde-box');
+        $.each(simplemdes, function(i, elem) {
+            elem.SimpleMDE.togglePreview();
+        });
+    });
+    {% endif %}
+    </script>
+{% endblock %}

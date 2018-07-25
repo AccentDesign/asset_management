@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block page_title %}Notes{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
+            {% include 'partials/object_intro_header.html' with delete=True %}
+        </div>
+        <div class="container">
+            {% if protected %}
+            <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
+            <ul>
+                {% for item in protected %}
+                    <li>{{ item.verbose_name|capfirst }}: <a href="{{ item.object.get_absolute_url }}">{{ item.object }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form }}
+                <button class="button button-googleplus" type="submit">{% trans 'Delete' %}</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

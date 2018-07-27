@@ -29,6 +29,30 @@
       "css": "user",
       "code": 59395,
       "src": "fontawesome"
+    },
+    {
+      "uid": "2d3be3e856fc1e4ac067590d2ded1b07",
+      "css": "plus-squared-alt",
+      "code": 61846,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "18ef25350258541e8e54148ed79845c0",
+      "css": "minus-squared-alt",
+      "code": 61767,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8a1d446e5555e76f82ddb1c8b526f579",
+      "css": "flow-tree",
+      "code": 59396,
+      "src": "entypo"
+    },
+    {
+      "uid": "fa0118a65fc8dee739469f6901bbd189",
+      "css": "level-down",
+      "code": 59397,
+      "src": "entypo"
     }
   ]
 }

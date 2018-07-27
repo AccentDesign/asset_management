@@ -9,6 +9,10 @@
   width: auto;
 }
 
+.w-1 {
+  width: 1px; // used to force a th to its min width
+}
+
 .mb-md {
   margin-bottom: 3rem;
 }

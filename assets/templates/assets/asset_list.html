@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n mptt_tags static %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
 {% block sidebar %}{{ block.super }}{% endblock %}
@@ -9,21 +9,30 @@
             <h2>{% trans 'Assets' %} <a href="{% url 'assets:asset-create' %}"><i class="icon-plus-circled"></i></a></h2>
         </div>
         {{ block.super }}
-        <table class="table-hover">
+        <table class="tree-table table-hover">
             <thead>
                 <tr>
+                    <th class="w-1"><a class="toggle-all pointer" title="Toggle All"><i class="icon-flow-tree"></i></a></th>
                     <th>{% trans 'Name' %}</th>
                     <th class="text-right">{% trans 'Tasks' %}</th>
+                    <th class="w-1"></th>
                 </tr>
             </thead>
             <tbody>
                 {% for ob in object_list %}
-                <tr>
-                    <td><a style="padding-left: calc(1rem * {{ ob.level }})" href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                <tr class="pointer {% if ob.parent_id %}d-hidden{% endif %}" data-node="{{ ob.pk }}" data-parent-node="{{ ob.parent_id|default_if_none:'' }}">
+                    <td>{% if not ob.is_leaf_node %}<a><i class="node-icon icon-plus-squared-alt"></i></a>{% endif %}</td>
+                    <td><a style="padding-left: calc(1.5rem * {{ ob.level }})" href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
                     <td class="text-right">{{ ob.task_count|default:'-' }}</td>
+                    <td><a class="button button-secondary button-xs" href="{% url 'assets:asset-create' %}?parent={{ ob.pk }}" title="Add Child Asset"><i class="icon-level-down"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'dist/js/treetable.js' %}"></script>
+<script>$('.tree-table').treetable();</script>
 {% endblock %}

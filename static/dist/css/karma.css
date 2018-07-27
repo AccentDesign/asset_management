@@ -1819,6 +1819,10 @@ ul.radios input[type=radio] + span:after {
 }
 
 /* '' */
+.button.button-xl {
+  padding: 1.5rem 1.6rem;
+}
+
 .errorlist {
   color: #dd4b39;
 }

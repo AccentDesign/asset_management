@@ -6,7 +6,7 @@
     <form class="form" method="post"novalidate>
         {% csrf_token %}
         {{ form }}
-        <input type="submit" class="button button-primary" value="Login">
+        <input type="submit" class="button button-primary button-xl" value="Login">
     </form>
     <div>
         <a href="{% url 'password_reset' %}">{% trans 'Forgot your password?' %}</a>

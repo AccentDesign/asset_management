@@ -9,9 +9,9 @@
             {% include 'partials/object_intro_header.html' %}
         </div>
         <ul class="tabs">
-            <li data-tab-id="detail" class="active"><a>Detail</a></li>
-            <li data-tab-id="history"><a>History</a> <span class="muted">({{ object.history.all|length }})</span></li>
-            <li data-tab-id="complete"><a>Completion and Notes</a></li>
+            <li data-tab-id="detail" class="active">Detail</li>
+            <li data-tab-id="history">History <span class="muted">({{ object.history.all|length }})</span></li>
+            <li data-tab-id="complete">Completion and Notes</li>
         </ul>
         {{ block.super }}
         <form method="post" novalidate>

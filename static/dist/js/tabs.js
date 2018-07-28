@@ -4,8 +4,8 @@ $.fn.tabs = function (options) {
      * usage:
      *
      * <ul class="tabs">
-     *     <li data-tab-id="tab1" class="active"><a>Tab 1</a></li>
-     *     <li data-tab-id="tab2"><a>Tab 2</a></li>
+     *     <li data-tab-id="tab1" class="active">Tab 1</li>
+     *     <li data-tab-id="tab2">Tab 2</li>
      * </ul>
      * <div data-tab="tab1"></div>
      * <div data-tab="tab2" class="d-hidden"></div>

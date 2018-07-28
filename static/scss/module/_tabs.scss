@@ -7,28 +7,38 @@
   padding: 0 1.5rem 0 1.5rem;
 
   li {
+    cursor: pointer;
     display: inline-block;
     padding: 1rem 1.5rem;
     position: relative;
-    border: solid 1px $border-color;
-    border-bottom: 0;
+    background: color("silver");
     border-top-left-radius: $global-radius;
     border-top-right-radius: $global-radius;
+    color: color("primary");
+
+    &:hover {
+      background: color-darken("silver", $darken-hover-percent);
+    }
   }
 
   li.active {
-    background: color("secondary");
+    background: color("primary");
+    color: color("white");
+
+    &:hover {
+      background: color-darken("primary", $darken-hover-percent);
+    }
   }
 
   li.error::before {
-    @include position($top: -1.25rem, $right: .5rem);
-    @include pseudo($content: '\e800');
+    @include position($top: -.8rem, $right: .5rem);
+    background: color("white");
+    border-radius: 50%;
     color: color("googleplus");
+    content: "\e800";
     font-family: "fontello";
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    line-height: .8;
   }
 
-  li a {
-    cursor: pointer;
-  }
 }

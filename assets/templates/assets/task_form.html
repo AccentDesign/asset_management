@@ -34,10 +34,10 @@
                 <tbody>
                     {% for ob in object.history.all %}
                     <tr>
-                        <td class="nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
-                        <td>{{ ob.notes|linebreaks|default:'-' }}</td>
-                        <td>{{ ob.user|default_if_none:'-' }}</td>
-                        <td>{{ ob.status|default_if_none:'-' }}</td>
+                        <td class="align-top nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
+                        <td class="align-top">{{ ob.notes|linebreaks|default:'-' }}</td>
+                        <td class="align-top">{{ ob.user|default_if_none:'-' }}</td>
+                        <td class="align-top">{{ ob.status|default_if_none:'-' }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

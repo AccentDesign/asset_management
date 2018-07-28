@@ -2,8 +2,11 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // Typography
-$base-font-size:                12px;
+$base-font-family:              'Roboto', sans-serif;
+$base-font-size:                13px;
 $code-font-family:              'Inconsolata', monospace;
+
+$heading-font-weight:           500;
 
 // Colours
 $colors: (

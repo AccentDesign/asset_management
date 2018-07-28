@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* karma-css */
-@import url("https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans:300,400,400i,600,700");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,400i,500,600,700");
 /* karma-css core */
 /*! Karma-CSS v1.9.5 MIT License | http://karmacss.com | https://github.com/accentdesign/karma-css */
 .container {
@@ -913,8 +913,8 @@ html {
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
-  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
   font-weight: 400;
   color: #3e3e3e;
   background: white;
@@ -1453,7 +1453,7 @@ h1,
 .h4, h5,
 .h5, h6,
 .h6 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #3e3e3e;
 }
 
@@ -1465,48 +1465,48 @@ h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h4 small, .h4 sma
 h1,
 .h1 {
   margin: 0 0 1.5rem;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 26px;
+  font-weight: 500;
   line-height: 1.2;
 }
 
 h2,
 .h2 {
   margin: 0 0 1.5rem;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 19.5px;
+  font-weight: 500;
   line-height: 1.25;
 }
 
 h3,
 .h3 {
   margin: 0 0 1.5rem;
-  font-size: 14.04px;
-  font-weight: 400;
+  font-size: 15.21px;
+  font-weight: 500;
   line-height: 1.3;
 }
 
 h4,
 .h4 {
   margin: 0 0 1.5rem;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
   line-height: 1.35;
 }
 
 h5,
 .h5 {
   margin: 0 0 1.5rem;
-  font-size: 9.96px;
-  font-weight: 400;
+  font-size: 10.79px;
+  font-weight: 500;
   line-height: 1.5;
 }
 
 h6,
 .h6 {
   margin: 0 0 1.5rem;
-  font-size: 8.04px;
-  font-weight: 400;
+  font-size: 8.71px;
+  font-weight: 500;
   line-height: 1.6;
 }
 

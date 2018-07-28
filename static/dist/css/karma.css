@@ -1852,13 +1852,13 @@ ul.radios input[type=radio] + span:after {
 }
 
 .formset {
-  background: #f9fafe;
+  background: #f0f0f0;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .formset-deleted {
-  background: #eef1fb;
+  background: #cacaca;
   opacity: .75;
 }
 
@@ -1908,11 +1908,10 @@ header .nav li a {
 }
 
 .login-page {
-  background: #f9fafe;
+  background: #f0f0f0;
 }
 
 .main {
-  background: white;
   border-left: solid 1px #e6e6e6;
   margin-left: 20rem;
   min-height: 100vh;
@@ -1943,7 +1942,7 @@ header .nav li a {
   right: auto;
   bottom: auto;
   left: 0;
-  background: #f9fafe;
+  background: #f0f0f0;
   height: 100%;
   width: 20rem;
   overflow-x: hidden;
@@ -2237,22 +2236,6 @@ td {
 
 .c-pinterest {
   color: #bd081c;
-}
-
-.b-lavender_light {
-  background-color: #f9fafe;
-}
-
-.c-lavender_light {
-  color: #f9fafe;
-}
-
-.b-lavender_dark {
-  background-color: #eef1fb;
-}
-
-.c-lavender_dark {
-  color: #eef1fb;
 }
 
 .disabled {

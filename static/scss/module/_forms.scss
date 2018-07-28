@@ -8,13 +8,13 @@
 // formsets
 
 .formset {
-  background: color("lavender_light");
+  background: color("secondary");
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .formset-deleted {
-  background: color("lavender_dark");
+  background: color-darken("secondary", 15%);
   opacity: .75;
 }
 

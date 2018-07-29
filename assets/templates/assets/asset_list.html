@@ -21,7 +21,7 @@
             <tbody>
                 {% for ob in object_list %}
                 <tr class="pointer {% if ob.parent_id %}d-hidden{% endif %}" data-node="{{ ob.pk }}" data-parent-node="{{ ob.parent_id|default_if_none:'' }}">
-                    <td>{% if not ob.is_leaf_node %}<a><i class="node-icon icon-plus-squared-alt"></i></a>{% endif %}</td>
+                    <td>{% if not ob.is_leaf_node %}<a><i class="node-icon icon-angle-right"></i></a>{% endif %}</td>
                     <td><a style="padding-left: calc(1.5rem * {{ ob.level }})" href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
                     <td class="text-right">{{ ob.task_count|default:'-' }}</td>
                     <td><a class="button button-secondary button-xs" href="{% url 'assets:asset-create' %}?parent={{ ob.pk }}" title="Add Child Asset"><i class="icon-level-down"></i></a></td>

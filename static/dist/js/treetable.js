@@ -5,8 +5,8 @@ $.fn.treetable = function(options) {
     var settings = $.extend({
         nodeIconSelector: '.node-icon',
         toggleAllSelector: '.toggle-all',
-        collapsedIconCls: 'icon-plus-squared-alt',
-        expandedIconCls: 'icon-minus-squared-alt'
+        collapsedIconCls: 'icon-angle-right',
+        expandedIconCls: 'icon-angle-down'
     }, options);
 
     function toggleNode(node) {

@@ -1,10 +1,10 @@
-{% load i18n %}
+{% load app_tags i18n %}
 <h2>
     {% if object and delete %}
-        {% blocktrans with ob=object %}Delete <small class="muted">{{ ob }}</small>{% endblocktrans %}
+        {% trans 'Delete' %} <small class="muted">{{ object }}</small>
     {% elif object %}
-        {% blocktrans with ob=object %}Update <small class="muted">{{ ob }}</small>{% endblocktrans %}
+        {% trans 'Update' %} <small class="muted">{{ object }}</small>
     {% else %}
-        {% blocktrans %}Create <small class="muted">New</small>{% endblocktrans %}
+        {% trans 'Create' %} <small class="muted">{% form_model_verbose_name form %}</small>
     {% endif %}
 </h2>

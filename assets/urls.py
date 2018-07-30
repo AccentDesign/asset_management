@@ -10,6 +10,7 @@ urlpatterns = [
     path('assets/create/', views.AssetCreate.as_view(), name='asset-create'),
     path('assets/<int:pk>/update/', views.AssetUpdate.as_view(), name='asset-update'),
     path('assets/<int:pk>/delete/', views.AssetDelete.as_view(), name='asset-delete'),
+    path('assets/<int:pk>/copy/', views.AssetCopy.as_view(), name='asset-copy'),
     path('asset-types/', views.AssetTypeList.as_view(), name='asset-type-list'),
     path('asset-types/create/', views.AssetTypeCreate.as_view(), name='asset-type-create'),
     path('asset-types/<int:pk>/update/', views.AssetTypeUpdate.as_view(), name='asset-type-update'),

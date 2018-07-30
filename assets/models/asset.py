@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from django.db import models
 from django.urls import reverse_lazy
 
@@ -55,3 +57,24 @@ class Asset(MPTTModel):
         """ Returns the count of tasks for this asset from AssetManager.get_queryset """
 
         return getattr(self, 'qs_task_count', None)
+
+    def copy(self, **kwargs):
+        """ Copy this asset and it's tasks """
+
+        asset = Asset(
+            name='Copy of {}'.format(self.name),
+            description=self.description,
+            asset_type=self.asset_type,
+            contact=self.contact,
+            parent=kwargs.get('parent', self.parent)
+        )
+
+        asset.save()
+
+        for task in self.tasks.all():
+            new_task = deepcopy(task)
+            new_task.pk = None
+            new_task.asset = asset
+            new_task.save()
+
+        return asset

@@ -13,6 +13,7 @@
             {% endif %}
             {% include 'partials/object_intro_header.html' %}
         </div>
+        {{ block.super }}
         <div class="container">
             <form method="post" novalidate>
                 {% csrf_token %}

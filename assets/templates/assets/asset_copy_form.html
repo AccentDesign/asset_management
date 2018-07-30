@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags static %}
+{% block page_title %}Assets{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'Copy' %} <small class="muted">{{ asset }}</small></h2>
+            {% if object %}
+                <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
+            {% endif %}
+        </div>
+        {{ block.super }}
+        <div class="container">
+            <p>
+                {% blocktrans with ob=asset %}Please choose the asset in which <em>"{{ ob }}"</em> will be copied into.
+                Once successful the newly created asset will be opened.{% endblocktrans %}</p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <fieldset>
+                    {{ form }}
+                </fieldset>
+                <button class="button button-primary button-xl" type="submit">{% trans 'Copy' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ formset.media }}
+{% endblock %}

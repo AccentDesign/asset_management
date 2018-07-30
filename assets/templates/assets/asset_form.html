@@ -8,7 +8,6 @@
         <div class="main-info">
             {% if object %}
                 <div class="pull-right">
-                    <a class="button" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Create' %}</a>
                     <a class="button button-googleplus" href="{% url 'assets:asset-delete' object.pk %}">{% trans 'Delete' %}</a>
                 </div>
             {% endif %}
@@ -20,12 +19,17 @@
         <ul class="tabs">
             <li data-tab-id="detail" class="active">Detail</li>
             <li data-tab-id="tasks">Tasks <span class="muted">({{ formset.forms|length }})</span></li>
+            {% if object %}
+            <li data-tab-id="actions">Actions</li>
+            {% endif %}
         </ul>
+        {{ block.super }}
         <div class="container">
             <form method="post" novalidate>
                 {% csrf_token %}
                 <fieldset data-tab="detail">
                     {{ form }}
+                    <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
                 </fieldset>
                 <fieldset data-tab="tasks" class="d-hidden">
                     {{ formset.management_form }}
@@ -38,11 +42,25 @@
                         <div class="formset-empty">
                             {{ formset.empty_form }}
                         </div>
-                        <a class="button d-block formset-add">Add Task</a>
+                        <a class="button d-block formset-add mb-sm">Add Task</a>
+                        <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
                     </div>
                 </fieldset>
-                <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
             </form>
+            {% if object %}
+            <div data-tab="actions" class="d-hidden">
+                <div class="panel b-whitesmoke">
+                    <h3>{% trans 'Create a New Child Asset' %}</h3>
+                    <p>{% blocktrans with ob=object %}Starts a new asset with the parent prepopulated to <em>"{{ ob }}"</em>.{% endblocktrans %}</p>
+                    <a class="button" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Create' %}</a>
+                </div>
+                <div class="panel b-whitesmoke">
+                    <h3>{% trans "Make a Copy of this Asset" %}</h3>
+                    <p>{% blocktrans with ob=object %}Copy <em>"{{ ob }}"</em> and all of it's tasks.{% endblocktrans %}</p>
+                    <a class="button" href="{% url 'assets:asset-copy' object.pk %}">{% trans 'Copy' %}</a>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -14,6 +14,7 @@
             {% endif %}
             {% include 'partials/object_intro_header.html' %}
         </div>
+        {{ block.super }}
 
         {% if 'shared_users' in form.fields %}
         <ul class="tabs">

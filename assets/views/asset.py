@@ -2,11 +2,12 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
-from assets.forms import AssetTaskFormset
+from assets.forms import AssetTaskFormset, AssetCopyForm
 from assets.models import Asset
 
 
@@ -108,3 +109,36 @@ class AssetUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class AssetDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = Asset
     success_url = reverse_lazy('assets:asset-list')
+
+
+class AssetCopy(LoginRequiredMixin, SuccessMessageMixin, FormView):
+    form_class = AssetCopyForm
+    object = None
+    template_name = 'assets/asset_copy_form.html'
+
+    def get_asset(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Asset, pk=pk)
+
+    def get(self, request, *args, **kwargs):
+        self.asset = self.get_asset()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.asset = self.get_asset()
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'asset': self.asset
+        })
+        return context
+
+    def form_valid(self, form):
+        self.object = self.asset.copy(parent=form.cleaned_data['copy_to'])
+        messages.success(self.request, "copied successfully")
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy('assets:asset-update', kwargs={'pk': self.object.pk})

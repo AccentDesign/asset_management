@@ -2,7 +2,8 @@ from .asset import (
     AssetList,
     AssetCreate,
     AssetUpdate,
-    AssetDelete
+    AssetDelete,
+    AssetCopy
 )
 from .asset_type import (
     AssetTypeList,

@@ -1,9 +1,18 @@
 from django import forms
+from mptt.forms import TreeNodeChoiceField
 
 from app.forms.forms import InlineFormSet
 from app.forms.widgets import DatePicker, CheckboxInputs
 from assets.models import Asset, Task, TaskHistory, Note
 from authentication.models import User
+
+
+class AssetCopyForm(forms.Form):
+    copy_to = TreeNodeChoiceField(
+        queryset=Asset.objects,
+        required=False,
+        help_text='Blank will copy to the root level.'
+    )
 
 
 class NoteForm(forms.ModelForm):

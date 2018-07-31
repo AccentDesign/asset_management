@@ -78,3 +78,5 @@ class Asset(MPTTModel):
             new_task.save()
 
         return asset
+
+    copy.alters_data = True

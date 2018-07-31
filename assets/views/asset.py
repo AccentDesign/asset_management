@@ -126,10 +126,6 @@ class AssetCopy(LoginRequiredMixin, SuccessMessageMixin, FormView):
     object = None
     template_name = 'assets/asset_copy_form.html'
 
-    def get_asset(self):
-        pk = self.kwargs.get('pk')
-        return get_object_or_404(Asset, pk=pk)
-
     def get(self, request, *args, **kwargs):
         self.asset = self.get_asset()
         return super().get(request, *args, **kwargs)
@@ -138,15 +134,23 @@ class AssetCopy(LoginRequiredMixin, SuccessMessageMixin, FormView):
         self.asset = self.get_asset()
         return super().post(request, *args, **kwargs)
 
+    def get_asset(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Asset, pk=pk)
+
+    def get_initial(self):
+        return {'new_name': self.asset.name}
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'asset': self.asset
-        })
+        context.update({'asset': self.asset})
         return context
 
     def form_valid(self, form):
-        self.object = self.asset.copy(parent=form.cleaned_data['copy_to'])
+        self.object = self.asset.copy(
+            name=form.cleaned_data['new_name'],
+            parent=form.cleaned_data['copy_to']
+        )
         messages.success(self.request, "copied successfully")
         return HttpResponseRedirect(self.get_success_url())
 

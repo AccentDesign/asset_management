@@ -23,10 +23,14 @@ class AssetForm(forms.ModelForm):
 
 
 class AssetCopyForm(forms.Form):
+    new_name = forms.CharField(
+        max_length=255,
+        help_text='Enter a new name for the asset.'
+    )
     copy_to = TreeNodeChoiceField(
         queryset=Asset.objects,
         required=False,
-        help_text='Blank will copy to the root level.'
+        help_text='Leave blank to make this a top level asset.'
     )
 
 

@@ -62,7 +62,7 @@ class Asset(MPTTModel):
         """ Copy this asset and it's tasks """
 
         asset = Asset(
-            name='Copy of {}'.format(self.name),
+            name=kwargs.get('name', self.name),
             description=self.description,
             asset_type=self.asset_type,
             contact=self.contact,

@@ -149,7 +149,7 @@ class AssetCopy(LoginRequiredMixin, SuccessMessageMixin, FormView):
     def form_valid(self, form):
         self.object = self.asset.copy(
             name=form.cleaned_data['new_name'],
-            parent=form.cleaned_data['copy_to']
+            parent=form.cleaned_data['parent_asset']
         )
         messages.success(self.request, "copied successfully")
         return HttpResponseRedirect(self.get_success_url())

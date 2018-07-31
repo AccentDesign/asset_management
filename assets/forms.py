@@ -27,7 +27,7 @@ class AssetCopyForm(forms.Form):
         max_length=255,
         help_text='Enter a new name for the asset.'
     )
-    copy_to = TreeNodeChoiceField(
+    parent_asset = TreeNodeChoiceField(
         queryset=Asset.objects,
         required=False,
         help_text='Leave blank to make this a top level asset.'

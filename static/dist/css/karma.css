@@ -1851,6 +1851,13 @@ ul.radios input[type=radio] + span:after {
   color: #dd4b39;
 }
 
+.helptext {
+  display: block;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  opacity: .7;
+}
+
 .formset {
   background: #f0f0f0;
   padding: 1.5rem;

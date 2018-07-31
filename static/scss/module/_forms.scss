@@ -5,6 +5,15 @@
   color: color("googleplus");
 }
 
+// help
+
+.helptext {
+  display: block;
+  font-style: italic;
+  margin-bottom: $generic-margin-bottom;
+  opacity: .7;
+}
+
 // formsets
 
 .formset {

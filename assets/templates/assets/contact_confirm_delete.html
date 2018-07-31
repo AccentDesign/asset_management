@@ -9,7 +9,7 @@
             <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
             {% include 'partials/object_intro_header.html' with delete=True %}
         </div>
-        <div class="container">
+        <div class="container-fluid">
             {% if protected %}
             <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
             <ul>

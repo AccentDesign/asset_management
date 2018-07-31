@@ -12,7 +12,7 @@
                 <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}
         </div>
-        <div class="container">
+        <div class="container-fluid">
             {% if protected %}
             <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
             <ul>

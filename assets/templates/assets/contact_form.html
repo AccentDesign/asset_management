@@ -14,7 +14,7 @@
             {% include 'partials/object_intro_header.html' %}
         </div>
         {{ block.super }}
-        <div class="container">
+        <div class="container-fluid">
             <form method="post" novalidate>
                 {% csrf_token %}
                 <fieldset>

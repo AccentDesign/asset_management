@@ -1,10 +1,25 @@
 from django import forms
+from mptt.exceptions import InvalidMove
 from mptt.forms import TreeNodeChoiceField
 
 from app.forms.forms import InlineFormSet
 from app.forms.widgets import DatePicker, CheckboxInputs
 from assets.models import Asset, Task, TaskHistory, Note
 from authentication.models import User
+
+
+class AssetForm(forms.ModelForm):
+    class Meta:
+        model = Asset
+        fields = '__all__'
+
+    def save(self, commit=True):
+        try:
+            return super().save(commit)
+        except InvalidMove as e:
+            # catch an invalid parent node and re raise the error
+            self.add_error('parent', e.args[0])
+            raise
 
 
 class AssetCopyForm(forms.Form):

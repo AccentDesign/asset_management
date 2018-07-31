@@ -5,9 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
+from mptt.exceptions import InvalidMove
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
-from assets.forms import AssetTaskFormset, AssetCopyForm
+from assets.forms import AssetTaskFormset, AssetCopyForm, AssetForm
 from assets.models import Asset
 
 
@@ -48,6 +49,8 @@ class AssetCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def form_valid(self, form, formset):
         self.object = form.save()
+
+        # save the formset
         formset.instance = self.object
         formset.save()
 
@@ -65,7 +68,7 @@ class AssetCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 class AssetUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
-    fields = '__all__'
+    form_class = AssetForm
     formset_class = AssetTaskFormset
     success_message = 'updated successfully'
     success_url = reverse_lazy('assets:asset-list')
@@ -90,7 +93,14 @@ class AssetUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return self.form_invalid(form, formset)
 
     def form_valid(self, form, formset):
-        self.object = form.save()
+        # a valid parent cannot be established until save using mptt
+        # so catch the error raised by the asset form and return form_invalid
+        try:
+            self.object = form.save()
+        except InvalidMove:
+            return self.form_invalid(form, formset)
+
+        # save the tasks
         formset.instance = self.object
         formset.save()
 

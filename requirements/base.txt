@@ -1,6 +1,7 @@
 boto3
 django
 django-mptt
+git+https://github.com/onepill/django-simplemde.git@master#egg=simplemde
 django-simplemde
 django-storages
 docutils

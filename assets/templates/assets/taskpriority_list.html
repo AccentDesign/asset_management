@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block page_title %}Task Priorities{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'Task Priorities' %} <a href="{% url 'assets:task-priority-create' %}"><i class="icon-plus-circled"></i></a></h2>
+        </div>
+        {{ block.super }}
+        <table class="table-hover">
+            <thead>
+                <tr>
+                    <th>{% trans 'Name' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object_list %}
+                <tr>
+                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

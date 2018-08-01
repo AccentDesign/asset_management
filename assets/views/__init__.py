@@ -33,3 +33,9 @@ from .task_type import (
     TaskTypeUpdate,
     TaskTypeDelete
 )
+from .task_priority import (
+    TaskPriorityList,
+    TaskPriorityCreate,
+    TaskPriorityUpdate,
+    TaskPriorityDelete
+)

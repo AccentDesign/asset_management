@@ -2003,6 +2003,7 @@ header {
 
 .sidenav .nav {
   list-style-type: none;
+  margin-bottom: 3rem;
 }
 
 .sidenav .nav li {

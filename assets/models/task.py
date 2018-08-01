@@ -69,6 +69,12 @@ class Task(models.Model):
         null=True,
         blank=True
     )
+    task_priority = models.ForeignKey(
+        'assets.TaskPriority',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     initial_due_date = models.DateField()
     repeat_interval = models.IntegerField(
         null=True,

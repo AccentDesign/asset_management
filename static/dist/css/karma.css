@@ -1998,7 +1998,7 @@ header {
   height: 100%;
   width: 20rem;
   overflow-x: hidden;
-  padding: 8rem 2rem;
+  padding: 9rem 2rem 0 2rem;
 }
 
 .sidenav .nav {

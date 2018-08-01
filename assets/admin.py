@@ -52,5 +52,6 @@ class TaskHistoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TaskHistory, TaskHistoryAdmin)
+admin.site.register(TaskPriority)
 admin.site.register(TaskStatus)
 admin.site.register(TaskType)

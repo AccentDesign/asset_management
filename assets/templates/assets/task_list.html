@@ -44,6 +44,8 @@
                     <td>{{ ob.task_priority|default_if_none:'-' }}</td>
                     <td>{{ ob.assigned_to|default:'-' }}</td>
                 </tr>
+                {% empty %}
+                <tr><td colspan="7">{% trans 'No tasks are due for the given date.' %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>

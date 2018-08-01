@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models, transaction
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
@@ -43,6 +44,10 @@ def post_task_history(instance, **kwargs):
 
     def set_task_schedule():
         # we just need to save the task as they are set in the pre_save
-        instance.task.save()
+        # catch in case the history is being deleted due to the task being deleted
+        try:
+            instance.task.save()
+        except ObjectDoesNotExist:
+            pass
 
     transaction.on_commit(set_task_schedule)

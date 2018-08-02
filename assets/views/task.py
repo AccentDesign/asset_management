@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, UpdateView
 
 from assets.forms import TaskForm, TaskHistoryForm, TaskListFilterForm
-from assets.models import Task, TaskStatus
+from assets.models import Task, Status
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -75,7 +75,7 @@ class TaskUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return HttpResponseRedirect(self.get_success_url())
 
         if 'history_complete' in self.request.POST and history_form.is_valid():
-            status, created = TaskStatus.objects.get_or_create(name='Completed')
+            status, created = Status.objects.get_or_create(name='Completed')
             history_form.instance.status = status
             history_form.save()
             messages.success(request, 'completed successfully')

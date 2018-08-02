@@ -9,10 +9,10 @@ router = routers.DefaultRouter()
 router.register(r'assets', api.AssetViewSet)
 router.register(r'asset-types', api.AssetTypeViewSet)
 router.register(r'contacts', api.ContactViewSet)
+router.register(r'statuses', api.StatusViewSet)
 router.register(r'tasks', api.TaskViewSet)
 router.register(r'task-history', api.TaskHistoryViewSet)
 router.register(r'task-priorities', api.TaskPriorityViewSet)
-router.register(r'task-statuses', api.TaskStatusViewSet)
 router.register(r'task-types', api.TaskTypeViewSet)
 
 app_name = 'assets'

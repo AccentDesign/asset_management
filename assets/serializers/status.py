@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from assets.models import TaskStatus
+from assets.models import Status
 
 
-class TaskStatusSerializer(serializers.ModelSerializer):
+class StatusSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TaskStatus
+        model = Status
         fields = (
             'id',
             'name'

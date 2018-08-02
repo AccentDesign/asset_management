@@ -5,14 +5,6 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
-def add_task_statuses(apps, schema_editor):
-    TaskStatus = apps.get_model("assets", "TaskStatus")
-    db_alias = schema_editor.connection.alias
-    TaskStatus.objects.using(db_alias).bulk_create([
-        TaskStatus(name="Completed")
-    ])
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -64,6 +56,5 @@ class Migration(migrations.Migration):
             model_name='taskhistory',
             name='user',
             field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.RunPython(add_task_statuses)
+        )
     ]

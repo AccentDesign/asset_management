@@ -15,7 +15,7 @@ class TaskHistory(models.Model):
         blank=True
     )
     status = models.ForeignKey(
-        'assets.TaskStatus',
+        'assets.Status',
         on_delete=models.PROTECT,
         null=True,
         blank=True

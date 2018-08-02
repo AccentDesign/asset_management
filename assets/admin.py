@@ -16,6 +16,7 @@ admin.site.register(Asset, AssetAdmin)
 admin.site.register(AssetType)
 admin.site.register(Contact)
 admin.site.register(Note)
+admin.site.register(Status)
 
 
 class TaskAdmin(admin.ModelAdmin):
@@ -53,5 +54,4 @@ class TaskHistoryAdmin(admin.ModelAdmin):
 
 admin.site.register(TaskHistory, TaskHistoryAdmin)
 admin.site.register(TaskPriority)
-admin.site.register(TaskStatus)
 admin.site.register(TaskType)

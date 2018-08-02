@@ -1909,8 +1909,43 @@ header {
   color: whitesmoke;
 }
 
+.nav-search-form {
+  margin: 0 2rem 0 auto;
+}
+
+.nav-search-form input {
+  margin: 0;
+  padding: .5rem 1rem;
+  background: #196b8f;
+  border: 0;
+  color: whitesmoke;
+}
+
+.nav-search-form input:focus {
+  background: #1d7ca4;
+}
+
+.nav-search-form input::-webkit-input-placeholder {
+  color: whitesmoke;
+}
+
+.nav-search-form input::-moz-placeholder {
+  color: whitesmoke;
+}
+
+.nav-search-form input:-ms-input-placeholder {
+  color: whitesmoke;
+}
+
+.nav-search-form input::-ms-input-placeholder {
+  color: whitesmoke;
+}
+
+.nav-search-form input::placeholder {
+  color: whitesmoke;
+}
+
 .user-menu {
-  margin-left: auto;
   position: relative;
 }
 

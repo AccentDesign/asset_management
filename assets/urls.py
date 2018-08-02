@@ -35,6 +35,7 @@ urlpatterns = [
     path('notes/create/', views.NoteCreate.as_view(), name='note-create'),
     path('notes/<int:pk>/update/', views.NoteUpdate.as_view(), name='note-update'),
     path('notes/<int:pk>/delete/', views.NoteDelete.as_view(), name='note-delete'),
+    path('search/', views.SearchView.as_view(), name='search'),
     path('tasks/', views.TaskList.as_view(), name='task-list'),
     path('tasks/<int:pk>/update/', views.TaskUpdate.as_view(), name='task-update'),
     path('task-priorities/', views.TaskPriorityList.as_view(), name='task-priority-list'),

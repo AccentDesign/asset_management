@@ -4,6 +4,9 @@
         <a href="/">{% trans 'Asset Management' %}</a>
     </div>
     {% if user.is_authenticated %}
+    <form method="GET" action="{% url 'assets:search' %}" class="nav-search-form">
+        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+    </form>
     <div class="user-menu">
         <a class="user-menu-trigger"><i class="icon-user"></i></a>
         <ul class="user-menu-drop">

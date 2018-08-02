@@ -19,8 +19,27 @@ header {
   }
 }
 
+.nav-search-form {
+  margin: 0 2rem 0 auto;
+
+  input {
+    margin: 0;
+    padding: .5rem 1rem;
+    background: color-lighten("primary", 5%);
+    border: 0;
+    color: color("whitesmoke");
+  }
+
+  input:focus {
+    background: color-lighten("primary", 10%);
+  }
+
+  input::placeholder {
+    color: color("whitesmoke");
+  }
+}
+
 .user-menu {
-  margin-left: auto;
   position: relative;
 
   .user-menu-trigger {

@@ -15,6 +15,20 @@ class AssetManager(TreeManager):
             qs_task_count=models.Count('tasks')
         )
 
+    def search(self, query=None):
+        """ Returns the search results for the main site search """
+
+        qs = self.get_queryset()
+        if query is not None:
+            or_lookup = (
+                models.Q(name__icontains=query) |
+                models.Q(description__icontains=query) |
+                models.Q(asset_type__name__icontains=query) |
+                models.Q(contact__name__icontains=query)
+            )
+            qs = qs.filter(or_lookup).distinct()
+        return qs
+
 
 class Asset(MPTTModel):
     name = models.CharField(

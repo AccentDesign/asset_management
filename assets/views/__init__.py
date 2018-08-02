@@ -23,6 +23,7 @@ from .note import (
     NoteUpdate,
     NoteDelete
 )
+from .search import SearchView
 from .task import (
     TaskList,
     TaskUpdate

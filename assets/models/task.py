@@ -28,6 +28,23 @@ class TaskManager(models.Manager):
             )
         )
 
+    def search(self, query=None):
+        """ Returns the search results for the main site search """
+
+        qs = self.get_queryset()
+        if query is not None:
+            or_lookup = (
+                models.Q(name__icontains=query) |
+                models.Q(description__icontains=query) |
+                models.Q(task_type__name__icontains=query) |
+                models.Q(asset__name__icontains=query) |
+                models.Q(asset__description__icontains=query) |
+                models.Q(assigned_to__first_name__icontains=query) |
+                models.Q(assigned_to__last_name__icontains=query)
+            )
+            qs = qs.filter(or_lookup).distinct()
+        return qs
+
     def due_by_date(self, date=datetime.today().date(), assigned_to=None):
         """
         Returns tasks sorted by due_date that are due up to and including the date parameter.

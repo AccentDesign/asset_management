@@ -14,6 +14,12 @@ DEBUG = False
 ALLOWED_HOSTS = [] + environ.get('ALLOWED_HOSTS', '').split(',')
 
 
+# CORS
+
+CORS_ORIGIN_WHITELIST = ()
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -30,6 +36,8 @@ INSTALLED_APPS = [
     'authentication',
 
     'mptt',
+    'oauth2_provider',
+    'rest_framework',
     'simplemde',
     'storages',
 ]
@@ -158,6 +166,29 @@ AWS_QUERYSTRING_EXPIRE = 3600
 AWS_S3_FILE_OVERWRITE = False
 AWS_IS_GZIPPED = True
 AWS_AUTO_CREATE_BUCKET = True
+
+
+# Rest Framework
+
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FileUploadParser',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 
 # Simple MDE

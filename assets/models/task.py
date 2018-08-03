@@ -32,17 +32,20 @@ class TaskManager(models.Manager):
         """ Returns the search results for the main site search """
 
         qs = self.get_queryset()
-        if query is not None:
-            or_lookup = (
-                models.Q(name__icontains=query) |
-                models.Q(description__icontains=query) |
-                models.Q(task_type__name__icontains=query) |
-                models.Q(asset__name__icontains=query) |
-                models.Q(asset__description__icontains=query) |
-                models.Q(assigned_to__first_name__icontains=query) |
-                models.Q(assigned_to__last_name__icontains=query)
-            )
-            qs = qs.filter(or_lookup).distinct()
+        if query:
+            all_filters = models.Q()
+            for term in query.split():
+                or_lookup = (
+                    models.Q(name__icontains=term) |
+                    models.Q(description__icontains=term) |
+                    models.Q(asset__name__icontains=term) |
+                    models.Q(asset__description__icontains=term) |
+                    models.Q(task_type__name__icontains=term) |
+                    models.Q(assigned_to__first_name__icontains=term) |
+                    models.Q(assigned_to__last_name__icontains=term)
+                )
+                all_filters = all_filters & or_lookup
+            qs = qs.filter(all_filters).distinct()
         return qs
 
     def due_by_date(self, date=datetime.today().date(), assigned_to=None):

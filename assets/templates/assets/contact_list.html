@@ -13,12 +13,18 @@
             <thead>
                 <tr>
                     <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Email' %}</th>
+                    <th>{% trans 'Phone Number' %}</th>
+                    <th>{% trans 'Mobile Number' %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for ob in object_list %}
                 <tr>
                     <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                    <td>{% if ob.email %}<a href="mailto://{{ ob.email }}">{{ ob.email }}</a>{% else %}-{% endif %}</td>
+                    <td>{{ ob.phone_number|default:'-' }}</td>
+                    <td>{{ ob.mobile_number|default:'-' }}</td>
                 </tr>
                 {% empty %}
                 <tr><td>{% trans 'No contacts have been created,' %} <a class="strong" href="{% url 'assets:contact-create' %}">{% trans 'create one now.' %}</a></td></tr>

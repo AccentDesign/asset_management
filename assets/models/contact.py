@@ -11,7 +11,13 @@ class ContactManager(models.Manager):
             all_filters = models.Q()
             for term in query.split():
                 or_lookup = (
-                    models.Q(name__icontains=term)
+                    models.Q(name__icontains=term) |
+                    models.Q(email__icontains=term) |
+                    models.Q(phone_number__icontains=term) |
+                    models.Q(mobile_number__icontains=term) |
+                    models.Q(address__icontains=term) |
+                    models.Q(url__icontains=term) |
+                    models.Q(notes__icontains=term)
                 )
                 all_filters = all_filters & or_lookup
             qs = qs.filter(all_filters).distinct()
@@ -21,6 +27,26 @@ class ContactManager(models.Manager):
 class Contact(models.Model):
     name = models.CharField(
         max_length=255
+    )
+    email = models.EmailField(
+        blank=True
+    )
+    phone_number = models.CharField(
+        max_length=20,
+        blank=True
+    )
+    mobile_number = models.CharField(
+        max_length=20,
+        blank=True
+    )
+    address = models.TextField(
+        blank=True
+    )
+    url = models.URLField(
+        blank=True
+    )
+    notes = models.TextField(
+        blank=True
     )
 
     objects = ContactManager()

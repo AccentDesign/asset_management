@@ -4,7 +4,7 @@ from mptt.forms import TreeNodeChoiceField
 
 from app.forms.forms import InlineFormSet
 from app.forms.widgets import DatePicker, CheckboxInputs
-from assets.models import Asset, Task, TaskHistory, Note
+from assets.models import Asset, Task, TaskHistory, Note, Contact
 from authentication.models import User
 
 
@@ -32,6 +32,15 @@ class AssetCopyForm(forms.Form):
         required=False,
         help_text='Leave blank to make this a top level asset.'
     )
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+        widgets = {
+            'address': forms.widgets.Textarea(attrs={'rows': 6})
+        }
 
 
 class NoteForm(forms.ModelForm):

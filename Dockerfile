@@ -24,6 +24,9 @@ RUN         mkdir /code/
 WORKDIR     /code/
 ADD         . /code/
 
+# open public media folder
+RUN chmod 777 -Rf /code/public/media
+
 # Add any custom, static environment variables needed by Django:
 ENV         PYTHONUNBUFFERED=1 \
             DJANGO_SETTINGS_MODULE=app.settings \

@@ -15,6 +15,10 @@ class CheckboxInputs(forms.widgets.CheckboxSelectMultiple):
         return context
 
 
+class ClearableFileInput(forms.widgets.ClearableFileInput):
+    template_name = 'app/forms/widgets/clearable_file_input.html'
+
+
 class DatePicker(forms.widgets.DateInput):
     def __init__(self, attrs=None, format=None):
         if not attrs:

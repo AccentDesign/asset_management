@@ -7,7 +7,7 @@ from django.urls import path
 from rest_framework.documentation import include_docs_urls
 from rest_framework.schemas import get_schema_view
 
-from app import routers
+from app import api, routers
 from app.views import HomeView
 from assets.urls import router as assets_router
 from authentication.urls import router as authentication_router
@@ -19,6 +19,10 @@ schema_view = get_schema_view(title=api_title)
 
 router = routers.DefaultRouter()
 
+# external routes
+router.register(r'images', api.ImageRenditionViewSet)
+
+# internal routes
 router.extend(assets_router)
 router.extend(authentication_router)
 

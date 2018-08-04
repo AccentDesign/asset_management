@@ -61,10 +61,7 @@ class ModelTests(AppTestCase):
     # meta                           #
     ##################################
     def test_default_ordering(self):
-        user_1 = self.create_user(email='zoe@example.com')
-        user_2 = self.create_user(email='billy@example.com')
-        user_3 = self.create_user(email='sammy@example.com')
-        self.assertListEqual(list(User.objects.all()), [user_2, user_3, user_1])
+        self.assertEqual(User._meta.ordering, ('email', ))
 
     ##################################
     # methods                        #

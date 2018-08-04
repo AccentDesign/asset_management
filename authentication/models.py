@@ -62,6 +62,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(
         auto_now_add=True
     )
+    picture = models.ForeignKey(
+        'images.Image',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']

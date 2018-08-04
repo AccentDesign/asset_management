@@ -3,16 +3,13 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
+from authentication.forms import MyProfileForm
 from authentication.models import User
 
 
 class ProfileUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
-    fields = (
-        'email',
-        'first_name',
-        'last_name',
-    )
+    form_class = MyProfileForm
     success_message = 'updated successfully'
     success_url = reverse_lazy('my_profile')
 

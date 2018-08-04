@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'assets',
     'authentication',
 
+    'images',
     'mptt',
     'oauth2_provider',
     'rest_framework',

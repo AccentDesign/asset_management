@@ -8,6 +8,7 @@ django-simplemde
 django-storages
 djangorestframework
 docutils
+git+https://github.com/stuartaccent/images.git@master#egg=images
 pillow
 psycopg2-binary
 python-dateutil

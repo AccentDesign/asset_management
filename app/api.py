@@ -22,6 +22,7 @@ class ImageRenditionViewSet(viewsets.ViewSetMixin, generics.RetrieveAPIView):
 
             ?filter_spec=width-500 to get a 500 wide
             ?filter_spec=height-500 to get a 500 high
+            ?filter_spec=height-500|format-jpeg to get a 500 high jpeg
             omit to get the original version
 
         If you pass an invalid filter_spec you will be sent the original version of the image.

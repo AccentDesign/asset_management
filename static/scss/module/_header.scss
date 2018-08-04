@@ -46,12 +46,13 @@ header {
     background: color-lighten("primary", 5%);
     color: color("whitesmoke");
     cursor: pointer;
-    display: block;
-    font-size: 1.75rem;
     height: 6rem;
-    line-height: 6rem;
-    text-align: center;
-    width: 6rem;
+    padding: 0 1.5rem;
+
+    .user-avatar {
+      max-height: 2rem;
+      margin-right: .5rem;
+    }
 
     &:hover {
       background: color-lighten("primary", 2.5%);

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n images_tags static %}
 <header>
     <div class="nav-home">
         <a href="/">{% trans 'Asset Management' %}</a>
@@ -8,7 +8,16 @@
         <input type="text" name="q" placeholder="Search..." value="{{ query }}">
     </form>
     <div class="user-menu">
-        <a class="user-menu-trigger"><i class="icon-user"></i></a>
+        <a class="user-menu-trigger d-flex align-items-center">
+            {% if user.picture %}
+                {% image user.picture fill-20x20 as img %}
+                <img class="user-avatar" src="{{ img.url }}">
+                <i class="icon-angle-down"></i>
+            {% else %}
+                <img class="user-avatar" src="{% static 'dist/images/anonymous.png' %}">
+                <i class="icon-angle-down"></i>
+            {% endif %}
+        </a>
         <ul class="user-menu-drop">
             {% if user.is_staff %}
                 <li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>

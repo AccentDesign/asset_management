@@ -59,3 +59,9 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def google_maps_link(self):
+        return """<a href="https://www.google.co.uk/maps/search/{}" target="_blank">Google Maps</a>""".format(
+            self.address.replace(' ', '+').replace('\n', '+')
+        )

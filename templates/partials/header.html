@@ -10,7 +10,7 @@
     <div class="user-menu">
         <a class="user-menu-trigger d-flex align-items-center">
             {% if user.picture %}
-                {% image user.picture fill-20x20 as img %}
+                {% image user.picture fill-30x30 as img %}
                 <img class="user-avatar" src="{{ img.url }}">
                 <i class="icon-angle-down"></i>
             {% else %}

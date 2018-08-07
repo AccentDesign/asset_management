@@ -50,8 +50,9 @@ header {
     padding: 0 1.5rem;
 
     .user-avatar {
-      max-height: 2rem;
-      margin-right: .5rem;
+      border-radius: 50%;
+      max-height: 3rem;
+      margin-right: 1rem;
     }
 
     &:hover {

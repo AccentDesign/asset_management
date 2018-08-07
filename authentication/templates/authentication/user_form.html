@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n images_tags mptt_tags static %}
+{% load l10n i18n images_tags mptt_tags static %}
 {% block page_title %}My Profile{% endblock %}
 {% block body_class %}{% endblock %}
 {% block sidebar %}{{ block.super }}{% endblock %}
@@ -13,20 +13,34 @@
             <form enctype="multipart/form-data" method="post" novalidate>
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                         <fieldset>
                             {{ form }}
                         </fieldset>
                         <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         {% if object.picture %}
-                            {% image user.picture original as img %}
-                            <img class="img-fluid" src="{{ img.url }}">
+                            <label>{% trans "Avatar" %}</label>
+                            <p class="muted">{% trans "To define this image's most important region, drag a box over the image below." %}</p>
+                            {% image object.picture original as rendition %}
+                            <div class="focal-point-chooser full-width mb-sm"
+                                data-focal-point-x="{{ object.picture.focal_point_x|default_if_none:'' }}"
+                                data-focal-point-y="{{ object.picture.focal_point_y|default_if_none:'' }}"
+                                data-focal-point-width="{{ object.picture.focal_point_width|default_if_none:'' }}"
+                                data-focal-point-height="{{ object.picture.focal_point_height|default_if_none:'' }}">
+                                <img class="img-fluid" {{ rendition.attrs }} data-original-width="{{ object.picture.width|unlocalize }}" data-original-height="{{ object.picture.height|unlocalize }}">
+                                <div class="current-focal-point-indicator{% if not object.picture.has_focal_point %} d-hidden{% endif %}"></div>
+                            </div>
+                            <button class="button button-outline remove-focal-point" type="button">{% trans "Remove Focal Area" %}</button>
                         {% endif %}
                     </div>
                 </div>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
 {% endblock %}

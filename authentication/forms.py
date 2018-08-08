@@ -1,5 +1,6 @@
 from django import forms
 
+from images.forms import ImageForm
 from images.models import Image
 from images.validators import validate_image_file_extension
 
@@ -13,10 +14,22 @@ class MyProfileForm(forms.ModelForm):
         validators=[validate_image_file_extension],
         widget=ClearableFileInput()
     )
-    focal_point_x = forms.IntegerField(widget=forms.widgets.HiddenInput, required=False)
-    focal_point_y = forms.IntegerField(widget=forms.widgets.HiddenInput, required=False)
-    focal_point_width = forms.IntegerField(widget=forms.widgets.HiddenInput, required=False)
-    focal_point_height = forms.IntegerField(widget=forms.widgets.HiddenInput, required=False)
+    focal_point_x = forms.IntegerField(
+        widget=forms.widgets.HiddenInput,
+        required=False
+    )
+    focal_point_y = forms.IntegerField(
+        widget=forms.widgets.HiddenInput,
+        required=False
+    )
+    focal_point_width = forms.IntegerField(
+        widget=forms.widgets.HiddenInput,
+        required=False
+    )
+    focal_point_height = forms.IntegerField(
+        widget=forms.widgets.HiddenInput,
+        required=False
+    )
 
     class Meta:
         model = User
@@ -31,18 +44,8 @@ class MyProfileForm(forms.ModelForm):
             'focal_point_height'
         )
 
-    class Media:
-        css = {
-            'all': (
-                'images/css/Jcrop.min.css',
-                'images/css/focal-point-chooser.css'
-            )
-        }
-        js = (
-            'images/js/jquery.ba-throttle-debounce.min.js',
-            'images/js/Jcrop.min.js',
-            'images/js/focal-point-chooser.js',
-        )
+    class Media(ImageForm.Media):
+        pass
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

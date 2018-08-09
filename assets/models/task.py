@@ -48,11 +48,14 @@ class TaskManager(models.Manager):
             qs = qs.filter(all_filters).distinct()
         return qs
 
-    def due_by_date(self, date=datetime.today().date(), assigned_to=None):
+    def due_by_date(self, date=None, assigned_to=None):
         """
         Returns tasks sorted by due_date that are due up to and including the date parameter.
         Optionally filters by the assigned to user
         """
+
+        if not date:
+            date = datetime.today().date()
 
         filters = {'due_date__lte': date}
 

@@ -4,12 +4,10 @@ django
 django-mptt
 git+https://github.com/onepill/django-simplemde.git@master#egg=simplemde
 django-oauth-toolkit
-django-simplemde
 django-storages
 djangorestframework
 docutils
 git+https://github.com/stuartaccent/images.git@master#egg=images
-pillow
 psycopg2-binary
 python-dateutil
 uwsgi

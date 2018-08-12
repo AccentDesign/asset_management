@@ -42,7 +42,7 @@
                         <div class="formset-empty">
                             {{ formset.empty_form }}
                         </div>
-                        <a class="button d-block formset-add mb-sm">Add Task</a>
+                        <a class="button button-primary button-outline d-block formset-add mb-sm">Add Task</a>
                         <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
                     </div>
                 </fieldset>
@@ -52,12 +52,12 @@
                 <div class="panel b-whitesmoke">
                     <h3>{% trans 'Create a New Child Asset' %}</h3>
                     <p>{% blocktrans with ob=object %}Starts a new asset with the parent prepopulated to <em>"{{ ob }}"</em>.{% endblocktrans %}</p>
-                    <a class="button" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Create' %}</a>
+                    <a class="button button-primary button-outline" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Create' %}</a>
                 </div>
                 <div class="panel b-whitesmoke">
                     <h3>{% trans "Make a Copy of this Asset" %}</h3>
                     <p>{% blocktrans with ob=object %}Copy <em>"{{ ob }}"</em> and all of it's tasks.{% endblocktrans %}</p>
-                    <a class="button" href="{% url 'assets:asset-copy' object.pk %}">{% trans 'Copy' %}</a>
+                    <a class="button button-primary button-outline" href="{% url 'assets:asset-copy' object.pk %}">{% trans 'Copy' %}</a>
                 </div>
             </div>
             {% endif %}

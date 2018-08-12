@@ -3,7 +3,7 @@
 
 header {
   @include position(0, 0, auto, 0, fixed);
-  background: color("primary");
+  background: color("bluewhale");
   display: flex;
   align-items: center;
   min-height: 6rem;
@@ -15,7 +15,7 @@ header {
   padding-left: 2rem;
 
   a {
-    color: color("whitesmoke");
+    color: color("white");
   }
 }
 
@@ -25,13 +25,13 @@ header {
   input {
     margin: 0;
     padding: .5rem 1rem;
-    background: color-lighten("primary", 5%);
+    background: color-lighten("bluewhale", 5%);
     border: 0;
     color: color("whitesmoke");
   }
 
   input:focus {
-    background: color-lighten("primary", 10%);
+    background: color-lighten("bluewhale", 10%);
   }
 
   input::placeholder {
@@ -43,7 +43,7 @@ header {
   position: relative;
 
   .user-menu-trigger {
-    background: color-lighten("primary", 5%);
+    background: color-lighten("bluewhale", 5%);
     color: color("whitesmoke");
     cursor: pointer;
     height: 6rem;
@@ -56,13 +56,13 @@ header {
     }
 
     &:hover {
-      background: color-lighten("primary", 2.5%);
+      background: color-lighten("bluewhale", 2.5%);
     }
   }
 
   .user-menu-drop {
     @include position($top: 6rem, $right: 0);
-    background: color-lighten("primary", 5%);
+    background: color-lighten("bluewhale", 5%);
     display: none;
     list-style-type: none;
     min-width: 20rem;
@@ -74,7 +74,7 @@ header {
       padding: 0 1.5rem;
 
       &:hover {
-        background: color-lighten("primary", 2.5%);
+        background: color-lighten("bluewhale", 2.5%);
       }
     }
   }

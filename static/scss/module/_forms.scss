@@ -17,13 +17,13 @@
 // formsets
 
 .formset {
-  background: color("secondary");
+  background: color("whitesmoke");
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .formset-deleted {
-  background: color-darken("secondary", 15%);
+  background: color-darken("whitesmoke", 10%);
   opacity: .75;
 }
 

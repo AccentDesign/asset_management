@@ -3,7 +3,18 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.sessions.models import Session
 
-from authentication.models import User
+from authentication.models import *
+
+
+admin.site.register(Session)
+
+
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'admin', 'created_on', )
+    filter_horizontal = ('members', 'guests', )
+
+
+admin.site.register(Team, TeamAdmin)
 
 
 class UserAdmin(BaseUserAdmin):
@@ -24,5 +35,4 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email', )
 
 
-admin.site.register(Session)
 admin.site.register(User, UserAdmin)

@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -10,13 +9,14 @@ from mptt.exceptions import InvalidMove
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.forms import AssetTaskFormset, AssetCopyForm, AssetForm
 from assets.models import Asset
+from authentication.views.mixins import ActivatedTeamRequiredMixin
 
 
-class AssetList(LoginRequiredMixin, ListView):
+class AssetList(ActivatedTeamRequiredMixin, ListView):
     model = Asset
 
 
-class AssetCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     model = Asset
     fields = '__all__'
     formset_class = AssetTaskFormset
@@ -66,7 +66,7 @@ class AssetCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return self.render_to_response(context)
 
 
-class AssetUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
     form_class = AssetForm
     formset_class = AssetTaskFormset
@@ -116,12 +116,12 @@ class AssetUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.render_to_response(context)
 
 
-class AssetDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+class AssetDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = Asset
     success_url = reverse_lazy('assets:asset-list')
 
 
-class AssetCopy(LoginRequiredMixin, SuccessMessageMixin, FormView):
+class AssetCopy(ActivatedTeamRequiredMixin, SuccessMessageMixin, FormView):
     form_class = AssetCopyForm
     object = None
     template_name = 'assets/asset_copy_form.html'

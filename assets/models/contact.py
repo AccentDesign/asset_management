@@ -1,8 +1,22 @@
 from django.db import models
 from django.urls import reverse_lazy
 
+from authentication.middleware.current_user import get_current_team
+
 
 class ContactManager(models.Manager):
+    def get_queryset(self):
+        """ Returns the base queryset with additional properties """
+
+        qs = super().get_queryset()
+
+        team = get_current_team()
+
+        if team:
+            qs = qs.filter(team=team)
+
+        return qs
+
     def search(self, query=None):
         """ Returns the search results for the main site search """
 
@@ -47,6 +61,12 @@ class Contact(models.Model):
     )
     notes = models.TextField(
         blank=True
+    )
+    team = models.ForeignKey(
+        'authentication.Team',
+        on_delete=models.CASCADE,
+        editable=False,
+        default=get_current_team
     )
 
     objects = ContactManager()

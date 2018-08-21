@@ -23,6 +23,13 @@ def get_current_user():
     return None
 
 
+def get_current_team():
+    user = get_current_user()
+    if user and user.is_authenticated:
+        return user.activated_team
+    return None
+
+
 def set_current_team(request, team_id):
     request.user.activated_team = None
     if request.user and team_id and team_id.isdigit():

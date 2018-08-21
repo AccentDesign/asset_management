@@ -16,17 +16,26 @@ from dateutil.rrule import (
     YEARLY
 )
 
+from authentication.middleware.current_user import get_current_team
+
 
 class TaskManager(models.Manager):
     def get_queryset(self):
         """ Returns the base queryset with additional properties """
 
-        return super().get_queryset().annotate(
+        qs = super().get_queryset().annotate(
             qs_last_completed=models.Max(
                 'history__date',
                 filter=models.Q(history__status__name='Completed')
             )
         )
+
+        team = get_current_team()
+
+        if team:
+            qs = qs.filter(asset__team=team)
+
+        return qs
 
     def search(self, query=None):
         """ Returns the search results for the main site search """

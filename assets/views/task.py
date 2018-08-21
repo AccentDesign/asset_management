@@ -1,16 +1,16 @@
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, UpdateView
 
 from assets.forms import TaskForm, TaskHistoryForm, TaskListFilterForm
 from assets.models import Task, Status
+from authentication.views.mixins import ActivatedTeamRequiredMixin
 
 
-class TaskList(LoginRequiredMixin, ListView):
+class TaskList(ActivatedTeamRequiredMixin, ListView):
     model = Task
     template_name = 'assets/task_list.html'
 
@@ -40,7 +40,7 @@ class TaskList(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     prefix = 'task_form'

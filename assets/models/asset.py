@@ -6,14 +6,23 @@ from django.urls import reverse_lazy
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
 
+from authentication.middleware.current_user import get_current_team
+
 
 class AssetManager(TreeManager):
     def get_queryset(self):
         """ Returns the base queryset with additional properties """
 
-        return super().get_queryset().annotate(
+        qs = super().get_queryset().annotate(
             qs_task_count=models.Count('tasks')
         )
+
+        team = get_current_team()
+
+        if team:
+            qs = qs.filter(team=team)
+
+        return qs
 
     def search(self, query=None):
         """ Returns the search results for the main site search """
@@ -56,6 +65,12 @@ class Asset(MPTTModel):
         blank=True,
         on_delete=models.CASCADE,
         related_name='children'
+    )
+    team = models.ForeignKey(
+        'authentication.Team',
+        on_delete=models.CASCADE,
+        editable=False,
+        default=get_current_team
     )
 
     objects = AssetManager()

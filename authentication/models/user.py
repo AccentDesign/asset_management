@@ -68,6 +68,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True
     )
+    activated_team = models.ForeignKey(
+        'authentication.Team',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -81,8 +87,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def get_full_name(self):
+        """ Returns the users full name """
+
         full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
     def get_short_name(self):
+        """ Returns the users short name """
+
         return self.first_name
+
+    def get_teams(self):
+        """ Returns all the teams the user can access """
+
+        from authentication.models import Team
+        administered = Team.objects.filter(admin=self)
+        member_of = Team.objects.filter(members=self)
+        guest_of = Team.objects.filter(guests=self)
+        teams = administered | member_of | guest_of
+        return teams.distinct().order_by('title')

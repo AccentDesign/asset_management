@@ -1,7 +1,8 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 
-from authentication.models import User, UserManager
+from authentication.models import User
+from authentication.models.user import UserManager
 from tests.test_case import AppTestCase
 
 

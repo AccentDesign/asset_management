@@ -1,8 +1,8 @@
+from django.utils.functional import SimpleLazyObject
 from threading import local
 
 
 _user = local()
-_team = local()
 
 
 class CurrentUserMiddleware(object):
@@ -11,7 +11,9 @@ class CurrentUserMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
+        # sets the local user to use in code that lives outside the request
         _user.value = getattr(request, 'user', None)
+
         return self.get_response(request)
 
 
@@ -21,11 +23,11 @@ def get_current_user():
     return None
 
 
-def get_current_team():
-    if hasattr(_team, 'value'):
-        return _team.value
-    return None
+def set_current_team(request, team_id):
+    request.user.activated_team = None
+    if request.user and team_id and team_id.isdigit():
+        team_qs = request.user.get_teams().filter(pk=team_id)
+        if team_qs.exists():
+            request.user.activated_team = team_qs.get()
 
-
-def set_current_team(team):
-    _team.value = team
+    request.user.save()

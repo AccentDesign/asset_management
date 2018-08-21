@@ -53,6 +53,12 @@
       "css": "angle-down",
       "code": 61703,
       "src": "fontawesome"
+    },
+    {
+      "uid": "43ab845088317bd348dee1d975700c48",
+      "css": "ok-circled",
+      "code": 59398,
+      "src": "fontawesome"
     }
   ]
 }

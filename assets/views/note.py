@@ -6,8 +6,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.forms import NoteForm, NoteSharedForm
-from assets.middleware.current_user import get_current_user
 from assets.models import Note
+from authentication.middleware.current_user import get_current_user
 
 
 class NoteList(LoginRequiredMixin, ListView):

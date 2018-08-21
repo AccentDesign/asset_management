@@ -2,7 +2,7 @@ from django.db import models, transaction
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from assets.middleware.current_user import get_current_user
+from authentication.middleware.current_user import get_current_user
 
 
 class TaskHistory(models.Model):

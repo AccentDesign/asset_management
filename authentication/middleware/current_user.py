@@ -2,6 +2,7 @@ from threading import local
 
 
 _user = local()
+_team = local()
 
 
 class CurrentUserMiddleware(object):
@@ -18,3 +19,13 @@ def get_current_user():
     if hasattr(_user, 'value'):
         return _user.value
     return None
+
+
+def get_current_team():
+    if hasattr(_team, 'value'):
+        return _team.value
+    return None
+
+
+def set_current_team(team):
+    _team.value = team

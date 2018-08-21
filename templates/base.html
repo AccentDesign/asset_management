@@ -24,8 +24,8 @@
                     <ul class="nav">
                         {% for team in user.get_teams %}
                         <li>
-                            <a href="/?team_pk={{ team.pk }}">{{ team }}</a>
-                            {% if team == request.user.activated_team %}<a class="pull-right"><i class="icon-ok-circled"></i></a>{% endif %}
+                            <a href="{% url 'team-activate' team.pk %}">{{ team }}</a>
+                            {% if team == request.user.activated_team %}<span class="pull-right c-green"><i class="icon-ok-circled"></i></span>{% endif %}
                         </li>
                         {% empty %}
                         <li>

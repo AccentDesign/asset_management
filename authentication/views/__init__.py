@@ -1,2 +1,5 @@
 from .profile import ProfileUpdate
-from .team import TeamCreate
+from .team import (
+    TeamActivate,
+    TeamCreate
+)

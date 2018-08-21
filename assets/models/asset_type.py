@@ -21,8 +21,7 @@ class AssetTypeManager(models.Manager):
 
 
 class AssetType(models.Model):
-    id = models.CharField(
-        max_length=36,
+    id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False

@@ -2,6 +2,7 @@ from django import forms
 
 from app.forms.widgets import CheckboxInputs
 from assets.models import Note
+from authentication.middleware.current_user import get_current_team
 
 
 class NoteForm(forms.ModelForm):
@@ -11,6 +12,10 @@ class NoteForm(forms.ModelForm):
         widgets = {
             'shared_users': CheckboxInputs
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['shared_users'].queryset = get_current_team().members
 
 
 class NoteSharedForm(forms.ModelForm):

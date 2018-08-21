@@ -18,7 +18,6 @@ class AssetList(ActivatedTeamRequiredMixin, ListView):
 
 class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     model = Asset
-    fields = '__all__'
     formset_class = AssetTaskFormset
     success_message = 'created successfully'
     success_url = reverse_lazy('assets:asset-list')

@@ -1,7 +1,8 @@
 from django import forms
 
 from app.forms.widgets import DatePicker
-from assets.models import Task, TaskHistory
+from assets.models import Task, TaskHistory, TaskPriority, TaskType
+from authentication.middleware.current_user import get_current_team
 from authentication.models import User
 
 
@@ -20,6 +21,12 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         exclude = ('asset', )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['task_type'].queryset = TaskType.objects
+        self.fields['assigned_to'].queryset = get_current_team().members
+        self.fields['task_priority'].queryset = TaskPriority.objects
 
 
 class TaskHistoryForm(forms.ModelForm):
@@ -44,3 +51,7 @@ class TaskListFilterForm(forms.Form):
         queryset=User.objects.all(),
         required=False
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['assigned_to'].queryset = get_current_team().members

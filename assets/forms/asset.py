@@ -3,7 +3,7 @@ from mptt.exceptions import InvalidMove
 from mptt.forms import TreeNodeChoiceField
 
 from app.forms.formsets import InlineFormSet
-from assets.models import Asset, Task
+from assets.models import Asset, AssetType, Contact, Task
 from .task import TaskForm
 
 
@@ -11,6 +11,12 @@ class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['asset_type'].queryset = AssetType.objects
+        self.fields['contact'].queryset = Contact.objects
+        self.fields['parent'].queryset = Asset.objects
 
     def save(self, commit=True):
         try:
@@ -31,6 +37,10 @@ class AssetCopyForm(forms.Form):
         required=False,
         help_text='Leave blank to make this a top level asset.'
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['parent_asset'].queryset = Asset.objects
 
 
 AssetTaskFormset = forms.inlineformset_factory(

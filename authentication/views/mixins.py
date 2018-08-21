@@ -7,5 +7,5 @@ class ActivatedTeamRequiredMixin(LoginRequiredMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and not request.user.activated_team:
-            return redirect('')
+            return redirect('home')
         return super().dispatch(request, *args, **kwargs)

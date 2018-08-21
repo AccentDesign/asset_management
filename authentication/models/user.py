@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -32,6 +34,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    id = models.CharField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     first_name = models.CharField(
         _('first name'),
         max_length=30,
@@ -101,8 +109,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         """ Returns all the teams the user can access """
 
         from authentication.models import Team
+
         administered = Team.objects.filter(admin=self)
         member_of = Team.objects.filter(members=self)
         guest_of = Team.objects.filter(guests=self)
         teams = administered | member_of | guest_of
+
         return teams.distinct().order_by('title')

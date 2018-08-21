@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -80,6 +81,12 @@ class TaskManager(models.Manager):
 
 
 class Task(models.Model):
+    id = models.CharField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(
         max_length=255
     )

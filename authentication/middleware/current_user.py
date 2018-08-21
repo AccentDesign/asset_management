@@ -32,7 +32,7 @@ def get_current_team():
 
 def set_current_team(request, team_id):
     request.user.activated_team = None
-    if request.user and team_id and team_id.isdigit():
+    if request.user and team_id:
         team_qs = request.user.get_teams().filter(pk=team_id)
         if team_qs.exists():
             request.user.activated_team = team_qs.get()

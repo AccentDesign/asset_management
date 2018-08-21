@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models, transaction
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
@@ -6,6 +8,12 @@ from authentication.middleware.current_user import get_current_user
 
 
 class TaskHistory(models.Model):
+    id = models.CharField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     task = models.ForeignKey(
         'assets.Task',
         on_delete=models.CASCADE,

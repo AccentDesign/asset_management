@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.urls import reverse_lazy
 
@@ -19,6 +21,12 @@ class AssetTypeManager(models.Manager):
 
 
 class AssetType(models.Model):
+    id = models.CharField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     name = models.CharField(
         max_length=255
     )

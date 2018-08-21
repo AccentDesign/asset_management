@@ -24,10 +24,12 @@ class SearchView(ListView):
             asset_results = models.Asset.objects.search(query)
             contact_results = models.Contact.objects.search(query)
             task_results = models.Task.objects.search(query)
+            note_results = models.Note.objects.search(query)
             queryset_chain = chain(
                 asset_results,
                 contact_results,
-                task_results
+                task_results,
+                note_results
             )
             qs = sorted(
                 queryset_chain,

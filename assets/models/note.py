@@ -19,6 +19,21 @@ class NoteManager(models.Manager):
 
         return qs
 
+    def search(self, query=None):
+        """ Returns the search results for the main site search """
+
+        qs = self.get_queryset()
+        if query:
+            all_filters = models.Q()
+            for term in query.split():
+                or_lookup = (
+                    models.Q(title__icontains=term) |
+                    models.Q(content__icontains=term)
+                )
+                all_filters = all_filters & or_lookup
+            qs = qs.filter(all_filters).distinct()
+        return qs
+
 
 class Note(models.Model):
     title = models.CharField(

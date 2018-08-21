@@ -1,30 +1,30 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.models import TaskType
+from authentication.views.mixins import ActivatedTeamRequiredMixin
 
 
-class TaskTypeList(LoginRequiredMixin, ListView):
+class TaskTypeList(ActivatedTeamRequiredMixin, ListView):
     model = TaskType
 
 
-class TaskTypeCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskTypeCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     model = TaskType
     fields = '__all__'
     success_message = 'created successfully'
     success_url = reverse_lazy('assets:task-type-list')
 
 
-class TaskTypeUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskTypeUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TaskType
     fields = '__all__'
     success_message = 'updated successfully'
     success_url = reverse_lazy('assets:task-type-list')
 
 
-class TaskTypeDelete(LoginRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+class TaskTypeDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = TaskType
     success_url = reverse_lazy('assets:task-type-list')

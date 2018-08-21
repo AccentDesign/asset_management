@@ -98,6 +98,7 @@ class Asset(MPTTModel):
             description=self.description,
             asset_type=self.asset_type,
             contact=self.contact,
+            team=self.team,
             parent=kwargs.get('parent', self.parent)
         )
 

@@ -1,5 +1,7 @@
 from django.db import models
 
+from authentication.middleware.current_user import get_current_user
+
 
 class Team(models.Model):
     title = models.CharField(
@@ -10,7 +12,8 @@ class Team(models.Model):
         'authentication.User',
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        default=get_current_user
     )
     members = models.ManyToManyField(
         'authentication.User',

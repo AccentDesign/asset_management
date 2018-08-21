@@ -19,14 +19,17 @@
             {% include 'partials/header.html' %}
             {% block sidebar %}
                 <div class="sidenav">
+                    <a class="pull-right" href="{% url 'team-create' %}"><i class="icon-plus-circled"></i></a>
                     <h3>Teams</h3>
                     <ul class="nav">
                         {% for team in user.get_teams %}
                         <li>
                             <a href="/?team_pk={{ team.pk }}">{{ team }}</a>
-                            {% if team == request.user.activated_team %}
-                            <a class="pull-right"><i class="icon-ok-circled"></i></a>
-                            {% endif %}
+                            {% if team == request.user.activated_team %}<a class="pull-right"><i class="icon-ok-circled"></i></a>{% endif %}
+                        </li>
+                        {% empty %}
+                        <li>
+                            You are not a member of any teams, <a href="{% url 'team-create' %}">create one</a> to get started.
                         </li>
                         {% endfor %}
                     </ul>

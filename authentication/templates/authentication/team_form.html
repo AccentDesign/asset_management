@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags static %}
+{% block page_title %}Teams{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            {% include 'partials/object_intro_header.html' %}
+        </div>
+        {{ block.super }}
+        <div class="container-fluid">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <fieldset>
+                    {{ form }}
+                </fieldset>
+                <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

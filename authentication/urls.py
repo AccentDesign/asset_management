@@ -13,5 +13,6 @@ urlpatterns = [
          PasswordResetView.as_view(html_email_template_name='emails/password_reset_email.html'),
          name='password_reset'),
     path('my-profile/', views.ProfileUpdate.as_view(), name='my_profile'),
+    path('teams/create/', views.TeamCreate.as_view(), name='team-create'),
     path('', include('django.contrib.auth.urls')),
 ]

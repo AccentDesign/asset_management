@@ -10,4 +10,5 @@ docutils
 git+https://github.com/stuartaccent/images.git@master#egg=images
 psycopg2-binary
 python-dateutil
+raven
 uwsgi

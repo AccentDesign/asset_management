@@ -1,0 +1,135 @@
+-
+    model: authentication.user
+    pk: "bebe2f97-2f26-4aa9-9494-6f17966ffc24"
+    fields: {
+      email: "user1@example.com",
+      first_name: "User",
+      last_name: "One",
+      password: "pbkdf2_sha256$120000$Lm5F44xHBZBt$jWh6JwAVoU4A0iwpOxmwKVdo7hWqxtxzalBWkWa/hd0=",
+      is_active: true,
+      activated_team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c",
+      date_joined: "2018-01-01T00:00:00.000Z"
+    }
+
+-
+    model: authentication.user
+    pk: "920759d1-ce76-40b8-b702-28ace8f9c663"
+    fields: {
+      email: "user2@example.com",
+      first_name: "User",
+      last_name: "Two",
+      password: "pbkdf2_sha256$120000$Lm5F44xHBZBt$jWh6JwAVoU4A0iwpOxmwKVdo7hWqxtxzalBWkWa/hd0=",
+      is_active: true,
+      activated_team: "0d9cdca5-16f0-4128-95fd-24690a50695a",
+      date_joined: "2018-01-01T00:00:00.000Z"
+    }
+
+-
+    model: authentication.team
+    pk: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+    fields: {
+      title: "Team One",
+      admin: "bebe2f97-2f26-4aa9-9494-6f17966ffc24",
+      members: ["bebe2f97-2f26-4aa9-9494-6f17966ffc24"],
+      guests: [],
+      created_on: "2018-01-01T00:00:00.000Z"
+    }
+
+-
+    model: authentication.team
+    pk: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+    fields: {
+      title: "Team Two",
+      admin: "920759d1-ce76-40b8-b702-28ace8f9c663",
+      members: ["920759d1-ce76-40b8-b702-28ace8f9c663"],
+      guests: [],
+      created_on: "2018-01-01T00:00:00.000Z"
+    }
+
+-
+    model: assets.assettype
+    pk: "1bd257c8-babe-4393-b15c-79be926a5805"
+    fields: {
+      name: "Asset Type 1",
+      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+    }
+
+-
+    model: assets.assettype
+    pk: "fe8aa6e1-93b9-480e-bc82-fcce14b707f6"
+    fields: {
+      name: "Asset Type 1",
+      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+    }
+
+-
+    model: assets.taskpriority
+    pk: "9d75733b-acb8-47b1-a39d-6042c24661a6"
+    fields: {
+      name: "Priority 1",
+      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+    }
+
+-
+    model: assets.taskpriority
+    pk: "dd20bb92-d0ff-472b-8863-d3c58a872a7f"
+    fields: {
+      name: "Priority 1",
+      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+    }
+
+-
+    model: assets.tasktype
+    pk: "03630124-7745-422f-8024-549de2f613b1"
+    fields: {
+      name: "Task Type 1",
+      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+    }
+
+-
+    model: assets.tasktype
+    pk: "22f9d510-7ffc-4ed1-adf7-d511a79ecab1"
+    fields: {
+      name: "Task Type 1",
+      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+    }
+
+-
+    model: assets.contact
+    pk: "d7777b76-1e82-4adb-b98d-3961adec2f92"
+    fields: {
+      name: "Contact One",
+      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+    }
+
+-
+    model: assets.contact
+    pk: "aed93e06-a968-4a0d-87d0-c62528242f0d"
+    fields: {
+      name: "Contact One",
+      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+    }
+
+-
+    model: assets.note
+    pk: "57158a39-76ff-417e-8e3d-83ec0422e56b"
+    fields: {
+      title: "Note One",
+      content: "some text",
+      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c",
+      created_on: "2018-01-01T00:00:00.000Z",
+      updated_on: "2018-01-01T00:00:00.000Z",
+      user: "bebe2f97-2f26-4aa9-9494-6f17966ffc24"
+    }
+
+-
+    model: assets.note
+    pk: "24f899f6-3faa-4453-bad8-77d182032abf"
+    fields: {
+      title: "Note One",
+      content: "some text",
+      team: "0d9cdca5-16f0-4128-95fd-24690a50695a",
+      created_on: "2018-01-01T00:00:00.000Z",
+      updated_on: "2018-01-01T00:00:00.000Z",
+      user: "920759d1-ce76-40b8-b702-28ace8f9c663"
+    }

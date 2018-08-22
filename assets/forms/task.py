@@ -41,6 +41,10 @@ class TaskHistoryForm(forms.ModelForm):
             'task': forms.widgets.HiddenInput
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['task'].queryset = Task.objects
+
 
 class TaskListFilterForm(forms.Form):
     due_date = forms.DateField(

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.sessions.models import Session
+from reversion.admin import VersionAdmin
 
 from authentication.models import *
 
@@ -9,7 +10,7 @@ from authentication.models import *
 admin.site.register(Session)
 
 
-class TeamAdmin(admin.ModelAdmin):
+class TeamAdmin(VersionAdmin):
     list_display = ('__str__', 'admin', 'created_on', )
     filter_horizontal = ('members', 'guests', )
 
@@ -17,7 +18,7 @@ class TeamAdmin(admin.ModelAdmin):
 admin.site.register(Team, TeamAdmin)
 
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(VersionAdmin, BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_staff')

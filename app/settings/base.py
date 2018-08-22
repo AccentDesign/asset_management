@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'mptt',
     'oauth2_provider',
     'rest_framework',
+    'reversion',
     'simplemde',
     'storages',
 ]
@@ -51,7 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'authentication.middleware.current_user.CurrentUserMiddleware'
+    'authentication.middleware.current_user.CurrentUserMiddleware',
+    'reversion.middleware.RevisionMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'

@@ -4,6 +4,7 @@ django
 django-mptt
 git+https://github.com/onepill/django-simplemde.git@master#egg=simplemde
 django-oauth-toolkit
+django-reversion
 django-storages
 djangorestframework
 docutils

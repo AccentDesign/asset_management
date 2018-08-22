@@ -1,25 +1,27 @@
 from django.contrib import admin
 
 from mptt.admin import MPTTModelAdmin
+from reversion.admin import VersionAdmin
 
 from assets.models import *
 
 
-class AssetAdmin(MPTTModelAdmin):
+class AssetAdmin(VersionAdmin, MPTTModelAdmin):
     list_display = [
         '__str__',
         'task_count'
     ]
+    change_list_template = 'admin/mptt_reversion_change_list.html'
 
 
 admin.site.register(Asset, AssetAdmin)
-admin.site.register(AssetType)
-admin.site.register(Contact)
-admin.site.register(Note)
-admin.site.register(Status)
+admin.site.register(AssetType, VersionAdmin)
+admin.site.register(Contact, VersionAdmin)
+admin.site.register(Note, VersionAdmin)
+admin.site.register(Status, VersionAdmin)
 
 
-class TaskAdmin(admin.ModelAdmin):
+class TaskAdmin(VersionAdmin):
     list_display = [
         '__str__',
         'asset',
@@ -39,7 +41,7 @@ class TaskAdmin(admin.ModelAdmin):
 admin.site.register(Task, TaskAdmin)
 
 
-class TaskHistoryAdmin(admin.ModelAdmin):
+class TaskHistoryAdmin(VersionAdmin):
     list_display = [
         'task',
         'date',
@@ -53,5 +55,5 @@ class TaskHistoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TaskHistory, TaskHistoryAdmin)
-admin.site.register(TaskPriority)
-admin.site.register(TaskType)
+admin.site.register(TaskPriority, VersionAdmin)
+admin.site.register(TaskType, VersionAdmin)

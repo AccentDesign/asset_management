@@ -15,6 +15,7 @@ RUN         set -ex \
                 libjpeg62-turbo-dev \
                 libpq-dev \
                 postgresql-client \
+                supervisor \
             --no-install-recommends \
             && rm -rf /var/lib/apt/lists/ \
             && pip install --no-cache-dir -r $REQUIREMENTS_FILE
@@ -59,5 +60,5 @@ ENV         DJANGO_MANAGEPY_MIGRATE=on \
 
 ENTRYPOINT  ["/code/docker-entrypoint.sh"]
 
-# Start uWSGI:
-CMD         ["uwsgi", "--http-auto-chunked", "--http-keepalive"]
+# Start supervisord:
+CMD ["supervisord", "-c", "/code/supervisord.conf"]

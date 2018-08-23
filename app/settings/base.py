@@ -3,7 +3,7 @@ from os.path import join
 
 from django.urls import reverse_lazy
 
-from .helpers import BASE_DIR
+from .helpers import BASE_DIR, huey_eager
 
 
 # Security
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'assets',
     'authentication',
 
+    'huey.contrib.djhuey',
     'images',
     'mptt',
     'oauth2_provider',
@@ -171,6 +172,41 @@ AWS_QUERYSTRING_EXPIRE = 3600
 AWS_S3_FILE_OVERWRITE = False
 AWS_IS_GZIPPED = True
 AWS_AUTO_CREATE_BUCKET = True
+
+
+# huey
+
+HUEY = {
+    'name': 'asset-management',
+    'result_store': True,
+    'events': True,
+    'store_none': False,
+    'always_eager': huey_eager(),
+    'store_errors': True,
+    'blocking': False,
+    'backend_class': 'huey.RedisHuey',
+    'connection': {
+        'host': 'redis',
+        'port': 6379,
+        'db': 0,
+        'connection_pool': None,
+        'read_timeout': 1,
+        'max_errors': 1000,
+        'url': None,
+    },
+    'consumer': {
+        'workers': 1,
+        'worker_type': 'thread',
+        'initial_delay': 0.1,
+        'backoff': 1.15,
+        'max_delay': 10.0,
+        'utc': True,
+        'scheduler_interval': 1,
+        'periodic': True,
+        'check_worker_health': True,
+        'health_check_interval': 1,
+    },
+}
 
 
 # Rest Framework

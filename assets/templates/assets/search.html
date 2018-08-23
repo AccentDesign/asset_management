@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load app_tags i18n %}
+{% load app_tags i18n mptt_tags %}
 {% block page_title %}Search Results{% endblock %}
 {% block body_class %}{% endblock %}
 {% block sidebar %}{{ block.super }}{% endblock %}
@@ -20,7 +20,12 @@
             <tbody>
                 {% for ob in object_list %}
                 <tr class="pointer">
-                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                    <td>
+                        <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
+                        {% if ob|klass == 'Asset' %}
+                            <br><span class="small muted">{{ ob.get_ancestors|tree_path:" > " }}</span>
+                        {% endif %}
+                    </td>
                     <td class="nowrap">{{ ob|klass }}</td>
                 </tr>
                 {% empty %}

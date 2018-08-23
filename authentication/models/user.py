@@ -109,9 +109,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         from authentication.models import Team
 
-        administered = Team.objects.filter(admin=self)
-        member_of = Team.objects.filter(members=self)
-        guest_of = Team.objects.filter(guests=self)
-        teams = administered | member_of | guest_of
-
-        return teams.distinct().order_by('title')
+        return (
+            Team.objects
+            .filter(models.Q(admin=self) | models.Q(members=self) | models.Q(guests=self))
+            .distinct()
+            .order_by('title')
+        )

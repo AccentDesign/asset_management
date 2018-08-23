@@ -21,7 +21,6 @@ class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = AssetForm
     formset_class = AssetTaskFormset
     success_message = 'created successfully'
-    success_url = reverse_lazy('assets:asset-list')
 
     def get_formset(self, **kwargs):
         return self.formset_class(**kwargs)
@@ -71,7 +70,6 @@ class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = AssetForm
     formset_class = AssetTaskFormset
     success_message = 'updated successfully'
-    success_url = reverse_lazy('assets:asset-list')
 
     def get_formset(self, **kwargs):
         return self.formset_class(**kwargs)

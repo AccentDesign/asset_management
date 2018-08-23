@@ -70,10 +70,9 @@
                     {% endif %}
                 </div>
             {% endblock %}
-            {% block inner_content %}
-                {% include 'partials/messages.html' %}
-            {% endblock %}
+            {% block inner_content %}{% endblock %}
             {% include 'partials/footer.html' %}
+            {% include 'partials/messages.html' %}
         {% endblock %}
         <script src="{% static 'dist/js/generic.js' %}"></script>
         {% block extra_js %}{% endblock %}

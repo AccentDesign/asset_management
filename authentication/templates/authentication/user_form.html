@@ -8,7 +8,6 @@
         <div class="main-info">
             <h2>{% trans 'My Profile' %}</h2>
         </div>
-        {{ block.super }}
         <div class="container-fluid">
             <form enctype="multipart/form-data" method="post" novalidate>
                 {% csrf_token %}

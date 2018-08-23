@@ -11,7 +11,6 @@
                 <div class="small muted">Root > {{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}
         </div>
-        {{ block.super }}
         <div class="container-fluid">
             <p>
                 {% blocktrans with ob=asset %}Please choose the asset in which <em>"{{ ob }}"</em> will be copied into.

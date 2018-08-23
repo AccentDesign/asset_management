@@ -2,9 +2,8 @@
 {% load i18n static tz %}
 {% block page_title %}Tasks{% endblock %}
 {% block body_class %}{% endblock %}
-{% block sidebar %}
-    {{ block.super }}
-{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
@@ -20,7 +19,6 @@
             </form>
             <h2>{% trans 'Tasks' %}</h2>
         </div>
-        {{ block.super }}
         <table class="table-hover">
             <thead>
                 <tr>

@@ -29,7 +29,7 @@
             {% for ob in object_list %}
             <div class="row data-row">
                 <div class="col-6"><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></div>
-                <div class="col-4">{{ ob.asset_type }}</div>
+                <div class="col-4">{{ ob.asset_type|default_if_none:'-' }}</div>
                 <div class="col-2">{{ ob.task_count|default:'-' }}</div>
             </div>
             {% empty %}

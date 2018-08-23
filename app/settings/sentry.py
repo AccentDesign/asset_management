@@ -39,6 +39,11 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
+        'huey': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False
+        },
         'raven': {
             'level': 'DEBUG',
             'handlers': ['console'],

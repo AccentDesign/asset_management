@@ -9,7 +9,9 @@ django-storages
 djangorestframework
 docutils
 git+https://github.com/stuartaccent/images.git@master#egg=images
+huey[backends]
 psycopg2-binary
 python-dateutil
 raven
+redis
 uwsgi

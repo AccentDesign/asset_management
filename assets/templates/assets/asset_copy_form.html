@@ -8,7 +8,7 @@
         <div class="main-info">
             <h2>{% trans 'Copy' %} <small class="muted">{{ asset }}</small></h2>
             {% if object %}
-                <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
+                <div class="small muted">Root > {{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}
         </div>
         {{ block.super }}

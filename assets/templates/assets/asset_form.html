@@ -13,7 +13,7 @@
             {% endif %}
             {% include 'partials/object_intro_header.html' %}
             {% if object %}
-                <div class="small muted">{{ object.get_ancestors|tree_path:" > " }}</div>
+                <div class="small muted">Root > {{ object.get_ancestors|tree_path:" > " }}</div>
             {% endif %}
         </div>
         <ul class="tabs">

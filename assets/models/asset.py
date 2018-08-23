@@ -90,6 +90,9 @@ class Asset(MPTTModel):
     def get_absolute_url(self):
         return reverse_lazy('assets:asset-update', kwargs={'pk': self.pk})
 
+    def get_nodes_url(self):
+        return reverse_lazy('assets:asset-list-nodes', kwargs={'pk': self.pk})
+
     @property
     def task_count(self):
         """ Returns the count of tasks for this asset from AssetManager.get_queryset """

@@ -14,9 +14,7 @@
 
   h2 {
     line-height: $input-height;
+    margin-bottom: 0;
   }
 
-  * {
-    margin-bottom: 0 !important;
-  }
 }

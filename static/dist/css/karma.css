@@ -1845,7 +1845,7 @@ ul.radios input[type=radio] + span:after {
 
 /* '' */
 .button.button-xs {
-  padding: 0;
+  padding: 0 .4rem;
 }
 
 .button.button-xl {
@@ -2018,10 +2018,7 @@ header {
 
 .main-info h2 {
   line-height: calc(3.55rem + 2px);
-}
-
-.main-info * {
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
 }
 
 .panel {
@@ -2054,6 +2051,17 @@ header {
 
 td {
   vertical-align: middle;
+}
+
+.header-row {
+  padding-top: .8rem;
+  padding-bottom: .8rem;
+}
+
+.data-row {
+  border-top: solid 1px #e6e6e6;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
 }
 
 .tabs {
@@ -2111,6 +2119,14 @@ td {
 
 .w-1 {
   width: 1px;
+}
+
+.pb-zero {
+  padding-bottom: 0;
+}
+
+.mb-xs {
+  margin-bottom: .75rem;
 }
 
 .mb-sm {

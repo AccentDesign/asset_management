@@ -18,8 +18,9 @@ router.register(r'task-types', api.TaskTypeViewSet)
 app_name = 'assets'
 
 urlpatterns = [
-    path('assets/', views.AssetList.as_view(), name='asset-list'),
+    path('assets/', views.AssetRootList.as_view(), name='asset-list'),
     path('assets/create/', views.AssetCreate.as_view(), name='asset-create'),
+    path('assets/<uuid:pk>/nodes/', views.AssetNodeList.as_view(), name='asset-list-nodes'),
     path('assets/<uuid:pk>/update/', views.AssetUpdate.as_view(), name='asset-update'),
     path('assets/<uuid:pk>/delete/', views.AssetDelete.as_view(), name='asset-delete'),
     path('assets/<uuid:pk>/copy/', views.AssetCopy.as_view(), name='asset-copy'),

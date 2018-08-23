@@ -4,3 +4,16 @@
 td {
   vertical-align: middle;
 }
+
+// row data
+
+.header-row {
+  padding-top: .8rem;
+  padding-bottom: .8rem;
+}
+
+.data-row {
+  border-top: solid 1px $border-color;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
+}

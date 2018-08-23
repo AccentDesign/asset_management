@@ -111,7 +111,7 @@ class TestModel(AppTestCase):
 
     def test_asset_type(self):
         field = Asset._meta.get_field('asset_type')
-        self.assertModelPKField(field, AssetType, on_delete=models.PROTECT)
+        self.assertModelPKField(field, AssetType, null=True, blank=True, on_delete=models.SET_NULL)
 
     def test_contact(self):
         field = Asset._meta.get_field('contact')

@@ -57,7 +57,9 @@ class Asset(MPTTModel):
     )
     asset_type = models.ForeignKey(
         'assets.AssetType',
-        on_delete=models.PROTECT
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
     )
     contact = models.ForeignKey(
         'assets.Contact',

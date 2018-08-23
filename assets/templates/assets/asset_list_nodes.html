@@ -27,7 +27,7 @@
                     <a class="button button-primary button-xs uppercase" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Add Child Asset' %}</a>
                     <a class="button button-googleplus button-xs uppercase" href="{% url 'assets:asset-delete' object.pk %}">{% trans 'Delete' %}</a>
                 </div>
-                <div class="col-4 muted">{{ object.asset_type }}</div>
+                <div class="col-4 muted">{{ object.asset_type|default_if_none:'-' }}</div>
                 <div class="col-2 muted">{{ object.task_count|default:'-' }}</div>
             </div>
         </div>
@@ -40,7 +40,7 @@
             {% for ob in object.children.all %}
             <div class="row data-row">
                 <div class="col-6"><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></div>
-                <div class="col-4">{{ ob.asset_type }}</div>
+                <div class="col-4">{{ ob.asset_type|default_if_none:'-' }}</div>
                 <div class="col-2">{{ ob.task_count|default:'-' }}</div>
             </div>
             {% empty %}

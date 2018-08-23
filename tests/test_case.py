@@ -1,7 +1,8 @@
 from django.db import models
 from django.test import TestCase
 
-from authentication.models import User
+from assets.models import Asset
+from authentication.models import User, Team
 
 
 class AppTestCase(TestCase):
@@ -41,3 +42,29 @@ class AppTestCase(TestCase):
 
         if related_name:
             self.assertEqual(field.remote_field.related_name, related_name)
+
+    # qs helpers
+
+    @property
+    def team1(self):
+        return Team.objects.get(pk='8b52b24a-84c9-40ff-9d19-e09845e1a44c')
+
+    @property
+    def team2(self):
+        return Team.objects.get(pk='0d9cdca5-16f0-4128-95fd-24690a50695a')
+
+    @property
+    def team1_asset(self):
+        return Asset.objects.get_or_create(
+            name='Root Asset',
+            asset_type=self.team1.assettype_set.first(),
+            team=self.team1
+        )[0]
+
+    @property
+    def team2_asset(self):
+        return Asset.objects.get_or_create(
+            name='Root Asset',
+            asset_type=self.team2.assettype_set.first(),
+            team=self.team2
+        )[0]

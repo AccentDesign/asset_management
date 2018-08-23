@@ -99,7 +99,10 @@ class Asset(MPTTModel):
     def task_count(self):
         """ Returns the count of tasks for this asset from AssetManager.get_queryset """
 
-        return getattr(self, 'qs_task_count', None)
+        if hasattr(self, 'qs_task_count'):
+            return getattr(self, 'qs_task_count')
+
+        return self.tasks.count()
 
     def copy(self, **kwargs):
         """ Copy this asset and it's tasks """

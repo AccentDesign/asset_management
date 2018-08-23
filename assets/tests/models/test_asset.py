@@ -19,10 +19,6 @@ from tests.test_case import AppTestCase
 class TestManager(AppTestCase):
     fixtures = ['tests/fixtures/test.yaml']
 
-    def setUp(self):
-        self.team1 = Team.objects.get(pk='8b52b24a-84c9-40ff-9d19-e09845e1a44c')
-        self.team2 = Team.objects.get(pk='0d9cdca5-16f0-4128-95fd-24690a50695a')
-
     def test_inheritance(self):
         self.assertTrue(issubclass(AssetManager, TreeManager))
 
@@ -79,16 +75,6 @@ class TestManager(AppTestCase):
 class TestModel(AppTestCase):
     fixtures = ['tests/fixtures/test.yaml']
 
-    def setUp(self):
-        self.team = Team.objects.get(pk='8b52b24a-84c9-40ff-9d19-e09845e1a44c')
-        self.asset = Asset.objects.create(
-            name='Root Asset',
-            description='Some description',
-            asset_type_id='1bd257c8-babe-4393-b15c-79be926a5805',
-            contact_id='d7777b76-1e82-4adb-b98d-3961adec2f92',
-            team=self.team
-        )
-
     def test_inheritance(self):
         self.assertTrue(issubclass(Asset, MPTTModel))
 
@@ -131,53 +117,53 @@ class TestModel(AppTestCase):
     # properties
 
     def test_str(self):
-        self.assertEqual(self.asset.__str__(), 'Root Asset')
+        self.assertEqual(self.team1_asset.__str__(), 'Root Asset')
 
     def test_absolute_url(self):
         self.assertEqual(
-            self.asset.get_absolute_url(),
-            reverse('assets:asset-update', kwargs={'pk': self.asset.pk})
+            self.team1_asset.get_absolute_url(),
+            reverse('assets:asset-update', kwargs={'pk': self.team1_asset.pk})
         )
 
     def test_nodes_url(self):
         self.assertEqual(
-            self.asset.get_nodes_url(),
-            reverse('assets:asset-list-nodes', kwargs={'pk': self.asset.pk})
+            self.team1_asset.get_nodes_url(),
+            reverse('assets:asset-list-nodes', kwargs={'pk': self.team1_asset.pk})
         )
 
     def test_task_count(self):
-        self.assertEqual(Asset.objects.first().task_count, 0)
+        self.assertEqual(self.team1_asset.task_count, 0)
 
         Task.objects.create(
-            asset=self.asset,
+            asset=self.team1_asset,
             name='Task',
             task_type_id='03630124-7745-422f-8024-549de2f613b1',
             initial_due_date=datetime.today().date()
         )
 
-        self.assertEqual(Asset.objects.first().task_count, 1)
+        self.assertEqual(self.team1_asset.task_count, 1)
 
     def test_copy(self):
         Task.objects.create(
-            asset=self.asset,
+            asset=self.team1_asset,
             name='Task',
             task_type_id='03630124-7745-422f-8024-549de2f613b1',
             initial_due_date=datetime.today().date()
         )
 
-        copied = self.asset.copy(name='Foo', parent=self.asset)
+        copied = self.team1_asset.copy(name='Foo', parent=self.team1_asset)
 
         self.assertEqual(Asset.objects.count(), 2)
 
         # copied under the chosen asset with chosen name
         self.assertEqual(copied.name, 'Foo')
-        self.assertEqual(copied.parent, self.asset)
+        self.assertEqual(copied.parent, self.team1_asset)
 
         # other details remain the same
-        self.assertEqual(copied.description, self.asset.description)
-        self.assertEqual(copied.asset_type, self.asset.asset_type)
-        self.assertEqual(copied.contact, self.asset.contact)
-        self.assertEqual(copied.team, self.asset.team)
+        self.assertEqual(copied.description, self.team1_asset.description)
+        self.assertEqual(copied.asset_type, self.team1_asset.asset_type)
+        self.assertEqual(copied.contact, self.team1_asset.contact)
+        self.assertEqual(copied.team, self.team1_asset.team)
 
         # ensure tasks exist
         self.assertEqual(copied.tasks.count(), 1)

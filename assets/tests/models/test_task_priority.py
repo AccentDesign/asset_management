@@ -14,10 +14,6 @@ from tests.test_case import AppTestCase
 class TestManager(AppTestCase):
     fixtures = ['tests/fixtures/test.yaml']
 
-    def setUp(self):
-        self.team1 = Team.objects.get(pk='8b52b24a-84c9-40ff-9d19-e09845e1a44c')
-        self.team2 = Team.objects.get(pk='0d9cdca5-16f0-4128-95fd-24690a50695a')
-
     def test_default_manager(self):
         self.assertTrue(isinstance(TaskPriority._default_manager, TaskPriorityManager))
 

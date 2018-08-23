@@ -1,9 +1,7 @@
 {% if messages %}
-<div class="container-fluid">
-    <ul class="list-style-none">
-        {% for message in messages %}
-        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-</div>
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
 {% endif %}

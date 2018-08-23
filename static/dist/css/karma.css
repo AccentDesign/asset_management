@@ -1845,7 +1845,7 @@ ul.radios input[type=radio] + span:after {
 
 /* '' */
 .button.button-xs {
-  padding: 0;
+  padding: 0 .4rem;
 }
 
 .button.button-xl {
@@ -2004,6 +2004,7 @@ header {
   margin-left: 20rem;
   min-height: 100vh;
   padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .main-info {
@@ -2018,10 +2019,21 @@ header {
 
 .main-info h2 {
   line-height: calc(3.55rem + 2px);
+  margin-bottom: 0;
 }
 
-.main-info * {
-  margin-bottom: 0 !important;
+.messages {
+  position: fixed;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  list-style-type: none;
+  margin-bottom: 0;
+}
+
+.messages li:last-child {
+  margin-bottom: 0;
 }
 
 .panel {
@@ -2040,7 +2052,7 @@ header {
   height: 100%;
   width: 20rem;
   overflow-x: hidden;
-  padding: 9rem 2rem 0 2rem;
+  padding: 9rem 2rem 6rem 2rem;
 }
 
 .sidenav .nav {
@@ -2054,6 +2066,17 @@ header {
 
 td {
   vertical-align: middle;
+}
+
+.header-row {
+  padding-top: .8rem;
+  padding-bottom: .8rem;
+}
+
+.data-row {
+  border-top: solid 1px #e6e6e6;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
 }
 
 .tabs {
@@ -2111,6 +2134,14 @@ td {
 
 .w-1 {
   width: 1px;
+}
+
+.pb-zero {
+  padding-bottom: 0;
+}
+
+.mb-xs {
+  margin-bottom: .75rem;
 }
 
 .mb-sm {

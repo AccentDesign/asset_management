@@ -3,7 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView, DetailView
 from mptt.exceptions import InvalidMove
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
@@ -12,8 +12,17 @@ from assets.models import Asset
 from authentication.views.mixins import ActivatedTeamRequiredMixin
 
 
-class AssetList(ActivatedTeamRequiredMixin, ListView):
+class AssetRootList(ActivatedTeamRequiredMixin, ListView):
     model = Asset
+
+    def get_queryset(self):
+        qs = super().get_queryset().filter(parent__isnull=True)
+        return qs
+
+
+class AssetNodeList(ActivatedTeamRequiredMixin, DetailView):
+    model = Asset
+    template_name = 'assets/asset_list_nodes.html'
 
 
 class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
@@ -64,6 +73,11 @@ class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)
 
+    def get_success_url(self):
+        if self.object.is_child_node():
+            return self.object.parent.get_nodes_url()
+        return reverse_lazy('assets:asset-list')
+
 
 class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
@@ -113,10 +127,18 @@ class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
         context = self.get_context_data(form=form, formset=formset)
         return self.render_to_response(context)
 
+    def get_success_url(self):
+        return self.object.get_nodes_url()
+
 
 class AssetDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = Asset
     success_url = reverse_lazy('assets:asset-list')
+
+    def get_success_url(self):
+        if self.object.is_child_node():
+            return self.object.parent.get_nodes_url()
+        return reverse_lazy('assets:asset-list')
 
 
 class AssetCopy(ActivatedTeamRequiredMixin, SuccessMessageMixin, FormView):

@@ -6,6 +6,7 @@
   margin-left: 20rem;
   min-height: 100vh;
   padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .main-info {
@@ -14,9 +15,7 @@
 
   h2 {
     line-height: $input-height;
+    margin-bottom: 0;
   }
 
-  * {
-    margin-bottom: 0 !important;
-  }
 }

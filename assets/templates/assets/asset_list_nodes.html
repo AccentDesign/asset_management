@@ -8,16 +8,27 @@
         <div class="main-info pb-zero">
             <div class="row mb-xs">
                 <div class="col">
-                    <h2>Assets</h2>
-                    <div class="small muted">Root</div>
+                    <h2>{{ object }}</h2>
+                    {% if object.is_child_node %}
+                        <div class="small muted">Root > {{ object.get_ancestors|tree_path:" > " }}</div>
+                    {% else %}
+                        <div class="small muted">Root</div>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    <a class="button button-primary button-xs uppercase" href="{% url 'assets:asset-create' %}">{% trans 'Add Asset' %}</a>
+                    {% if object.is_child_node %}
+                        <a class="button button-primary button-xs uppercase" href="{{ object.parent.get_nodes_url }}">{% trans 'Back' %}</a>
+                    {% else %}
+                        <a class="button button-primary button-xs uppercase" href="{% url 'assets:asset-list' %}">{% trans 'Back' %}</a>
+                    {% endif %}
+                    <a class="button button-primary button-xs uppercase" href="{% url 'assets:asset-update' object.pk %}">{% trans 'Edit' %}</a>
+                    <a class="button button-primary button-xs uppercase" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'Add Child Asset' %}</a>
+                    <a class="button button-googleplus button-xs uppercase" href="{% url 'assets:asset-delete' object.pk %}">{% trans 'Delete' %}</a>
                 </div>
-                <div class="col-4 muted"></div>
-                <div class="col-2 muted"></div>
+                <div class="col-4 muted">{{ object.asset_type }}</div>
+                <div class="col-2 muted">{{ object.task_count|default:'-' }}</div>
             </div>
         </div>
         <div class="container-fluid">
@@ -26,7 +37,7 @@
                 <div class="col-4 strong">{% trans 'Type' %}</div>
                 <div class="col-2 strong">{% trans 'Tasks' %}</div>
             </div>
-            {% for ob in object_list %}
+            {% for ob in object.children.all %}
             <div class="row data-row">
                 <div class="col-6"><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></div>
                 <div class="col-4">{{ ob.asset_type }}</div>

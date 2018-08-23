@@ -139,6 +139,12 @@ class TestModel(AppTestCase):
             reverse('assets:asset-update', kwargs={'pk': self.asset.pk})
         )
 
+    def test_nodes_url(self):
+        self.assertEqual(
+            self.asset.get_nodes_url(),
+            reverse('assets:asset-list-nodes', kwargs={'pk': self.asset.pk})
+        )
+
     def test_task_count(self):
         self.assertEqual(Asset.objects.first().task_count, 0)
 

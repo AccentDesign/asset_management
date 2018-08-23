@@ -75,8 +75,14 @@ class TaskManager(models.Manager):
         return (
             self.get_queryset()
             .filter(**filters)
-            .select_related('asset', 'assigned_to')
-            .order_by('due_date')
+            .select_related(
+                'asset',
+                'assigned_to',
+                'task_priority'
+            )
+            .order_by(
+                'due_date'
+            )
         )
 
 

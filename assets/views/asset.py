@@ -16,13 +16,29 @@ class AssetRootList(ActivatedTeamRequiredMixin, ListView):
     model = Asset
 
     def get_queryset(self):
-        qs = super().get_queryset().filter(parent__isnull=True)
-        return qs
+        return (
+            super().get_queryset()
+            .filter(parent__isnull=True)
+            .select_related(
+                'asset_type'
+            )
+        )
 
 
 class AssetNodeList(ActivatedTeamRequiredMixin, DetailView):
     model = Asset
     template_name = 'assets/asset_list_nodes.html'
+
+    def get_queryset(self):
+        return (
+            super().get_queryset()
+            .select_related(
+                'asset_type'
+            )
+            .prefetch_related(
+                'children__asset_type'
+            )
+        )
 
 
 class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):

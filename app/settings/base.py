@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'huey.contrib.djhuey',
     'images',
     'mptt',
-    'oauth2_provider',
-    'rest_framework',
     'reversion',
     'simplemde',
     'storages',
@@ -206,29 +204,6 @@ HUEY = {
         'check_worker_health': True,
         'health_check_interval': 1,
     },
-}
-
-
-# Rest Framework
-
-REST_FRAMEWORK = {
-    'COERCE_DECIMAL_TO_STRING': False,
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.MultiPartParser',
-        'rest_framework.parsers.FileUploadParser',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
 }
 
 

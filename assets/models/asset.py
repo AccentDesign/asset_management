@@ -81,7 +81,8 @@ class Asset(MPTTModel):
         default=get_current_team
     )
 
-    objects = AssetManager()
+    for_team = AssetManager()
+    objects = TreeManager()
 
     class MPTTMeta:
         order_insertion_by = ['name']

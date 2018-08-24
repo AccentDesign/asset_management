@@ -3,9 +3,17 @@ import uuid
 from django.db import models
 
 from assets.models import Status, Task, TaskHistory
+from assets.models.task_history import TaskHistoryManager
 from authentication.middleware.current_user import get_current_user
 from authentication.models import User
 from tests.test_case import AppTestCase
+
+
+class TestManager(AppTestCase):
+    fixtures = ['tests/fixtures/test.yaml']
+
+    def test_default_manager(self):
+        self.assertTrue(isinstance(TaskHistory._default_manager, TaskHistoryManager))
 
 
 class TestModel(AppTestCase):

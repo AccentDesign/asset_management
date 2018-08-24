@@ -19,12 +19,12 @@ class TestManager(AppTestCase):
 
     def test_queryset_filters_by_team(self):
         with mock.patch('assets.models.contact.get_current_team', return_value=self.team1):
-            qs = Contact.objects.get_queryset()
+            qs = Contact.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team1)
 
         with mock.patch('assets.models.contact.get_current_team', return_value=self.team2):
-            qs = Contact.objects.get_queryset()
+            qs = Contact.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team2)
 
@@ -33,18 +33,18 @@ class TestManager(AppTestCase):
 
         with mock.patch('assets.models.contact.get_current_team', return_value=self.team1):
             # blank returns all results
-            self.assertEqual(Contact.objects.search('').count(), 1)
+            self.assertEqual(Contact.for_team.search('').count(), 1)
 
             # found for team one when active
             for term in search_terms:
-                self.assertEqual(Contact.objects.search(term).count(), 1)
+                self.assertEqual(Contact.for_team.search(term).count(), 1)
 
         Contact.objects.filter(team=self.team2).delete()
 
         with mock.patch('assets.models.contact.get_current_team', return_value=self.team2):
             # not found for team two as not their asset
             for term in search_terms:
-                self.assertEqual(Contact.objects.search(term).count(), 0)
+                self.assertEqual(Contact.for_team.search(term).count(), 0)
 
 
 class TestModel(AppTestCase):

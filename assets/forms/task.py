@@ -24,9 +24,9 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['task_type'].queryset = TaskType.objects
         self.fields['assigned_to'].queryset = get_current_team().members
-        self.fields['task_priority'].queryset = TaskPriority.objects
+        self.fields['task_priority'].queryset = TaskPriority.for_team
+        self.fields['task_type'].queryset = TaskType.for_team
 
 
 class TaskHistoryForm(forms.ModelForm):
@@ -43,7 +43,7 @@ class TaskHistoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['task'].queryset = Task.objects
+        self.fields['task'].queryset = Task.for_team
 
 
 class TaskListFilterForm(forms.Form):

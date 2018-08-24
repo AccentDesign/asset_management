@@ -19,12 +19,12 @@ class TestManager(AppTestCase):
 
     def test_queryset_filters_by_team(self):
         with mock.patch('assets.models.task_priority.get_current_team', return_value=self.team1):
-            qs = TaskPriority.objects.get_queryset()
+            qs = TaskPriority.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team1)
 
         with mock.patch('assets.models.task_priority.get_current_team', return_value=self.team2):
-            qs = TaskPriority.objects.get_queryset()
+            qs = TaskPriority.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team2)
 

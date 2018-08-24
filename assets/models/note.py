@@ -70,7 +70,8 @@ class Note(models.Model):
         default=get_current_team
     )
 
-    objects = NoteManager()
+    for_team = NoteManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['title']

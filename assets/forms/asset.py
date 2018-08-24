@@ -14,9 +14,9 @@ class AssetForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['asset_type'].queryset = AssetType.objects
-        self.fields['contact'].queryset = Contact.objects
-        self.fields['parent'].queryset = Asset.objects
+        self.fields['asset_type'].queryset = AssetType.for_team
+        self.fields['contact'].queryset = Contact.for_team
+        self.fields['parent'].queryset = Asset.for_team
 
     def save(self, commit=True):
         try:
@@ -33,14 +33,14 @@ class AssetCopyForm(forms.Form):
         help_text='Enter a new name for the asset.'
     )
     parent_asset = TreeNodeChoiceField(
-        queryset=Asset.objects,
+        queryset=Asset.for_team,
         required=False,
         help_text='Leave blank to make this a top level asset.'
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['parent_asset'].queryset = Asset.objects
+        self.fields['parent_asset'].queryset = Asset.for_team
 
 
 AssetTaskFormset = forms.inlineformset_factory(

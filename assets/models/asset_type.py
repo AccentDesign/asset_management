@@ -36,7 +36,8 @@ class AssetType(models.Model):
         default=get_current_team
     )
 
-    objects = AssetTypeManager()
+    for_team = AssetTypeManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['name']

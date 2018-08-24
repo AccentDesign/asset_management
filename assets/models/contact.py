@@ -76,7 +76,8 @@ class Contact(models.Model):
         default=get_current_team
     )
 
-    objects = ContactManager()
+    for_team = ContactManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['name']

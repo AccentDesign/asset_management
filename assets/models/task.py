@@ -146,7 +146,8 @@ class Task(models.Model):
         editable=False
     )
 
-    objects = TaskManager()
+    for_team = TaskManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['name']

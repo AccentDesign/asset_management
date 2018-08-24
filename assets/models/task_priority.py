@@ -36,7 +36,8 @@ class TaskPriority(models.Model):
         default=get_current_team
     )
 
-    objects = TaskPriorityManager()
+    for_team = TaskPriorityManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['name']

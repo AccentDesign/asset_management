@@ -4,7 +4,21 @@ from django.db import models, transaction
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from authentication.middleware.current_user import get_current_user
+from authentication.middleware.current_user import get_current_user, get_current_team
+
+
+class TaskHistoryManager(models.Manager):
+    def get_queryset(self):
+        """ Returns the base queryset with additional properties """
+
+        qs = super().get_queryset()
+
+        team = get_current_team()
+
+        if team:
+            qs = qs.filter(task__asset__team=team)
+
+        return qs
 
 
 class TaskHistory(models.Model):
@@ -37,6 +51,9 @@ class TaskHistory(models.Model):
     date = models.DateTimeField(
         auto_now_add=True
     )
+
+    for_team = TaskHistoryManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['-date']

@@ -23,14 +23,14 @@ class TaskList(ActivatedTeamRequiredMixin, ListView):
         filters = self.get_filter_form()
 
         if filters.is_valid():
-            queryset = Task.objects.due_by_date(
+            qs = Task.for_team.due_by_date(
                 date=filters.cleaned_data['due_date'],
                 assigned_to=filters.cleaned_data.get('assigned_to')
             )
         else:
-            queryset = Task.objects.due_by_date()
+            qs = Task.for_team.due_by_date()
 
-        return queryset
+        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

@@ -21,10 +21,10 @@ class SearchView(ListView):
         query = self.request.GET.get('q')
 
         if query:
-            asset_results = models.Asset.objects.search(query)
-            contact_results = models.Contact.objects.search(query)
-            task_results = models.Task.objects.search(query)
-            note_results = models.Note.objects.search(query)
+            asset_results = models.Asset.for_team.search(query)
+            contact_results = models.Contact.for_team.search(query)
+            task_results = models.Task.for_team.search(query)
+            note_results = models.Note.for_team.search(query)
             queryset_chain = chain(
                 asset_results,
                 contact_results,

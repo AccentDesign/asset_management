@@ -34,12 +34,12 @@ class TestManager(AppTestCase):
         )
 
         with mock.patch('assets.models.task.get_current_team', return_value=self.team1):
-            qs = Task.objects.get_queryset()
+            qs = Task.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().asset.team, self.team1)
 
         with mock.patch('assets.models.task.get_current_team', return_value=self.team2):
-            qs = Task.objects.get_queryset()
+            qs = Task.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().asset.team, self.team2)
 
@@ -55,16 +55,16 @@ class TestManager(AppTestCase):
 
         with mock.patch('assets.models.task.get_current_team', return_value=self.team1):
             # blank returns all results
-            self.assertEqual(Task.objects.search('').count(), 1)
+            self.assertEqual(Task.for_team.search('').count(), 1)
 
             # found for team one when active
             for term in search_terms:
-                self.assertEqual(Task.objects.search(term).count(), 1)
+                self.assertEqual(Task.for_team.search(term).count(), 1)
 
         with mock.patch('assets.models.task.get_current_team', return_value=self.team2):
             # not found for team two as not their task
             for term in search_terms:
-                self.assertEqual(Task.objects.search(term).count(), 0)
+                self.assertEqual(Task.for_team.search(term).count(), 0)
 
 
 class TestModel(AppTestCase):

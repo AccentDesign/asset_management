@@ -36,7 +36,8 @@ class TaskType(models.Model):
         default=get_current_team
     )
 
-    objects = TaskTypeManager()
+    for_team = TaskTypeManager()
+    objects = models.Manager()
 
     class Meta:
         ordering = ['name']

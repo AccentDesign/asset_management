@@ -1,7 +1,13 @@
+from datetime import datetime
+from io import BytesIO
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.test import TestCase
 
-from assets.models import Asset
+from PIL import Image
+
+from assets.models import Asset, AssetType, Task, TaskType
 from authentication.models import User, Team
 
 
@@ -55,16 +61,50 @@ class AppTestCase(TestCase):
 
     @property
     def team1_asset(self):
+        asset_type = AssetType.objects.get(team=self.team1)
         return Asset.objects.get_or_create(
             name='Root Asset',
-            asset_type=self.team1.assettype_set.first(),
+            asset_type=asset_type,
             team=self.team1
         )[0]
 
     @property
     def team2_asset(self):
+        asset_type = AssetType.objects.get(team=self.team2)
         return Asset.objects.get_or_create(
             name='Root Asset',
-            asset_type=self.team2.assettype_set.first(),
+            asset_type=asset_type,
             team=self.team2
         )[0]
+
+    @property
+    def team1_task(self):
+        task_type = TaskType.objects.get(team=self.team1)
+        return Task.objects.get_or_create(
+            name='Task 1',
+            task_type=task_type,
+            asset=self.team1_asset,
+            initial_due_date=datetime.today().date(),
+            assigned_to=self.team1.members.first()
+        )[0]
+
+    @property
+    def team2_task(self):
+        task_type = TaskType.objects.get(team=self.team2)
+        return Task.objects.get_or_create(
+            name='Task 1',
+            task_type=task_type,
+            asset=self.team2_asset,
+            initial_due_date=datetime.today().date(),
+            assigned_to=self.team2.members.first()
+        )[0]
+
+    def get_temporary_image(self):
+        io = BytesIO()
+        size = (100, 100)
+        color = (255, 0, 0)
+        image = Image.new("RGB", size, color)
+        image.save(io, format='PNG')
+        image_file = InMemoryUploadedFile(io, None, 'foo.png', 'png', io.__sizeof__(), None)
+        image_file.seek(0)
+        return image_file

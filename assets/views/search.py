@@ -2,9 +2,10 @@ from itertools import chain
 from django.views.generic import ListView
 
 from assets import models
+from authentication.views.mixins import ActivatedTeamRequiredMixin
 
 
-class SearchView(ListView):
+class SearchView(ActivatedTeamRequiredMixin, ListView):
     template_name = 'assets/search.html'
     paginate_by = 50
     count = 0

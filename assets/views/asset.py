@@ -80,8 +80,7 @@ class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
 
         # create success message
         success_message = self.get_success_message(form.cleaned_data)
-        if success_message:
-            messages.success(self.request, success_message)
+        messages.success(self.request, success_message)
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -134,8 +133,7 @@ class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
 
         # create success message
         success_message = self.get_success_message(form.cleaned_data)
-        if success_message:
-            messages.success(self.request, success_message)
+        messages.success(self.request, success_message)
 
         return HttpResponseRedirect(self.get_success_url())
 

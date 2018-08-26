@@ -99,6 +99,7 @@
     pk: "d7777b76-1e82-4adb-b98d-3961adec2f92"
     fields: {
       name: "Contact One",
+      address: "Norwich\nNR1",
       team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
     }
 
@@ -107,6 +108,7 @@
     pk: "aed93e06-a968-4a0d-87d0-c62528242f0d"
     fields: {
       name: "Contact One",
+      address: "Norwich\nNR1",
       team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     }
 

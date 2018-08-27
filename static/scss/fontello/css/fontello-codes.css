@@ -3,8 +3,5 @@
 .icon-plus-circled:before { content: '\e801'; } /* '' */
 .icon-calendar:before { content: '\e802'; } /* '' */
 .icon-user:before { content: '\e803'; } /* '' */
-.icon-flow-tree:before { content: '\e804'; } /* '' */
-.icon-level-down:before { content: '\e805'; } /* '' */
+.icon-right-open:before { content: '\e804'; } /* '' */
 .icon-ok-circled:before { content: '\e806'; } /* '' */
-.icon-angle-right:before { content: '\f105'; } /* '' */
-.icon-angle-down:before { content: '\f107'; } /* '' */

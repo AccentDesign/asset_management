@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.urls import reverse_lazy
 
 from authentication.middleware.current_user import get_current_user
 
@@ -41,3 +42,6 @@ class Team(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse_lazy('team-update', kwargs={'pk': self.pk})

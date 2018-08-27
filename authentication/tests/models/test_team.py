@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.urls import reverse
 
 from authentication.middleware.current_user import get_current_user
 from authentication.models import Team, User
@@ -45,3 +46,15 @@ class ModelTests(AppTestCase):
         self.assertModelField(field, models.DateTimeField, blank=True)
         self.assertFalse(field.editable)
         self.assertTrue(field.auto_now_add)
+
+    # properties
+
+    def test_str(self):
+        self.assertEqual(Team(title='Team 1').__str__(), 'Team 1')
+
+    def test_absolute_url(self):
+        pk = 'fe8aa6e1-93b9-480e-bc82-fcce14b707f6'
+        self.assertEqual(
+            Team(pk=pk).get_absolute_url(),
+            reverse('team-update', kwargs={'pk': pk})
+        )

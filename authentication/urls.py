@@ -12,5 +12,6 @@ urlpatterns = [
     path('teams/create/', views.TeamCreate.as_view(), name='team-create'),
     path('teams/<uuid:pk>/activate/', views.TeamActivate.as_view(), name='team-activate'),
     path('teams/<uuid:pk>/update/', views.TeamUpdate.as_view(), name='team-update'),
+    path('teams/<uuid:pk>/delete/', views.TeamDelete.as_view(), name='team-delete'),
     path('', include('django.contrib.auth.urls')),
 ]

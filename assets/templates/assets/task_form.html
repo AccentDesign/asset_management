@@ -7,7 +7,7 @@
     <div class="main">
         <div class="main-info">
             {% include 'partials/object_intro_header.html' %}
-            <div class="small muted">{{ object.asset.get_ancestors|tree_path:" > " }} > {{ object.asset }}</div>
+            {% include 'assets/partials/breadcrumb.html' with object=object.asset %}
         </div>
         <ul class="tabs">
             <li data-tab-id="detail" class="active">Detail</li>

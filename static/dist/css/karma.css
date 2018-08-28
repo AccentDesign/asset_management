@@ -2012,6 +2012,22 @@ header {
   margin-bottom: 0;
 }
 
+.breadcrumb {
+  list-style-type: none;
+  margin-bottom: 0;
+}
+
+.breadcrumb li {
+  display: inline-block;
+}
+
+.breadcrumb li + li:before {
+  position: relative;
+  display: inline-block;
+  content: ">";
+  padding: 0 .5rem 0 .4rem;
+}
+
 .alerts {
   position: fixed;
   top: 3rem;

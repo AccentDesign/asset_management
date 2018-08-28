@@ -22,7 +22,7 @@
                     <td>
                         {% if ob|klass == 'Asset' %}
                             <a href="{{ ob.get_nodes_url }}">{{ ob }}</a>
-                            <br><span class="small muted">Root > {{ ob.get_ancestors|tree_path:" > " }}</span>
+                            {% include 'assets/partials/breadcrumb.html' with object=ob %}
                         {% else %}
                             <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
                         {% endif %}

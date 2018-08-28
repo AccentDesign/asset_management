@@ -19,3 +19,17 @@
   }
 
 }
+
+.breadcrumb {
+  list-style-type: none;
+  margin-bottom: 0;
+
+  li {
+    display: inline-block;
+  }
+
+  li + li:before {
+    @include pseudo($display: inline-block, $pos: relative, $content: ">");
+    padding: 0 .5rem 0 .4rem;
+  }
+}

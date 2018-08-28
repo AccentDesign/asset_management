@@ -7,9 +7,7 @@
     <div class="main">
         <div class="main-info">
             <h2>{% trans 'Copy' %} <small class="muted">{{ asset }}</small></h2>
-            {% if object %}
-                <div class="small muted">Root > {{ object.get_ancestors|tree_path:" > " }}</div>
-            {% endif %}
+            {% include 'assets/partials/breadcrumb.html' with object=asset %}
         </div>
         <div class="container-fluid">
             <p>

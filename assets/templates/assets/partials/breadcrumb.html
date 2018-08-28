@@ -1,0 +1,9 @@
+<ul class="breadcrumb small muted">
+    <li><a href="{% url 'assets:asset-list' %}">Assets</a></li>
+    {% if object %}
+    {% for ob in object.get_ancestors %}
+    <li><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></li>
+    {% endfor %}
+    <li>{{ object }}</li>
+    {% endif %}
+</ul>

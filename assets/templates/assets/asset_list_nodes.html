@@ -9,11 +9,7 @@
             <div class="row mb-xs">
                 <div class="col">
                     <h2>{{ object }}</h2>
-                    {% if object.is_child_node %}
-                        <div class="small muted">Root > {{ object.get_ancestors|tree_path:" > " }}</div>
-                    {% else %}
-                        <div class="small muted">Root</div>
-                    {% endif %}
+                    {% include 'assets/partials/breadcrumb.html' with object=object %}
                 </div>
             </div>
             <div class="row">

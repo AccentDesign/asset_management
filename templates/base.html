@@ -17,6 +17,7 @@
     <body class="{% block body_class %}{% endblock %}">
         {% block full_outer_content %}
             {% include 'partials/header.html' %}
+            {% include 'partials/messages.html' %}
             {% block sidebar %}
                 <div class="sidenav">
                     <a class="pull-right" href="{% url 'team-create' %}"><i class="icon-plus-circled"></i></a>
@@ -72,7 +73,6 @@
             {% endblock %}
             {% block inner_content %}{% endblock %}
             {% include 'partials/footer.html' %}
-            {% include 'partials/messages.html' %}
         {% endblock %}
         <script src="{% static 'dist/js/generic.js' %}"></script>
         {% block extra_js %}{% endblock %}

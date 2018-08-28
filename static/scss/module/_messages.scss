@@ -1,11 +1,20 @@
-// Messages
+// Alerts
 
-.messages {
-  @include position($left: 0, $right: 0, $bottom: 0, $position: fixed);
+.alerts {
+  @include position($top: 3rem, $left: 50%, $position: fixed);
   list-style-type: none;
+  min-width: 400px;
+  margin-left: -200px;
   margin-bottom: 0;
+  z-index: zindex("alerts");
 
   li:last-child {
     margin-bottom: 0;
+  }
+
+  .close {
+    @include position($top: 0, $right: 0);
+    color: color("black");
+    padding: 5px;
   }
 }

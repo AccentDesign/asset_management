@@ -144,3 +144,14 @@ class TestModel(AppTestCase):
             Task(pk=pk).get_absolute_url(),
             reverse('assets:task-update', kwargs={'pk': pk})
         )
+
+    def test_schedule_text(self):
+        task = self.team1_task
+
+        self.assertIsNone(task.schedule_text)
+
+        task.repeat_interval = 7
+        task.repeat_frequency = DAILY
+        task.save()
+
+        self.assertEqual(task.schedule_text, 'Every 7 Day(s)')

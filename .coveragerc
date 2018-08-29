@@ -6,6 +6,7 @@ omit =
     *wsgi.py
     *manage.py
     *migrations/*
+    *storages.py
     *tests/*
 parallel = true
 

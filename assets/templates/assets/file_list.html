@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block page_title %}Files{% endblock %}
+{% block body_class %}{% endblock %}
+{% block sidebar %}{{ block.super }}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'Files' %}</h2>
+        </div>
+        <div class="container-fluid">
+            <form id="files-dropzone" method="post" action="{% url 'assets:file-upload' %}" enctype="multipart/form-data" class="dropzone">
+                {% csrf_token %}
+                <input type="file" name="file" multiple>
+            </form>
+        </div>
+        <div class="container-fluid">
+            <div class="row header-row">
+                <div class="col-10 strong">{% trans 'File' %}</div>
+                <div class="col-2 strong">{% trans 'Size' %}</div>
+            </div>
+            {% for ob in object_list %}
+            <div class="row data-row">
+                <div class="col-10"><a href="{{ ob.file.url }}" target="_blank">{{ ob }}</a></div>
+                <div class="col-2">{{ ob.file.size }}</div>
+            </div>
+            {% empty %}
+            <div class="row data-row no-results">
+                <div class="col">{% trans 'No files have been uploaded' %}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+<script>
+Dropzone.options.filesDropzone = {
+    maxFilesize: 5,
+    init: function() {
+        this.on("success", function(response) {
+            data = JSON.parse(response.xhr.response);
+            html = '<div class="row data-row">' +
+                '<div class="col-10"><a href="' + data.url + '" target="_blank">' + data.name + '</a></div>' +
+                '<div class="col-2">' + data.size + '</div>' +
+                '</div>';
+            var last_row = $($('.data-row').last());
+            last_row.after(html);
+            if (last_row.hasClass('no-results')) {
+                last_row.remove();
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

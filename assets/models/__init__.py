@@ -1,6 +1,7 @@
 from .asset import Asset
 from .asset_type import AssetType
 from .contact import Contact
+from .file import File
 from .note import Note
 from .status import Status
 from .task import Task

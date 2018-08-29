@@ -5,6 +5,46 @@
   color: color("googleplus");
 }
 
+.dropzone {
+  border: dotted 1px $border-color !important;
+  min-height: 120px !important;
+  padding: 10px !important;
+
+  input[type=file] {
+    display: none;
+  }
+
+  .dz-preview {
+    margin: 10px !important;
+  }
+
+  .dz-message {
+    color: color("gray") !important;
+    font-size: 2rem !important;
+    margin: 2.4rem 0 !important;
+    padding: 2rem 0 !important;
+  }
+
+  .dz-image {
+    background: color("whitesmoke") !important;
+    border-radius: $global-radius !important;
+    z-index: zindex("dropzone") !important;
+  }
+
+  .dz-details {
+    z-index: zindex("dropzone") !important;
+  }
+
+  .dz-size {
+    font-size: 1.4rem !important;
+  }
+
+  .dz-success-mark,
+  .dz-error-mark {
+    z-index: zindex("dropzone") !important;
+  }
+}
+
 // help
 
 .helptext {

@@ -7,7 +7,7 @@ from django.test import TestCase
 
 from PIL import Image
 
-from assets.models import Asset, AssetType, Task, TaskType
+from assets.models import Asset, AssetType, Task, TaskType, File
 from authentication.models import User, Team
 
 
@@ -97,6 +97,22 @@ class AppTestCase(TestCase):
             asset=self.team2_asset,
             initial_due_date=datetime.today().date(),
             assigned_to=self.team2.members.first()
+        )[0]
+
+    @property
+    def team1_file(self):
+        return File.objects.get_or_create(
+            file=self.get_temporary_image(),
+            team=self.team1,
+            uploaded_by=self.team1.members.first()
+        )[0]
+
+    @property
+    def team2_file(self):
+        return File.objects.get_or_create(
+            file=self.get_temporary_image(),
+            team=self.team2,
+            uploaded_by=self.team2.members.first()
         )[0]
 
     def get_temporary_image(self):

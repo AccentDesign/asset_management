@@ -11,6 +11,7 @@ RUN         set -ex \
             && apt-get update \
             && apt-get install -y \
                 gcc \
+                libev-dev \
                 libjpeg62 \
                 libjpeg62-turbo-dev \
                 libpq-dev \

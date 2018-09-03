@@ -1,3 +1,4 @@
+bjoern
 boto3
 django
 django-mptt
@@ -11,4 +12,3 @@ psycopg2-binary
 python-dateutil
 raven
 redis
-uwsgi

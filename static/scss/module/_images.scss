@@ -1,0 +1,25 @@
+// Images
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.avatar {
+  height: 3rem;
+  width: 3rem;
+}
+
+.avatar img {
+  border-radius: 50%;
+  border: solid 1px $border-color;
+  height: 100%;
+  width: 100%;
+}
+
+.avatar .initials {
+  background: color("whitesmoke");
+  border: solid 1px $border-color;
+  border-radius: 50%;
+  font-size: 2rem;
+  height: 100%;
+  line-height: 3rem;
+  text-align: center;
+  width: 100%;
+}

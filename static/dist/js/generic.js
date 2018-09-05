@@ -1,10 +1,10 @@
-$(document).on('click', '.user-menu-trigger', function (e) {
+$(document).on('click', '.menu', function (e) {
    e.stopPropagation();
-   $('.user-menu-drop').toggle();
+   $(this).find('.menu-drop').toggle();
 });
 
 $(document).click(function() {
-   $('.user-menu-drop').hide();
+   $('.menu-drop').hide();
 });
 
 $(document).on('click', '.alert .close', function (e) {

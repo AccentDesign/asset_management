@@ -113,3 +113,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             .distinct()
             .order_by('title')
         )
+
+    def get_initial(self):
+        return self.get_full_name()[:1]

@@ -2,11 +2,12 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 .main {
-  border-left: solid 1px $border-color;
-  margin-left: 20rem;
-  min-height: 100vh;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, .15));
+  background: color("white");
+  border: solid 1px $border-color;
+  border-radius: 6px;
+  margin-top: 13rem;
+  padding-bottom: 10rem;
 }
 
 .main-info {
@@ -15,7 +16,7 @@
 
   h2 {
     line-height: $input-height;
-    margin-bottom: 0;
+    margin: 0;
   }
 
 }

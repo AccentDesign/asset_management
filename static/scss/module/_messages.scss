@@ -1,7 +1,7 @@
 // Alerts
 
 .alerts {
-  @include position($top: 3rem, $left: 50%, $position: fixed);
+  @include position($bottom: 2rem, $right: 2rem, $position: fixed);
   list-style-type: none;
   min-width: 400px;
   margin-left: -200px;

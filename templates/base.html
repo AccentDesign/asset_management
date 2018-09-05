@@ -18,63 +18,9 @@
         {% block full_outer_content %}
             {% include 'partials/header.html' %}
             {% include 'partials/messages.html' %}
-            {% block sidebar %}
-                <div class="sidenav">
-                    <a class="pull-right" href="{% url 'team-create' %}"><i class="icon-plus-circled"></i></a>
-                    <h3>Teams</h3>
-                    <ul class="nav">
-                        {% for team in user.get_teams %}
-                        <li>
-                            <a href="{% url 'team-activate' team.pk %}">{{ team }}</a>
-                            {% if team == request.user.activated_team %}<span class="pull-right c-green"><i class="icon-ok-circled"></i></span>{% endif %}
-                        </li>
-                        {% empty %}
-                        <li>
-                            You are not a member of any teams, <a href="{% url 'team-create' %}">create one</a> to get started.
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% if request.user.activated_team %}
-                    <h3>Main</h3>
-                    <ul class="nav">
-                        <li>
-                            <a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a>
-                            <a class="pull-right" href="{% url 'assets:asset-create' %}"><i class="icon-plus-circled"></i></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'assets:file-list' %}">{% trans 'Files' %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'assets:note-list' %}">{% trans 'Notes' %}</a>
-                            <a class="pull-right" href="{% url 'assets:note-create' %}"><i class="icon-plus-circled"></i></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a>
-                            <a class="pull-right" href="{% url 'assets:contact-create' %}"><i class="icon-plus-circled"></i></a>
-                        </li>
-                    </ul>
-                    <h3>Setup</h3>
-                    <ul class="nav">
-                        <li>
-                            <a href="{% url 'assets:asset-type-list' %}">{% trans 'Asset Types' %}</a>
-                            <a class="pull-right" href="{% url 'assets:asset-type-create' %}"><i class="icon-plus-circled"></i></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'assets:task-type-list' %}">{% trans 'Task Types' %}</a>
-                            <a class="pull-right" href="{% url 'assets:task-type-create' %}"><i class="icon-plus-circled"></i></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'assets:task-priority-list' %}">{% trans 'Task Priorities' %}</a>
-                            <a class="pull-right" href="{% url 'assets:task-priority-create' %}"><i class="icon-plus-circled"></i></a>
-                        </li>
-                    </ul>
-                    {% endif %}
-                </div>
-            {% endblock %}
-            {% block inner_content %}{% endblock %}
+            <div class="container">
+                {% block inner_content %}{% endblock %}
+            </div>
             {% include 'partials/footer.html' %}
         {% endblock %}
         <script src="{% static 'dist/js/generic.js' %}"></script>

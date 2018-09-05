@@ -1,31 +1,76 @@
-{% load i18n images_tags static %}
+{% load i18n images_tags %}
 <header>
-    <div class="nav-home">
-        <a href="/">{% trans 'Asset Management' %}</a>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex align-items-center">
+
+                    <div class="header-team">
+                        <a class="home-link" href="{% url 'home' %}">{% firstof request.user.activated_team 'Asset Management' %}</a>
+                        <div class="menu">
+                            <a class="menu-link"><i class="icon-down-open"></i></a>
+                            <ul class="menu-drop flow-right">
+                                {% for team in user.get_teams %}
+                                <li {% if team == request.user.activated_team %}class="active"{% endif %}><a href="{% url 'team-activate' team.pk %}">{{ team }}</a></li>
+                                {% endfor %}
+                                <li><a href="{% url 'team-create' %}">Create a new team</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if request.user.activated_team %}
+                    <div class="header-members">
+                        {% for member in request.user.activated_team.members.all %}
+                            {% if member.picture %}
+                                {% image member.picture fill-30x30-c100 as img %}
+                                <div class="member avatar" title="{{ member.get_full_name }}"><img src="{{ img.url }}"></div>
+                            {% else %}
+                                <div class="member avatar" title="{{ member.get_full_name }}"><div class="initials">{{ member.get_initial }}</div></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="GET" action="{% url 'assets:search' %}" class="search-form">
+                        <div class="input-group">
+                            <div class="input-group-addon b-secondary"><i class="icon-search"></i></div>
+                            <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+                        </div>
+                    </form>
+
+                    <div class="user-menu menu">
+                        <a class="menu-link">
+                            {% if request.user.picture %}
+                                {% image request.user.picture fill-30x30-c100 as img %}
+                                <div class="avatar"><img src="{{ img.url }}"></div>
+                            {% else %}
+                                <div class="avatar"><div class="initials">{{ request.user.get_initial }}</div></div>
+                            {% endif %}
+                        </a>
+                        <ul class="menu-drop flow-left">
+                            {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>{% endif %}
+                            <li><a href="{% url 'my_profile' %}">{% trans 'My Profile' %}</a></li>
+                            <li><a href="{% url 'password_change' %}">{% trans 'Password Change' %}</a></li>
+                            <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% if request.user.activated_team %}
+                        <ul class="nav">
+                            <li><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
+                            <li><a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a></li>
+                            <li><a href="{% url 'assets:file-list' %}">{% trans 'Files' %}</a></li>
+                            <li><a href="{% url 'assets:note-list' %}">{% trans 'Notes' %}</a></li>
+                            <li><a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a></li>
+                        </ul>
+                    {% else %}
+                        <p class="muted">You have no active team, choose one from the menu above to get started.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% if user.is_authenticated %}
-    <form method="GET" action="{% url 'assets:search' %}" class="nav-search-form">
-        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
-    </form>
-    <div class="user-menu">
-        <a class="user-menu-trigger d-flex align-items-center">
-            {% if user.picture %}
-                {% image user.picture fill-30x30-c100 as img %}
-                <img class="user-avatar" src="{{ img.url }}">
-                <i class="icon-angle-down"></i>
-            {% else %}
-                <img class="user-avatar" src="{% static 'dist/images/anonymous.png' %}">
-                <i class="icon-angle-down"></i>
-            {% endif %}
-        </a>
-        <ul class="user-menu-drop">
-            {% if user.is_staff %}
-                <li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>
-            {% endif %}
-            <li><a href="{% url 'my_profile' %}">{% trans 'My Profile' %}</a></li>
-            <li><a href="{% url 'password_change' %}">{% trans 'Password Change' %}</a></li>
-            <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
-        </ul>
-    </div>
-    {% endif %}
 </header>

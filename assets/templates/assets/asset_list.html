@@ -2,7 +2,6 @@
 {% load i18n mptt_tags static %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
-{% block sidebar %}{{ block.super }}{% endblock %}
 {% block inner_content %}
     <div class="main">
         <div class="main-info pb-zero">
@@ -20,14 +19,14 @@
                 <div class="col-2 muted"></div>
                 <div class="col-1 muted text-right"></div>
             </div>
-        </div>
-        <div class="container-fluid">
             <div class="row header-row">
                 <div class="col-7 strong">{% trans 'Name' %}</div>
                 <div class="col-2 strong">{% trans 'Type' %}</div>
                 <div class="col-2 strong">{% trans 'Tasks' %}</div>
-                <div class="col-1 strong text-right"></div>
+                <div class="col-1 strong"></div>
             </div>
+        </div>
+        <div class="container-fluid">
             {% for ob in object_list %}
             <div class="row data-row">
                 <div class="col-7"><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></div>

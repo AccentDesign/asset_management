@@ -2,11 +2,11 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // Typography
-$base-font-family:              'Roboto', sans-serif;
+$base-font-family:              'Noto Sans', sans-serif;
 $base-font-size:                13px;
 $code-font-family:              'Inconsolata', monospace;
 
-$heading-font-weight:           500;
+$heading-font-weight:           400;
 
 // Colours
 $colors: (
@@ -15,8 +15,9 @@ $colors: (
   "whitesmoke":                 rgb(245, 245, 245),
   "googleplus":                 rgb(221, 75, 57),
   "olive":                      rgb(61, 153, 112),
-  "bluewhale":                  rgb(34, 53, 76)
 );
+
+$body-background:               rgb(246, 248, 249);
 
 // Buttons
 $button-font-size:              1.3rem;

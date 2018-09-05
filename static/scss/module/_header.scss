@@ -2,80 +2,86 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 header {
+  @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, .15));
   @include position(0, 0, auto, 0, fixed);
-  background: color("bluewhale");
-  display: flex;
-  align-items: center;
-  min-height: 6rem;
+  background: color("white");
+  padding-top: 2rem;
   z-index: zindex("header");
 }
 
-.nav-home {
-  font-size: 1.5rem;
-  padding-left: 2rem;
+header .header-team {
+  display: inline-block;
+  margin-right: 3rem;
 
-  a {
-    color: color("white");
+  .home-link {
+    color: inherit;
+    font-size: 2.7rem;
   }
+
+  .menu > a {
+    color: inherit;
+  }
+
 }
 
-.nav-search-form {
-  margin: 0 2rem 0 auto;
+header .header-members {
+  display: inline-block;
+
+  .member {
+    display: inline-block;
+    float: right;
+    height: 3rem;
+    margin-left: -.3rem;
+    width: 3rem;
+  }
+
+}
+
+header .nav {
+  list-style-type: none;
+  margin-bottom: 0;
+
+  li {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  li a {
+    color: color("gray");
+    display: block;
+    padding: 1rem 3rem;
+  }
+
+  li a:hover {
+    color: color-darken("gray", $darken-hover-percent);
+  }
+
+}
+
+header .search-form {
+  margin: 0 0 0 auto;
+
+  .input-group {
+    margin-bottom: 0;
+  }
 
   input {
-    margin: 0;
-    padding: .5rem 1rem;
-    background: color-lighten("bluewhale", 5%);
+    background: color("secondary");
     border: 0;
-    color: color("whitesmoke");
   }
 
   input:focus {
-    background: color-lighten("bluewhale", 10%);
+    background: color("secondary");
   }
 
-  input::placeholder {
-    color: color("whitesmoke");
-  }
 }
 
-.user-menu {
-  position: relative;
+header .user-menu {
+  margin-left: 3rem;
 
-  .user-menu-trigger {
-    background: color-lighten("bluewhale", 5%);
-    color: color("whitesmoke");
-    cursor: pointer;
-    height: 6rem;
-    padding: 0 1.5rem;
-
-    .user-avatar {
-      border-radius: 50%;
-      max-height: 3rem;
-      margin-right: 1rem;
-    }
-
-    &:hover {
-      background: color-lighten("bluewhale", 2.5%);
-    }
+  .menu-drop {
+    right: .5rem;
+    top: 5rem;
   }
 
-  .user-menu-drop {
-    @include position($top: 6rem, $right: 0);
-    background: color-lighten("bluewhale", 5%);
-    display: none;
-    list-style-type: none;
-    min-width: 20rem;
-
-    li a {
-      color: color("whitesmoke");
-      display: block;
-      line-height: 3.5rem;
-      padding: 0 1.5rem;
-
-      &:hover {
-        background: color-lighten("bluewhale", 2.5%);
-      }
-    }
-  }
 }

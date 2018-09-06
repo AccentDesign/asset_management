@@ -11,7 +11,12 @@
                             <a class="menu-link"><i class="icon-down-open"></i></a>
                             <ul class="menu-drop flow-right">
                                 {% for team in user.get_teams %}
-                                <li {% if team == request.user.activated_team %}class="active"{% endif %}><a href="{% url 'team-activate' team.pk %}">{{ team }}</a></li>
+                                <li {% if team == request.user.activated_team %}class="active"{% endif %}>
+                                    <a href="{% url 'team-activate' team.pk %}">{{ team }}</a>
+                                    {% if team.admin == request.user %}
+                                        <a class="pull-right" href="{% url 'team-update' team.pk %}"><i class="icon-pencil"></i></a>
+                                    {% endif %}
+                                </li>
                                 {% endfor %}
                                 <li><a href="{% url 'team-create' %}">Create a new team</a></li>
                             </ul>

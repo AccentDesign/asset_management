@@ -92,12 +92,12 @@ DATABASES = {
 
 # Email
 
-DEFAULT_FROM_EMAIL = 'Django <no_reply@example.com>'
+DEFAULT_FROM_EMAIL = 'Asset Management <asset-management@accentdesign.co.uk>'
 EMAIL_HOST = environ.get('EMAIL_HOST')
 EMAIL_PORT = environ.get('EMAIL_PORT')
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = False
+EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
 

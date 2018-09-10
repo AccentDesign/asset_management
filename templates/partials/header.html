@@ -1,4 +1,4 @@
-{% load i18n images_tags %}
+{% load i18n app_tags images_tags %}
 <header>
     <div class="container-fluid">
         <div class="container">
@@ -64,12 +64,13 @@
             <div class="row">
                 <div class="col">
                     {% if request.user.activated_team %}
+                        {% section_name as section %}
                         <ul class="nav">
-                            <li><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
-                            <li><a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a></li>
-                            <li><a href="{% url 'assets:file-list' %}">{% trans 'Files' %}</a></li>
-                            <li><a href="{% url 'assets:note-list' %}">{% trans 'Notes' %}</a></li>
-                            <li><a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a></li>
+                            <li {% if section == 'asset' %}class="active"{% endif %}><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
+                            <li {% if section == 'task' %}class="active"{% endif %}><a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a></li>
+                            <li {% if section == 'file' %}class="active"{% endif %}><a href="{% url 'assets:file-list' %}">{% trans 'Files' %}</a></li>
+                            <li {% if section == 'note' %}class="active"{% endif %}><a href="{% url 'assets:note-list' %}">{% trans 'Notes' %}</a></li>
+                            <li {% if section == 'contact' %}class="active"{% endif %}><a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a></li>
                         </ul>
                     {% else %}
                         <p class="muted">You have no active team, choose one from the menu above to get started.</p>

@@ -42,8 +42,13 @@ header .nav {
   margin-bottom: 0;
 
   li {
+    border-bottom: solid 2px transparent;
     display: inline-block;
     margin-bottom: 0;
+  }
+
+  li.active {
+    border-bottom-color: color("primary");
   }
 
   li a {

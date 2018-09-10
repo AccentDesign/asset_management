@@ -1979,8 +1979,13 @@ header .nav {
 }
 
 header .nav li {
+  border-bottom: solid 2px transparent;
   display: inline-block;
   margin-bottom: 0;
+}
+
+header .nav li.active {
+  border-bottom-color: #379deb;
 }
 
 header .nav li a {

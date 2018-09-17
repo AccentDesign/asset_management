@@ -223,7 +223,7 @@ class Task(models.Model):
             return getattr(self, 'qs_last_completed')
 
         try:
-            return self.history.filter(status__name='Completed').latest('date')
+            return self.history.filter(status__name='Completed').latest('date').date
         except ObjectDoesNotExist:
             return None
 

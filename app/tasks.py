@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.mail import EmailMessage
 from django.core.management import call_command
 from django.db import models
@@ -26,11 +28,14 @@ def reset_all_scheduled_task_due_dates():
 @db_periodic_task(crontab(hour='7', minute='0'))
 def send_daily_reminders():
     """ Email all members of each team if they have tasks due. """
+
+    today = datetime.today().date()
+
     for team in Team.objects.all():
         to_addresses = [member.email for member in team.members.all()]
         subject = 'Asset Management - Daily Task Reminder - {}'.format(team)
 
-        task_count = Task.objects.filter(asset__team=team).count()
+        task_count = Task.objects.filter(due_date__lte=today, asset__team=team).count()
 
         if task_count > 0:
 
@@ -43,7 +48,7 @@ def send_daily_reminders():
 
             assigned_tasks = (
                 Task.objects
-                .filter(asset__team=team, assigned_to__isnull=False)
+                .filter(due_date__lte=today, asset__team=team, assigned_to__isnull=False)
                 .values('assigned_to__first_name', 'assigned_to__email')
                 .annotate(total=models.Count('assigned_to'))
                 .order_by('assigned_to')
@@ -69,4 +74,4 @@ def send_daily_reminders():
 
             content = '\n'.join(content)
 
-            send_email(subject, content, to_addresses, [])
+            send_email(subject, content, to_addresses, None)

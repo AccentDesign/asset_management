@@ -1,14 +1,14 @@
 boto3
 django
 django-mptt
-git+https://github.com/onepill/django-simplemde.git@master#egg=simplemde
 django-reversion
+django-simplemde
 django-storages
 docutils
 git+https://github.com/stuartaccent/images.git@master#egg=images
 huey[backends]
 psycopg2-binary
 python-dateutil
-raven
+sentry_sdk
 redis
 uwsgi

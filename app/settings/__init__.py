@@ -9,9 +9,6 @@ try:
         from .dev import *
     elif env_mode() == 'STAGING':
         from .staging import *
-        from .sentry import *
-    else:
-        from .sentry import *
 
 except ImportError:
     pass

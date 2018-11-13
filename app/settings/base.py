@@ -207,6 +207,20 @@ HUEY = {
 }
 
 
+# Sentry - if its installed and we have a dsn in the environment
+
+try:
+    if environ.get('SENTRY_DSN'):
+
+        import sentry_sdk
+        from sentry_sdk.integrations.django import DjangoIntegration
+
+        sentry_sdk.init(dsn=environ.get('SENTRY_DSN'), integrations=[DjangoIntegration()])
+
+except ImportError:
+    pass
+
+
 # Simple MDE
 
 SIMPLEMDE_OPTIONS = {

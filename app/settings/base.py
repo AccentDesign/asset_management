@@ -92,7 +92,7 @@ DATABASES = {
 
 # Email
 
-DEFAULT_FROM_EMAIL = 'Asset Management <asset-management@accentdesign.co.uk>'
+DEFAULT_FROM_EMAIL = environ.get('DEFAULT_FROM_EMAIL')
 EMAIL_HOST = environ.get('EMAIL_HOST')
 EMAIL_PORT = environ.get('EMAIL_PORT')
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER')

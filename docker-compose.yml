@@ -13,6 +13,7 @@ services:
     - ALLOWED_HOSTS=*
     - EMAIL_HOST=mail
     - EMAIL_PORT=1025
+    - DEFAULT_FROM_EMAIL=asset-management@example.com
     - RDS_HOSTNAME=db
     - RDS_PORT=5432
     - RDS_DB_NAME=postgres

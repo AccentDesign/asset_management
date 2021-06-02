@@ -18,14 +18,21 @@ services:
     - RDS_DB_NAME=postgres
     - RDS_USERNAME=postgres
     - RDS_PASSWORD=password
+    - REDIS_HOST=redis
     volumes:
     - .:/code
     depends_on:
     - db
+    - redis
     - mail
     ports:
     - "8000:8000"
     command: ['python', './manage.py', 'runserver', '0.0.0.0:8000']
+
+  redis:
+    image: redis:alpine
+    ports:
+    - "6379:6379"
 
   mail:
     image: mailhog/mailhog

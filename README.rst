@@ -2,10 +2,8 @@
 Asset Management
 ****************
 
-|Build_Status|
-
-.. |Build_Status| image:: https://circleci.com/gh/AccentDesign/asset_management.svg?style=svg&circle-token=52907e221c167f9e4c664b17396da6ca780e2885
-   :target: https://circleci.com/gh/AccentDesign/asset_management
+.. image:: https://github.com/AccentDesign/asset_management/workflows/Testing%20Workflow/badge.svg
+    :target: https://github.com/AccentDesign/asset_management/workflows/Testing%20Workflow/
 
 Description
 ***********

@@ -4,6 +4,6 @@
     {% for ob in object.get_ancestors %}
     <li><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></li>
     {% endfor %}
-    <li class="muted">{{ object }}</li>
+    <li><a href="{{ object.get_nodes_url }}">{{ object }}</a></li>
     {% endif %}
 </ul>

@@ -38,9 +38,10 @@ $table-font-size:               100%;
 
 // z-indexes
 $z-layers: (
+  "menu": 10,
   "alerts": 9,
   "header": 8,
-  "dropzone": 7
+  "dropzone": 6
 );
 
 // Checkboxes and Radios

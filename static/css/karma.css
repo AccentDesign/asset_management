@@ -1865,11 +1865,11 @@ ul.radios label span {
 .dropzone .dz-image {
   background: whitesmoke !important;
   border-radius: 0.25rem !important;
-  z-index: 7 !important;
+  z-index: 6 !important;
 }
 
 .dropzone .dz-details {
-  z-index: 7 !important;
+  z-index: 6 !important;
 }
 
 .dropzone .dz-size {
@@ -1878,7 +1878,7 @@ ul.radios label span {
 
 .dropzone .dz-success-mark,
 .dropzone .dz-error-mark {
-  z-index: 7 !important;
+  z-index: 6 !important;
 }
 
 .helptext {
@@ -2087,6 +2087,7 @@ header .user-menu .menu-drop {
   display: none;
   list-style-type: none;
   min-width: 25rem;
+  z-index: 10;
 }
 
 .menu-drop.flow-left {

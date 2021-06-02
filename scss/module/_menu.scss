@@ -17,6 +17,7 @@
   display: none;
   list-style-type: none;
   min-width: 25rem;
+  z-index: zindex("menu");
 
   &.flow-left {
     @include position($top: 4rem, $right: 0);

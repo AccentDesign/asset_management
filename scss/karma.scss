@@ -8,14 +8,13 @@
 @import "node_modules/karma-css/scss/import";
 
 /* components */
-@import "component-variables";
-@import "node_modules/karma-css-components/scss/components/alert";
-@import "node_modules/karma-css-components/scss/components/checkbox";
-@import "node_modules/karma-css-components/scss/components/input-group";
+@import "node_modules/karma-css/scss/components/alert";
+@import "node_modules/karma-css/scss/components/input-group";
 
 /* add your custom modules here */
 @import "fontello/css/fontello";
 @import "module/button";
+@import "module/checkbox";
 @import "module/forms";
 @import "module/header";
 @import "module/images";

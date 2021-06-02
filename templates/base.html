@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Asset Management | {% block page_title %}{% endblock %}</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <link rel="stylesheet" href="{% static 'dist/css/karma.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/karma.min.css' %}">
         {% block extra_css %}{% endblock %}
         <script
           src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -23,7 +23,7 @@
             </div>
             {% include 'partials/footer.html' %}
         {% endblock %}
-        <script src="{% static 'dist/js/generic.js' %}"></script>
+        <script src="{% static 'js/generic.js' %}"></script>
         {% block extra_js %}{% endblock %}
     </body>
 </html>

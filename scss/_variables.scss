@@ -2,7 +2,7 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // Typography
-$base-font-family:              'Noto Sans', sans-serif;
+$base-font-family:              'Open Sans', sans-serif;
 $base-font-size:                13px;
 $code-font-family:              'Inconsolata', monospace;
 
@@ -18,6 +18,7 @@ $colors: (
 );
 
 $body-background:               rgb(246, 248, 249);
+$font-color:                    rgb(62, 62, 62);
 
 // Buttons
 $button-font-size:              1.3rem;
@@ -41,3 +42,12 @@ $z-layers: (
   "header": 8,
   "dropzone": 7
 );
+
+// Checkboxes and Radios
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+$checkbox-checked-color:        map-get($colors, "primary");
+$checkbox-font-weight:          400;
+$checkbox-size:                 2.4rem;
+$checkbox-tick-width:           .3rem;
+$radio-dot-spacing:             .4rem;

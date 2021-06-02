@@ -65,8 +65,8 @@
 
 {% block extra_js %}
     {{ formset.media }}
-    <script src="{% static 'dist/js/tabs.js' %}"></script>
-    <script src="{% static 'dist/js/formset.js' %}"></script>
+    <script src="{% static 'js/tabs.js' %}"></script>
+    <script src="{% static 'js/formset.js' %}"></script>
     <script>$('.tabs').tabs();</script>
     <script>$('.formsets').formset();</script>
 {% endblock %}

@@ -14,8 +14,6 @@ def env_mode():
     """
     if environ.get('DEV_MODE') is not None:
         return 'DEV'
-    if environ.get('STAGING_MODE') is not None:
-        return 'STAGING'
 
 
 def huey_eager():

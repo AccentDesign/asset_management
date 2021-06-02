@@ -156,8 +156,8 @@ MEDIA_URL = "/media/"
 
 # File Storage
 
-DEFAULT_FILE_STORAGE = 'app.storages.S3PublicStorage'
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5MB - Cloudflare limit on existing plan is 100MB
+DEFAULT_FILE_STORAGE = 'app.storages.S3StaticStorage'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB - Cloudflare limit on existing plan is 100MB
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME')
@@ -167,6 +167,7 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_QUERYSTRING_AUTH = False
+AWS_QUERYSTRING_EXPIRE = 3600
 AWS_S3_FILE_OVERWRITE = False
 AWS_IS_GZIPPED = True
 AWS_AUTO_CREATE_BUCKET = True
@@ -175,34 +176,36 @@ AWS_AUTO_CREATE_BUCKET = True
 # huey
 
 HUEY = {
-    'name': 'asset-management',
-    'result_store': True,
-    'events': True,
-    'store_none': False,
-    'always_eager': huey_eager(),
-    'store_errors': True,
-    'blocking': False,
-    'backend_class': 'huey.RedisHuey',
+    'name': 'assets',  # Use db name for huey.
+    'result_store': True,  # Store return values of tasks.
+    'events': True,  # Consumer emits events allowing real-time monitoring.
+    'store_none': False,  # If a task returns None, do not save to results.
+    'always_eager': huey_eager(),  # If DEBUG=True, run synchronously.
+    'store_errors': True,  # Store error info if task throws exception.
+    'blocking': False,  # Poll the queue rather than do blocking pop.
+    'backend_class': 'huey.RedisHuey',  # Use path to redis huey by default,
     'connection': {
-        'host': 'redis',
+        'host': environ.get('REDIS_HOST', 'localhost'),
         'port': 6379,
         'db': 0,
-        'connection_pool': None,
-        'read_timeout': 1,
-        'max_errors': 1000,
-        'url': None,
+        'connection_pool': None,  # Definitely you should use pooling!
+        # ... tons of other options, see redis-py for details.
+
+        # huey-specific connection parameters.
+        'read_timeout': 1,  # If not polling (blocking pop), use timeout.
+        'url': None,  # Allow Redis config via a DSN.
     },
     'consumer': {
         'workers': 1,
         'worker_type': 'thread',
-        'initial_delay': 0.1,
-        'backoff': 1.15,
-        'max_delay': 10.0,
-        'utc': True,
-        'scheduler_interval': 1,
-        'periodic': True,
-        'check_worker_health': True,
-        'health_check_interval': 1,
+        'initial_delay': 0.1,  # Smallest polling interval, same as -d.
+        'backoff': 1.15,  # Exponential backoff using this rate, -b.
+        'max_delay': 10.0,  # Max possible polling interval, -m.
+        'utc': True,  # Treat ETAs and schedules as UTC datetimes.
+        'scheduler_interval': 1,  # Check schedule every second, -s.
+        'periodic': True,  # Enable crontab feature.
+        'check_worker_health': True,  # Enable worker health checks.
+        'health_check_interval': 1,  # Check worker health every second.
     },
 }
 
@@ -215,7 +218,11 @@ try:
         import sentry_sdk
         from sentry_sdk.integrations.django import DjangoIntegration
 
-        sentry_sdk.init(dsn=environ.get('SENTRY_DSN'), integrations=[DjangoIntegration()])
+        sentry_sdk.init(
+            dsn=environ.get('SENTRY_DSN'),
+            integrations=[DjangoIntegration()],
+            send_default_pii=True,
+        )
 
 except ImportError:
     pass

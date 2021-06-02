@@ -7,8 +7,6 @@ from .helpers import env_mode
 try:
     if env_mode() == 'DEV':
         from .dev import *
-    elif env_mode() == 'STAGING':
-        from .staging import *
 
 except ImportError:
     pass

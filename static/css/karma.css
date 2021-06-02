@@ -1941,18 +1941,6 @@ header .header-team .menu > a {
   color: inherit;
 }
 
-header .header-members {
-  display: inline-block;
-}
-
-header .header-members .member {
-  display: inline-block;
-  float: right;
-  height: 3rem;
-  margin-left: -.3rem;
-  width: 3rem;
-}
-
 header .nav {
   list-style-type: none;
   margin-bottom: 0;

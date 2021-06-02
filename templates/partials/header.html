@@ -23,19 +23,6 @@
                         </div>
                     </div>
 
-                    {% if request.user.activated_team %}
-                    <div class="header-members">
-                        {% for member in request.user.activated_team.members.all %}
-                            {% if member.picture %}
-                                {% image member.picture fill-30x30-c100 as img %}
-                                <div class="member avatar" title="{{ member.get_full_name }}"><img src="{{ img.url }}"></div>
-                            {% else %}
-                                <div class="member avatar" title="{{ member.get_full_name }}"><div class="initials">{{ member.get_initial }}</div></div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
                     <form method="GET" action="{% url 'assets:search' %}" class="search-form">
                         <div class="input-group">
                             <div class="input-group-addon b-secondary"><i class="icon-search"></i></div>

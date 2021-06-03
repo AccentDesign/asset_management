@@ -30,6 +30,8 @@ from .note import (
 )
 from .search import SearchView
 from .task import (
+    TaskCreate,
+    TaskDelete,
     TaskList,
     TaskUpdate
 )

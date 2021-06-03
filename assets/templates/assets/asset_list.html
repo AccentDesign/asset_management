@@ -5,48 +5,51 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info pb-zero">
-            <div class="row mb-xs">
+            <div class="row mb-md">
                 <div class="col">
                     <h2>Assets</h2>
                     {% include 'assets/partials/breadcrumb.html' %}
                 </div>
             </div>
             <div class="row">
-                <div class="col-7">
-                    <a class="button button-primary button-xs uppercase" href="{% url 'assets:asset-create' %}">{% trans 'Add Asset' %}</a>
-                </div>
-                <div class="col-2 muted"></div>
-                <div class="col-2 muted"></div>
-                <div class="col-1 muted text-right"></div>
-            </div>
-            <div class="row header-row">
-                <div class="col-7 strong">{% trans 'Name' %}</div>
-                <div class="col-2 strong">{% trans 'Type' %}</div>
-                <div class="col-2 strong">{% trans 'Tasks' %}</div>
-                <div class="col-1 strong"></div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            {% for ob in object_list %}
-            <div class="row data-row">
-                <div class="col-7"><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></div>
-                <div class="col-2">{{ ob.asset_type|default_if_none:'-' }}</div>
-                <div class="col-2">{{ ob.task_count|default:'-' }}</div>
-                <div class="col-1 text-right">
-                    {% if ob.is_leaf_node %}
-                        <a href="{% url 'assets:asset-create' %}?parent={{ ob.pk }}"><i class="icon-plus-circled"></i></a>
-                    {% else %}
-                        <a href="{{ ob.get_nodes_url }}"><i class="icon-right-open"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-            {% empty %}
-            <div class="row data-row">
                 <div class="col">
-                    {% trans 'No assets have been created,' %} <a class="strong" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'create one now.' %}</a>
+                    <p>Top Level Assets</p>
+                    <div class="mb-md">
+                        <div class="row header-row">
+                            <div class="col-7 strong">{% trans 'Name' %}</div>
+                            <div class="col-2 strong">{% trans 'Type' %}</div>
+                            <div class="col-2 strong">{% trans 'Tasks' %}</div>
+                            <div class="col-1 strong"></div>
+                        </div>
+                        {% for ob in object_list %}
+                            <div class="row data-row">
+                                <div class="col-7"><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></div>
+                                <div class="col-2">{{ ob.asset_type|default_if_none:'-' }}</div>
+                                <div class="col-2">{{ ob.task_count|default:'-' }}</div>
+                                <div class="col-1 text-right">
+                                    {% if ob.is_leaf_node %}
+                                        <a href="{% url 'assets:asset-create' %}?parent={{ ob.pk }}"><i class="icon-plus-circled"></i></a>
+                                    {% else %}
+                                        <a href="{{ ob.get_nodes_url }}"><i class="icon-right-open"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="row data-row">
+                                <div class="col">
+                                    {% trans 'No assets have been created,' %} <a class="strong" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'create one now.' %}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <p>Actions</p>
+                    <ul class="list-style-none mb-md">
+                        <li><a href="{% url 'assets:asset-create' %}">Add New Asset</a></li>
+                    </ul>
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 {% endblock %}

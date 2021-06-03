@@ -52,8 +52,8 @@ class TestUpdateView(AppTestCase):
             assigned_to_id=post_data['task_form-assigned_to']
         )
 
-        # successful post always redirects to edit url
-        self.assertRedirects(response, self.object.get_absolute_url(), 302, 200)
+        # successful post always redirects to node url
+        self.assertRedirects(response, self.object.asset.get_nodes_url(), 302, 200)
 
     def test_can_add_task_history_notes(self):
         self.client.force_login(self.team1.members.first())
@@ -71,8 +71,8 @@ class TestUpdateView(AppTestCase):
             status_id=None
         )
 
-        # successful post always redirects to edit url
-        self.assertRedirects(response, self.object.get_absolute_url(), 302, 200)
+        # successful post always redirects to node url
+        self.assertRedirects(response, self.object.asset.get_nodes_url(), 302, 200)
 
     def test_can_complete_task(self):
         self.client.force_login(self.team1.members.first())
@@ -91,7 +91,7 @@ class TestUpdateView(AppTestCase):
         )
 
         # successful post always redirects to edit url
-        self.assertRedirects(response, self.object.get_absolute_url(), 302, 200)
+        self.assertRedirects(response, self.object.asset.get_nodes_url(), 302, 200)
 
     def test_empty_post_stays_on_url(self):
         self.client.force_login(self.team1.members.first())

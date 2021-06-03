@@ -1888,21 +1888,6 @@ ul.radios label span {
   opacity: .7;
 }
 
-.formset {
-  background: whitesmoke;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.formset-deleted {
-  background: gainsboro;
-  opacity: .75;
-}
-
-.formset-empty {
-  display: none;
-}
-
 .filters input.datepicker {
   width: 9.5rem;
 }

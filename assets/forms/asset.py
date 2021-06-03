@@ -2,9 +2,7 @@ from django import forms
 from mptt.exceptions import InvalidMove
 from mptt.forms import TreeNodeChoiceField
 
-from app.forms.formsets import InlineFormSet
-from assets.models import Asset, AssetType, Contact, Task
-from .task import TaskForm
+from assets.models import Asset, AssetType, Contact
 
 
 class AssetForm(forms.ModelForm):
@@ -41,14 +39,3 @@ class AssetCopyForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['parent_asset'].queryset = Asset.for_team
-
-
-AssetTaskFormset = forms.inlineformset_factory(
-    Asset,
-    Task,
-    form=TaskForm,
-    formset=InlineFormSet,
-    extra=0,
-    can_delete=True,
-    can_order=False
-)

@@ -31,10 +31,6 @@ class TestCreateView(AppTestCase):
         post_data = {
             'name': 'some name',
             'asset_type': self.team1_asset.asset_type_id,
-            'tasks-TOTAL_FORMS': '0',
-            'tasks-INITIAL_FORMS': '0',
-            'tasks-MIN_NUM_FORMS': '0',
-            'tasks-MAX_NUM_FORMS': '0'
         }
         response = self.client.post(self.url, post_data)
 
@@ -51,10 +47,7 @@ class TestCreateView(AppTestCase):
     def test_invalid_form_stays_on_url(self):
         self.client.force_login(self.team1.members.first())
         post_data = {
-            'tasks-TOTAL_FORMS': '0',
-            'tasks-INITIAL_FORMS': '0',
-            'tasks-MIN_NUM_FORMS': '0',
-            'tasks-MAX_NUM_FORMS': '0'
+            'name': '',
         }
         response = self.client.post(self.url, post_data)
         self.assertEqual(response.status_code, 200)

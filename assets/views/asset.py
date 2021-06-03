@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, F
 from mptt.exceptions import InvalidMove
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
-from assets.forms import AssetTaskFormset, AssetCopyForm, AssetForm
+from assets.forms import AssetCopyForm, AssetForm
 from assets.models import Asset
 from authentication.views.mixins import ActivatedTeamRequiredMixin
 
@@ -44,49 +44,12 @@ class AssetNodeList(ActivatedTeamRequiredMixin, DetailView):
 class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     model = Asset
     form_class = AssetForm
-    formset_class = AssetTaskFormset
     success_message = 'created successfully'
-
-    def get_formset(self, **kwargs):
-        return self.formset_class(**kwargs)
-
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        form = self.get_form()
-        formset = self.get_formset()
-        context = self.get_context_data(form=form, formset=formset)
-        return self.render_to_response(context)
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form = self.get_form()
-        formset = self.get_formset(data=request.POST)
-        if form.is_valid() and formset.is_valid():
-            return self.form_valid(form, formset)
-        else:
-            return self.form_invalid(form, formset)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['initial']['parent'] = self.request.GET.get('parent')
         return kwargs
-
-    def form_valid(self, form, formset):
-        self.object = form.save()
-
-        # save the formset
-        formset.instance = self.object
-        formset.save()
-
-        # create success message
-        success_message = self.get_success_message(form.cleaned_data)
-        messages.success(self.request, success_message)
-
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, formset):
-        context = self.get_context_data(form=form, formset=formset)
-        return self.render_to_response(context)
 
     def get_success_url(self):
         if self.object.is_child_node():
@@ -97,49 +60,21 @@ class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
 class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
     form_class = AssetForm
-    formset_class = AssetTaskFormset
     success_message = 'updated successfully'
 
-    def get_formset(self, **kwargs):
-        return self.formset_class(**kwargs)
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        formset = self.get_formset(instance=self.object)
-        context = self.get_context_data(form=form, formset=formset)
-        return self.render_to_response(context)
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        formset = self.get_formset(data=request.POST, instance=self.object)
-        if form.is_valid() and formset.is_valid():
-            return self.form_valid(form, formset)
-        else:
-            return self.form_invalid(form, formset)
-
-    def form_valid(self, form, formset):
+    def form_valid(self, form):
         # a valid parent cannot be established until save using mptt
         # so catch the error raised by the asset form and return form_invalid
         try:
             self.object = form.save()
         except InvalidMove:
-            return self.form_invalid(form, formset)
-
-        # save the tasks
-        formset.instance = self.object
-        formset.save()
+            return self.form_invalid(form)
 
         # create success message
         success_message = self.get_success_message(form.cleaned_data)
         messages.success(self.request, success_message)
 
         return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, formset):
-        context = self.get_context_data(form=form, formset=formset)
-        return self.render_to_response(context)
 
     def get_success_url(self):
         return self.object.get_nodes_url()

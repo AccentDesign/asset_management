@@ -1,9 +1,12 @@
+from app.views.mixins import DeleteSuccessMessageMixin, ProtectedDeleteMixin
+from assets.models.asset import Asset
 from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, UpdateView
+from django.shortcuts import get_object_or_404
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from assets.forms import TaskForm, TaskHistoryForm, TaskListFilterForm
 from assets.models import Task, Status
@@ -38,6 +41,27 @@ class TaskList(ActivatedTeamRequiredMixin, ListView):
             'filter_form': self.get_filter_form()
         })
         return context
+
+
+class TaskCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Task
+    form_class = TaskForm
+    prefix = 'task_form'
+    success_message = 'created successfully'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.asset = get_object_or_404(Asset, pk=self.request.GET['asset'])
+        self.object.save()
+
+        # create success message
+        success_message = self.get_success_message(form.cleaned_data)
+        messages.success(self.request, success_message)
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.object.asset.get_nodes_url()
 
 
 class TaskUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -83,3 +107,13 @@ class TaskUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
 
         context = self.get_context_data(form=form, history_form=history_form)
         return self.render_to_response(context)
+
+    def get_success_url(self):
+        return self.object.asset.get_nodes_url()
+
+
+class TaskDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+    model = Task
+
+    def get_success_url(self):
+        return self.object.asset.get_nodes_url()

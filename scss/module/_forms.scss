@@ -54,23 +54,6 @@
   opacity: .7;
 }
 
-// formsets
-
-.formset {
-  background: color("whitesmoke");
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.formset-deleted {
-  background: color-darken("whitesmoke", 10%);
-  opacity: .75;
-}
-
-.formset-empty {
-  display: none;
-}
-
 // fields
 
 .filters input.datepicker {

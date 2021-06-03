@@ -23,7 +23,7 @@
                             <a href="{{ ob.get_nodes_url }}">{{ ob }}</a>
                             {% include 'assets/partials/breadcrumb.html' with object=ob %}
                         {% elif ob|klass == 'Task' %}
-                            <a href="{{ ob.get_nodes_url }}">{{ ob }}</a>
+                            <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
                             {% include 'assets/partials/breadcrumb.html' with object=ob.asset %}
                         {% else %}
                             <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>

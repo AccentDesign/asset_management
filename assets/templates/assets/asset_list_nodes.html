@@ -34,7 +34,7 @@
                             </div>
                         {% empty %}
                             <div class="row data-row">
-                                <div class="col">{% trans 'No tasks have been created,' %} <a class="strong" href="{% url 'assets:task-create' %}?asset={{ object.pk }}">{% trans 'create one now.' %}</a></div>
+                                <div class="col">{% trans 'No tasks have been created,' %} <a class="strong" href="{% url 'assets:asset-task-create' asset_pk=object.pk %}">{% trans 'create one now.' %}</a></div>
                             </div>
                         {% endfor %}
                     </div>
@@ -53,7 +53,7 @@
                                 <div class="col-2">{{ ob.task_count|default:'-' }}</div>
                                 <div class="col-1 text-right">
                                     {% if ob.is_leaf_node %}
-                                        <a href="{% url 'assets:asset-create' %}?parent={{ ob.pk }}"><i class="icon-plus-circled"></i></a>
+                                        <a href="{% url 'assets:asset-child-create' asset_pk=ob.pk %}"><i class="icon-plus-circled"></i></a>
                                     {% else %}
                                         <a href="{{ ob.get_nodes_url }}"><i class="icon-right-open"></i></a>
                                     {% endif %}
@@ -62,7 +62,7 @@
                             {% empty %}
                             <div class="row data-row">
                                 <div class="col">
-                                    {% trans 'No assets have been created,' %} <a class="strong" href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">{% trans 'create one now.' %}</a>
+                                    {% trans 'No assets have been created,' %} <a class="strong" href="{% url 'assets:asset-child-create' asset_pk=object.pk %}">{% trans 'create one now.' %}</a>
                                 </div>
                             </div>
                         {% endfor %}
@@ -79,8 +79,8 @@
                         <li><a href="{% url 'assets:asset-update' object.pk %}">Edit</a></li>
                         <li><a href="{% url 'assets:asset-copy' object.pk %}">Copy</a></li>
                         <li><a href="{% url 'assets:asset-delete' object.pk %}">Delete</a></li>
-                        <li><a href="{% url 'assets:task-create' %}?asset={{ object.pk }}">Add Task</a></li>
-                        <li><a href="{% url 'assets:asset-create' %}?parent={{ object.pk }}">Add Child Asset</a></li>
+                        <li><a href="{% url 'assets:asset-task-create' asset_pk=object.pk %}">Add Task</a></li>
+                        <li><a href="{% url 'assets:asset-child-create' asset_pk=object.pk %}">Add Child Asset</a></li>
                     </ul>
                     <p>Asset Type</p>
                     <p class="mb-md">{{ object.asset_type|default_if_none:'-' }}</p>

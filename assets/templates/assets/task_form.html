@@ -11,7 +11,11 @@
             </div>
             {% endif %}
             {% include 'partials/object_intro_header.html' %}
-            {% include 'assets/partials/breadcrumb.html' with object=object.asset %}
+            {% if asset %}
+                {% include 'assets/partials/breadcrumb.html' with object=asset %}
+            {% elif object %}
+                {% include 'assets/partials/breadcrumb.html' with object=object.asset %}
+            {% endif %}
         </div>
         {% if object %}
             <ul class="tabs">

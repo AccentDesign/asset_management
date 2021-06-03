@@ -11,7 +11,9 @@
                 </div>
             {% endif %}
             {% include 'partials/object_intro_header.html' %}
-            {% if object %}
+            {% if parent_asset %}
+                {% include 'assets/partials/breadcrumb.html' with object=parent_asset %}
+            {% elif object %}
                 {% include 'assets/partials/breadcrumb.html' with object=object %}
             {% endif %}
         </div>

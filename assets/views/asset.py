@@ -46,10 +46,34 @@ class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = AssetForm
     success_message = 'created successfully'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['initial']['parent'] = self.request.GET.get('parent')
-        return kwargs
+    def get(self, request, *args, **kwargs):
+        self.parent_asset = None
+        if kwargs.get('asset_pk'):
+            self.parent_asset = get_object_or_404(Asset, pk=kwargs.get('asset_pk'))
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.parent_asset = None
+        if kwargs.get('asset_pk'):
+            self.parent_asset = get_object_or_404(Asset, pk=kwargs.get('asset_pk'))
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.parent_asset:
+            context['parent_asset'] = self.parent_asset
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.parent = self.parent_asset
+        self.object.save()
+
+        # create success message
+        success_message = self.get_success_message(form.cleaned_data)
+        messages.success(self.request, success_message)
+
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         if self.object.is_child_node():

@@ -49,9 +49,22 @@ class TaskCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     prefix = 'task_form'
     success_message = 'created successfully'
 
+    def get(self, request, *args, **kwargs):
+        self.asset = get_object_or_404(Asset, pk=kwargs.get('asset_pk'))
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.asset = get_object_or_404(Asset, pk=kwargs.get('asset_pk'))
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['asset'] = self.asset
+        return context
+
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.asset = get_object_or_404(Asset, pk=self.request.GET['asset'])
+        self.object.asset = self.asset
         self.object.save()
 
         # create success message

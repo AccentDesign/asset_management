@@ -5,23 +5,40 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <h2>{% trans 'Asset Types' %} <a href="{% url 'assets:asset-type-create' %}"><i class="icon-plus-circled"></i></a></h2>
+            <h2>{% trans 'Asset Types' %}</h2>
         </div>
-        <table class="table-hover">
-            <thead>
-                <tr>
-                    <th>{% trans 'Name' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ob in object_list %}
-                <tr>
-                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
-                </tr>
-                {% empty %}
-                <tr><td>{% trans 'No assets types have been created,' %} <a class="strong" href="{% url 'assets:asset-type-create' %}">{% trans 'create one now.' %}</a></td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col">
+                <table class="table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Name' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ob in object_list %}
+                        <tr>
+                            <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr><td>{% trans 'No assets types have been created,' %} <a class="strong" href="{% url 'assets:asset-type-create' %}">{% trans 'create one now.' %}</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-2">
+                <p>Actions</p>
+                <ul class="list-style-none mb-md">
+                    <li><a href="{% url 'assets:asset-list' %}">Top Level Assets</a></li>
+                    <li><a href="{% url 'assets:asset-type-create' %}">Add</a></li>
+                </ul>
+                <p>Management</p>
+                <ul class="list-style-none mb-md">
+                    <li><a href="{% url 'assets:asset-type-list' %}">Asset Types</a></li>
+                    <li><a href="{% url 'assets:task-priority-list' %}">Task Priorities</a></li>
+                    <li><a href="{% url 'assets:task-type-list' %}">Task Types</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}

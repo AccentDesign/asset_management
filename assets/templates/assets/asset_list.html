@@ -46,7 +46,13 @@
                 <div class="col-2">
                     <p>Actions</p>
                     <ul class="list-style-none mb-md">
-                        <li><a href="{% url 'assets:asset-create' %}">Add</a></li>
+                        <li><a href="{% url 'assets:asset-create' %}">Add Asset</a></li>
+                    </ul>
+                    <p>Management</p>
+                    <ul class="list-style-none mb-md">
+                        <li><a href="{% url 'assets:asset-type-list' %}">Asset Types</a></li>
+                        <li><a href="{% url 'assets:task-priority-list' %}">Task Priorities</a></li>
+                        <li><a href="{% url 'assets:task-type-list' %}">Task Types</a></li>
                     </ul>
                 </div>
             </div>

@@ -35,7 +35,8 @@ class TestUpdateView(AppTestCase):
     def test_can_update(self):
         self.client.force_login(self.team1.members.first())
         post_data = {
-            'name': 'some edited name'
+            'name': 'some edited name',
+            'display_order': 1,
         }
         response = self.client.post(self.url, post_data)
 
@@ -43,4 +44,4 @@ class TestUpdateView(AppTestCase):
         TaskPriority.objects.get(**post_data, pk=self.object.pk)
 
         # redirects to edit url
-        self.assertRedirects(response, self.object.get_absolute_url(), 302, 200)
+        self.assertRedirects(response, reverse('assets:task-priority-list'), 302, 200)

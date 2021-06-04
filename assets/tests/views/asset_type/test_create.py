@@ -34,7 +34,7 @@ class TestCreateView(AppTestCase):
         response = self.client.post(self.url, post_data)
 
         # was created for correct team
-        asset = AssetType.objects.get(name=post_data['name'], team=self.team1)
+        AssetType.objects.get(name=post_data['name'], team=self.team1)
 
         # redirects to edit url
-        self.assertRedirects(response, asset.get_absolute_url(), 302, 200)
+        self.assertRedirects(response, reverse('assets:asset-type-list'), 302, 200)

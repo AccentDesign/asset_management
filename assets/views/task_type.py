@@ -15,12 +15,14 @@ class TaskTypeCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView
     model = TaskType
     fields = '__all__'
     success_message = 'created successfully'
+    success_url = reverse_lazy('assets:task-type-list')
 
 
 class TaskTypeUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TaskType
     fields = '__all__'
     success_message = 'updated successfully'
+    success_url = reverse_lazy('assets:task-type-list')
 
 
 class TaskTypeDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):

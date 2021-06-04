@@ -15,12 +15,14 @@ class TaskPriorityCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, Create
     model = TaskPriority
     fields = '__all__'
     success_message = 'created successfully'
+    success_url = reverse_lazy('assets:task-priority-list')
 
 
 class TaskPriorityUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TaskPriority
     fields = '__all__'
     success_message = 'updated successfully'
+    success_url = reverse_lazy('assets:task-priority-list')
 
 
 class TaskPriorityDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):

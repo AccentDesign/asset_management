@@ -35,12 +35,15 @@ class TaskPriority(models.Model):
         editable=False,
         default=get_current_team
     )
+    display_order = models.PositiveIntegerField(
+        default=0,
+    )
 
     for_team = TaskPriorityManager()
     objects = models.Manager()
 
     class Meta:
-        ordering = ['name']
+        ordering = ['display_order']
         unique_together = ('team', 'name', )
         verbose_name_plural = 'task priorities'
 

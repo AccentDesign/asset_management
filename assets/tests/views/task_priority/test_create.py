@@ -29,12 +29,13 @@ class TestCreateView(AppTestCase):
     def test_can_create(self):
         self.client.force_login(self.team1.members.first())
         post_data = {
-            'name': 'some name'
+            'name': 'some name',
+            'display_order': 1,
         }
         response = self.client.post(self.url, post_data)
 
         # was created for correct team
-        asset = TaskPriority.objects.get(name=post_data['name'], team=self.team1)
+        TaskPriority.objects.get(name=post_data['name'], team=self.team1)
 
         # redirects to edit url
-        self.assertRedirects(response, asset.get_absolute_url(), 302, 200)
+        self.assertRedirects(response, reverse('assets:task-priority-list'), 302, 200)

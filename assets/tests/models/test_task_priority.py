@@ -52,7 +52,7 @@ class TestModel(AppTestCase):
     # meta
 
     def test_ordering(self):
-        self.assertEqual(TaskPriority._meta.ordering, ['name'])
+        self.assertEqual(TaskPriority._meta.ordering, ['display_order'])
 
     # properties
 

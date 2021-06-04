@@ -15,12 +15,14 @@ class AssetTypeCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateVie
     model = AssetType
     fields = '__all__'
     success_message = 'created successfully'
+    success_url = reverse_lazy('assets:asset-type-list')
 
 
 class AssetTypeUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = AssetType
     fields = '__all__'
     success_message = 'updated successfully'
+    success_url = reverse_lazy('assets:asset-type-list')
 
 
 class AssetTypeDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):

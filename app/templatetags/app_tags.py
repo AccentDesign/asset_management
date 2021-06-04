@@ -33,6 +33,15 @@ def section_name(context):
     if url_name in [s.format('task') for s in url_name_suffixes]:
         return 'task'
 
+    if url_name in [s.format('asset-type') for s in url_name_suffixes]:
+        return 'asset'
+
+    if url_name in [s.format('task-type') for s in url_name_suffixes]:
+        return 'asset'
+
+    if url_name in [s.format('task-priority') for s in url_name_suffixes]:
+        return 'asset'
+
 
 @register.filter()
 def klass(value):

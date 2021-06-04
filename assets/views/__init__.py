@@ -4,7 +4,8 @@ from .asset import (
     AssetCreate,
     AssetUpdate,
     AssetDelete,
-    AssetCopy
+    AssetCopy,
+    AssetMove
 )
 from .asset_type import (
     AssetTypeList,

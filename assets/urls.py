@@ -12,6 +12,7 @@ urlpatterns = [
     path('assets/<uuid:pk>/update/', views.AssetUpdate.as_view(), name='asset-update'),
     path('assets/<uuid:pk>/delete/', views.AssetDelete.as_view(), name='asset-delete'),
     path('assets/<uuid:pk>/copy/', views.AssetCopy.as_view(), name='asset-copy'),
+    path('assets/<uuid:pk>/move/', views.AssetMove.as_view(), name='asset-move'),
     path('assets/<uuid:asset_pk>/assets/create/', views.AssetCreate.as_view(), name='asset-child-create'),
     path('assets/<uuid:asset_pk>/tasks/create/', views.TaskCreate.as_view(), name='asset-task-create'),
     path('asset-types/', views.AssetTypeList.as_view(), name='asset-type-list'),

@@ -24,9 +24,29 @@ class AssetCopyForm(forms.Form):
     parent_asset = TreeNodeChoiceField(
         queryset=Asset.for_team,
         required=False,
-        help_text='Leave blank to make this a top level asset.'
+        empty_label='Make it a root level asset'
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['parent_asset'].queryset = Asset.for_team
+
+
+class AssetMoveForm(forms.ModelForm):
+    parent = TreeNodeChoiceField(
+        queryset=Asset.for_team,
+        required=False,
+        empty_label='Make it a root level asset'
+    )
+
+    class Meta:
+        model = Asset
+        fields = ['parent']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # remove from the qs all descendants of the instance as a node
+        # cannot be moved to one of its descendants.
+        descendants = self.instance.get_descendants(include_self=True)
+        descendant_ids = descendants.values_list('id', flat=True)
+        self.fields['parent'].queryset = Asset.for_team.exclude(id__in=descendant_ids)

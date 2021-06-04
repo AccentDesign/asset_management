@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, F
 from mptt.exceptions import InvalidMove
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
-from assets.forms import AssetCopyForm, AssetForm
+from assets.forms import AssetCopyForm, AssetForm, AssetMoveForm
 from assets.models import Asset
 from authentication.views.mixins import ActivatedTeamRequiredMixin
 
@@ -148,4 +148,13 @@ class AssetCopy(ActivatedTeamRequiredMixin, SuccessMessageMixin, FormView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse_lazy('assets:asset-update', kwargs={'pk': self.object.pk})
+        return self.object.get_nodes_url()
+
+
+class AssetMove(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Asset
+    form_class = AssetMoveForm
+    template_name = 'assets/asset_move_form.html'
+
+    def get_success_url(self):
+        return self.object.get_nodes_url()

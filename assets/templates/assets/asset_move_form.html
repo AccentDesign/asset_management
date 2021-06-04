@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags static %}
+{% block page_title %}Assets{% endblock %}
+{% block body_class %}{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="main-info">
+            <h2>{% trans 'Move' %} <small class="muted">{{ object }}</small></h2>
+            {% include 'assets/partials/breadcrumb.html' with object=object %}
+        </div>
+        <div class="container-fluid">
+            <p>
+                {% blocktrans with ob=object %}Please choose the asset in which <em>"{{ ob }}"</em> will be moved under.{% endblocktrans %}</p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <fieldset>
+                    {{ form }}
+                </fieldset>
+                <button class="button button-primary button-xl" type="submit">{% trans 'Move' %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

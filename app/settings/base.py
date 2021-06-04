@@ -22,6 +22,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
+APPLICATION_URL = environ.get('APPLICATION_URL')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',

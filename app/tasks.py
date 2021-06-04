@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.conf import settings
 from django.core.mail import EmailMessage
 from django.core.management import call_command
 from django.db import models
@@ -70,7 +71,7 @@ def send_daily_reminders():
 
             content.append('\n')
             content.append('Thanks.')
-            content.append('http://asset-management.accentdesign.co.uk')
+            content.append(settings.APPLICATION_URL)
 
             content = '\n'.join(content)
 

@@ -11,6 +11,7 @@ services:
     - DEV_MODE=on
     - DJANGO_SETTINGS_MODULE=app.settings
     - ALLOWED_HOSTS=*
+    - APPLICATION_URL=http://localhost:8000
     - EMAIL_HOST=mail
     - EMAIL_PORT=1025
     - DEFAULT_FROM_EMAIL=asset-management@example.com

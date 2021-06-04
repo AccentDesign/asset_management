@@ -5,7 +5,7 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
+            <a class="button pull-right" href="{{ object.get_nodes_url }}">{% trans 'Cancel' %}</a>
             {% include 'partials/object_intro_header.html' with delete=True %}
             {% if object %}
                 {% include 'assets/partials/breadcrumb.html' with object=object %}

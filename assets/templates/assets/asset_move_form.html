@@ -9,15 +9,24 @@
             {% include 'assets/partials/breadcrumb.html' with object=object %}
         </div>
         <div class="container-fluid">
-            <p>
-                {% blocktrans with ob=object %}Please choose the asset in which <em>"{{ ob }}"</em> will be moved under.{% endblocktrans %}</p>
-            <form method="post" novalidate>
-                {% csrf_token %}
-                <fieldset>
-                    {{ form }}
-                </fieldset>
-                <button class="button button-primary button-xl" type="submit">{% trans 'Move' %}</button>
-            </form>
+            <div class="row">
+                <div class="col">
+                    <p>{% blocktrans with ob=object %}Please choose the asset in which <em>"{{ ob }}"</em> will be moved under.{% endblocktrans %}</p>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <fieldset>
+                            {{ form }}
+                        </fieldset>
+                        <button class="button button-primary button-xl" type="submit">{% trans 'Move' %}</button>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <p>Actions</p>
+                    <ul class="list-style-none mb-md">
+                        <li><a href="{{ object.get_nodes_url }}">Cancel</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

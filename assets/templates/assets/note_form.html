@@ -5,21 +5,27 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            {% if object %}
-                <div class="pull-right">
-                    <a class="button button-googleplus" href="{% url 'assets:note-delete' object.pk %}">{% trans 'Delete' %}</a>
-                </div>
-            {% endif %}
             {% include 'partials/object_intro_header.html' %}
         </div>
         <div class="container-fluid">
-            <form method="post" novalidate>
-                {% csrf_token %}
-                <fieldset>
-                    {{ form }}
-                </fieldset>
-                <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
-            </form>
+            <div class="row">
+                <div class="col">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <fieldset>
+                            {{ form }}
+                        </fieldset>
+                        <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <p>Actions</p>
+                    <ul class="list-style-none mb-md">
+                        <li><a href="{% url 'assets:note-list' %}">Cancel</a></li>
+                        {% if object %}<li><a href="{% url 'assets:note-delete' object.pk %}">Delete</a></li>{% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

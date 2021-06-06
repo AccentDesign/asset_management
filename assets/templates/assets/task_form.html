@@ -5,11 +5,6 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            {% if object %}
-            <div class="pull-right">
-                <a class="button button-googleplus" href="{% url 'assets:task-delete' object.pk %}">{% trans 'Delete' %}</a>
-            </div>
-            {% endif %}
             {% include 'partials/object_intro_header.html' %}
             {% if asset %}
                 {% include 'assets/partials/breadcrumb.html' with object=asset %}
@@ -18,58 +13,80 @@
             {% endif %}
         </div>
         {% if object %}
-            <ul class="tabs">
-                <li data-tab-id="detail" class="active">Detail</li>
-                <li data-tab-id="history">History <span class="muted">({{ object.history.all|length }})</span></li>
-                <li data-tab-id="complete">Completion and Notes</li>
-            </ul>
-            <form method="post" novalidate>
-                {% csrf_token %}
-                <div data-tab="detail" class="container">
-                    <fieldset>
-                        {{ form }}
-                    </fieldset>
-                    <button class="button button-primary button-xl" type="submit" name="task_update">{% trans 'Save' %}</button>
+            <div class="row">
+                <div class="col">
+                    <ul class="tabs">
+                        <li data-tab-id="detail" class="active">Detail</li>
+                        <li data-tab-id="history">History <span class="muted">({{ object.history.all|length }})</span></li>
+                        <li data-tab-id="complete">Completion and Notes</li>
+                    </ul>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div data-tab="detail" class="container">
+                            <fieldset>
+                                {{ form }}
+                            </fieldset>
+                            <button class="button button-primary button-xl" type="submit" name="task_update">{% trans 'Save' %}</button>
+                        </div>
+                        <table data-tab="history" class="d-hidden">
+                            <thead>
+                                <tr>
+                                    <th>{% trans 'Date' %}</th>
+                                    <th>{% trans 'Notes' %}</th>
+                                    <th>{% trans 'User' %}</th>
+                                    <th>{% trans 'Status' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ob in object.history.all %}
+                                <tr>
+                                    <td class="align-top nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
+                                    <td class="align-top">{{ ob.notes|linebreaks|default:'-' }}</td>
+                                    <td class="align-top">{{ ob.user|default_if_none:'-' }}</td>
+                                    <td class="align-top">{{ ob.status|default_if_none:'-' }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="4">{% trans 'No history for the task.' %}</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div data-tab="complete" class="container-fluid d-hidden">
+                            <fieldset>
+                                {{ history_form }}
+                            </fieldset>
+                            <button class="button button-primary button-xl" type="submit" name="history_notes">{% trans 'Just add notes' %}</button>
+                            <button class="button button-olive button-xl pull-right" type="submit" name="history_complete">{% trans 'Add notes and complete task' %}</button>
+                        </div>
+                    </form>
                 </div>
-                <table data-tab="history" class="d-hidden">
-                    <thead>
-                        <tr>
-                            <th>{% trans 'Date' %}</th>
-                            <th>{% trans 'Notes' %}</th>
-                            <th>{% trans 'User' %}</th>
-                            <th>{% trans 'Status' %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ob in object.history.all %}
-                        <tr>
-                            <td class="align-top nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
-                            <td class="align-top">{{ ob.notes|linebreaks|default:'-' }}</td>
-                            <td class="align-top">{{ ob.user|default_if_none:'-' }}</td>
-                            <td class="align-top">{{ ob.status|default_if_none:'-' }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr><td colspan="4">{% trans 'No history for the task.' %}</td></tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <div data-tab="complete" class="container-fluid d-hidden">
-                    <fieldset>
-                        {{ history_form }}
-                    </fieldset>
-                    <button class="button button-primary button-xl" type="submit" name="history_notes">{% trans 'Just add notes' %}</button>
-                    <button class="button button-olive button-xl pull-right" type="submit" name="history_complete">{% trans 'Add notes and complete task' %}</button>
+                <div class="col-2">
+                    <p>Actions</p>
+                    <ul class="list-style-none mb-md">
+                        <li><a href="{{ object.asset.get_nodes_url }}">Cancel</a></li>
+                        {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
+                    </ul>
                 </div>
-            </form>
+            </div>
         {% else %}
             <div class="container">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <fieldset>
-                        {{ form }}
-                    </fieldset>
-                    <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
-                </form>
+                <div class="row">
+                    <div class="col">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            <fieldset>
+                                {{ form }}
+                            </fieldset>
+                            <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <p>Actions</p>
+                        <ul class="list-style-none mb-md">
+                            <li><a href="{{ asset.get_nodes_url }}">Cancel</a></li>
+                            {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         {% endif %}
     </div>

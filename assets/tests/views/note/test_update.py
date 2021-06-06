@@ -44,4 +44,4 @@ class TestUpdateView(AppTestCase):
         Note.objects.get(**post_data, pk=self.object.pk)
 
         # redirects to edit url
-        self.assertRedirects(response, self.object.get_absolute_url(), 302, 200)
+        self.assertRedirects(response, reverse('assets:note-list'), 302, 200)

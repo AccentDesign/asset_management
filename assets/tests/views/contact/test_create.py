@@ -34,7 +34,7 @@ class TestCreateView(AppTestCase):
         response = self.client.post(self.url, post_data)
 
         # was created for correct team
-        asset = Contact.objects.get(name=post_data['name'], team=self.team1)
+        Contact.objects.get(name=post_data['name'], team=self.team1)
 
         # redirects to edit url
-        self.assertRedirects(response, asset.get_absolute_url(), 302, 200)
+        self.assertRedirects(response, reverse('assets:contact-list'), 302, 200)

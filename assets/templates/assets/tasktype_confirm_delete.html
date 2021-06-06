@@ -5,25 +5,34 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <a class="button pull-right" href="{{ object.get_absolute_url }}">{% trans 'Cancel' %}</a>
             {% include 'partials/object_intro_header.html' with delete=True %}
         </div>
         <div class="container-fluid">
-            {% if protected %}
-            <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
-            <ul>
-                {% for item in protected %}
-                    <li>{{ item.verbose_name|capfirst }}: <a href="{{ item.object.get_absolute_url }}">{{ item.object }}</a></li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
-            <form method="post" novalidate>
-                {% csrf_token %}
-                {{ form }}
-                <button class="button button-googleplus button-xl" type="submit">{% trans 'Delete' %}</button>
-            </form>
-            {% endif %}
+            <div class="row">
+                <div class="col">
+                    {% if protected %}
+                        <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
+                        <ul>
+                            {% for item in protected %}
+                                <li>{{ item.verbose_name|capfirst }}: <a href="{{ item.object.get_absolute_url }}">{{ item.object }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {{ form }}
+                            <button class="button button-googleplus button-xl" type="submit">{% trans 'Delete' %}</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="col-2">
+                    <p>Actions</p>
+                    <ul class="list-style-none mb-md">
+                        <li><a href="{% url 'assets:task-type-list' %}">Cancel</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

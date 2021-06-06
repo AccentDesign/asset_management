@@ -16,12 +16,14 @@ class NoteCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
     model = Note
     form_class = NoteForm
     success_message = 'created successfully'
+    success_url = reverse_lazy('assets:note-list')
 
 
 class NoteUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Note
     form_class = NoteForm
     success_message = 'updated successfully'
+    success_url = reverse_lazy('assets:note-list')
 
 
 class NoteDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):

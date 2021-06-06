@@ -74,7 +74,7 @@
                         {% if object.is_child_node %}
                             <li><a href="{{ object.parent.get_nodes_url }}">{% trans 'View Parent' %}</a></li>
                         {% else %}
-                            <li><a href="{% url 'assets:asset-list' %}">{% trans 'Top Level Assets' %}</a></li>
+                            <li><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
                         {% endif %}
                         <li><a href="{% url 'assets:asset-update' object.pk %}">Edit</a></li>
                         <li><a href="{% url 'assets:asset-copy' object.pk %}">Copy</a></li>

@@ -5,29 +5,39 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <h2>{% trans 'Contacts' %} <a href="{% url 'assets:contact-create' %}"><i class="icon-plus-circled"></i></a></h2>
+            <h2>{% trans 'Contacts' %}
         </div>
-        <table class="table-hover">
-            <thead>
-                <tr>
-                    <th>{% trans 'Name' %}</th>
-                    <th>{% trans 'Email' %}</th>
-                    <th>{% trans 'Phone Number' %}</th>
-                    <th>{% trans 'Mobile Number' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ob in object_list %}
-                <tr>
-                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
-                    <td>{% if ob.email %}<a href="mailto://{{ ob.email }}">{{ ob.email }}</a>{% else %}-{% endif %}</td>
-                    <td>{{ ob.phone_number|default:'-' }}</td>
-                    <td>{{ ob.mobile_number|default:'-' }}</td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="4">{% trans 'No contacts have been created,' %} <a class="strong" href="{% url 'assets:contact-create' %}">{% trans 'create one now.' %}</a></td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col">
+                <table class="table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Name' %}</th>
+                            <th>{% trans 'Email' %}</th>
+                            <th>{% trans 'Phone Number' %}</th>
+                            <th>{% trans 'Mobile Number' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ob in object_list %}
+                        <tr>
+                            <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                            <td>{% if ob.email %}<a href="mailto://{{ ob.email }}">{{ ob.email }}</a>{% else %}-{% endif %}</td>
+                            <td>{{ ob.phone_number|default:'-' }}</td>
+                            <td>{{ ob.mobile_number|default:'-' }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="4">{% trans 'No contacts have been created,' %} <a class="strong" href="{% url 'assets:contact-create' %}">{% trans 'create one now.' %}</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-2">
+                <p>Actions</p>
+                <ul class="list-style-none mb-md">
+                    <li><a href="{% url 'assets:contact-create' %}">Add</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}

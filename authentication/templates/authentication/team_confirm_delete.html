@@ -5,7 +5,6 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <a class="button pull-right" href="{% url 'home' %}">{% trans 'Cancel' %}</a>
             {% include 'partials/object_intro_header.html' with delete=True %}
         </div>
         <div class="container-fluid">

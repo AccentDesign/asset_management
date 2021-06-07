@@ -15,7 +15,15 @@ def form_model_verbose_name(form):
 def section_name(context):
     """ Finds the section name for a given url """
 
-    url_name_suffixes = ['{}-list', '{}-create', '{}-update', '{}-delete', '{}-list-nodes', '{}-copy']
+    url_name_suffixes = [
+        '{}-list',
+        '{}-create',
+        '{}-update',
+        '{}-delete',
+        '{}-list-nodes',
+        '{}-copy',
+        '{}-move'
+    ]
     url_name = context['request'].resolver_match.url_name
 
     if url_name in [s.format('asset') for s in url_name_suffixes]:

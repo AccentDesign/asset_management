@@ -8,35 +8,37 @@
         <div class="main-info">
             <h2>{% trans 'Search Results' %} <span class="small muted">{{ query }}</span></h2>
         </div>
-        <table class="tree-table table-hover">
-            <thead>
-                <tr>
-                    <th>{% trans 'Item' %}</th>
-                    <th class="w-1">{% trans 'Type' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ob in object_list %}
-                <tr class="pointer">
-                    <td>
-                        {% if ob|klass == 'Asset' %}
-                            <a href="{{ ob.get_nodes_url }}">{{ ob }}</a>
-                            {% include 'assets/partials/breadcrumb.html' with object=ob %}
-                        {% elif ob|klass == 'Task' %}
-                            <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
-                            {% include 'assets/partials/breadcrumb.html' with object=ob.asset %}
-                        {% else %}
-                            <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
-                        {% endif %}
-                    </td>
-                    <td class="nowrap">{{ ob|klass }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="2">{% trans 'No results found.' %}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="container-fluid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans 'Item' %}</th>
+                        <th class="w-1">{% trans 'Type' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ob in object_list %}
+                    <tr class="pointer">
+                        <td>
+                            {% if ob|klass == 'Asset' %}
+                                <a href="{{ ob.get_nodes_url }}">{{ ob }}</a>
+                                {% include 'assets/partials/breadcrumb.html' with object=ob %}
+                            {% elif ob|klass == 'Task' %}
+                                <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
+                                {% include 'assets/partials/breadcrumb.html' with object=ob.asset %}
+                            {% else %}
+                                <a href="{{ ob.get_absolute_url }}">{{ ob }}</a>
+                            {% endif %}
+                        </td>
+                        <td class="nowrap">{{ ob|klass }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td class="muted" colspan="2">{% trans 'No results found.' %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

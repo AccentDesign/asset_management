@@ -22,34 +22,36 @@
                     </ul>
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        <div class="container" x-show="tab == 0">
+                        <div class="container-fluid" x-show="tab == 0">
                             <fieldset>
                                 {{ form }}
                             </fieldset>
                             <button class="button button-primary button-xl" type="submit" name="task_update">{% trans 'Save' %}</button>
                         </div>
-                        <table x-show="tab == 1">
-                            <thead>
-                                <tr>
-                                    <th>{% trans 'Date' %}</th>
-                                    <th>{% trans 'Notes' %}</th>
-                                    <th>{% trans 'User' %}</th>
-                                    <th>{% trans 'Status' %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for ob in object.history.all %}
-                                <tr>
-                                    <td class="align-top nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
-                                    <td class="align-top">{{ ob.notes|linebreaks|default:'-' }}</td>
-                                    <td class="align-top">{{ ob.user|default_if_none:'-' }}</td>
-                                    <td class="align-top">{{ ob.status|default_if_none:'-' }}</td>
-                                </tr>
-                                {% empty %}
-                                <tr><td colspan="4">{% trans 'No history for the task.' %}</td></tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="container-fluid" x-show="tab == 1">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>{% trans 'Date' %}</th>
+                                        <th>{% trans 'Notes' %}</th>
+                                        <th>{% trans 'User' %}</th>
+                                        <th>{% trans 'Status' %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ob in object.history.all %}
+                                    <tr>
+                                        <td class="align-top nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
+                                        <td class="align-top">{{ ob.notes|linebreaks|default:'-' }}</td>
+                                        <td class="align-top">{% if ob.user %}{{ ob.user.get_full_name }}{% else %}-{% endif %}</td>
+                                        <td class="align-top">{{ ob.status|default_if_none:'-' }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr><td colspan="4">{% trans 'No history for the task.' %}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="container-fluid" x-show="tab == 2">
                             <fieldset>
                                 {{ history_form }}

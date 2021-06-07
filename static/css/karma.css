@@ -1418,17 +1418,17 @@ table {
 }
 
 caption {
-  padding: 0.85rem 1.5rem;
+  padding: 0.85rem 1.5rem 0.85rem 0;
 }
 
 th {
-  padding: 0.85rem 1.5rem;
+  padding: 0.85rem 1.5rem 0.85rem 0;
   text-align: left;
   vertical-align: top;
 }
 
 td {
-  padding: 0.85rem 1.5rem;
+  padding: 0.85rem 1.5rem 0.85rem 0;
   text-align: left;
   vertical-align: top;
   border-top: 1px solid #e6e6e6;
@@ -2023,21 +2023,6 @@ header .user-menu .menu-drop {
   left: auto;
   color: #111111;
   padding: 5px;
-}
-
-td {
-  vertical-align: middle;
-}
-
-.header-row {
-  padding-top: .8rem;
-  padding-bottom: .8rem;
-}
-
-.data-row {
-  border-top: solid 1px #e6e6e6;
-  padding-top: .8rem;
-  padding-bottom: .8rem;
 }
 
 .tabs {

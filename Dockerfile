@@ -14,9 +14,6 @@ RUN         set -ex \
                 # postgres
                 libpq \
                 postgresql-client \
-                # pillow
-                jpeg-dev \
-                zlib-dev \
                 # misc
                 make \
                 supervisor \

@@ -2,9 +2,7 @@ boto3
 django
 django-mptt
 django-reversion
-django-simplemde
 django-storages
-docutils
 huey[backends]
 psycopg2-binary
 python-dateutil

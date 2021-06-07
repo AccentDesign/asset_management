@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'huey.contrib.djhuey',
     'mptt',
     'reversion',
-    'simplemde',
     'storages',
 ]
 
@@ -229,13 +228,3 @@ try:
 
 except ImportError:
     pass
-
-
-# Simple MDE
-
-SIMPLEMDE_OPTIONS = {
-    'status': False,
-    'autosave': {
-        'enabled': True
-    }
-}

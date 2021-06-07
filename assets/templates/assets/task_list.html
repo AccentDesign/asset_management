@@ -39,7 +39,7 @@
                     <td>{{ ob.due_date|default:'-' }}</td>
                     <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
                     <td>{{ ob.task_priority|default_if_none:'-' }}</td>
-                    <td>{{ ob.assigned_to|default:'-' }}</td>
+                    <td>{% if ob.assigned_to %}{{ ob.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
                 </tr>
                 {% empty %}
                 <tr><td colspan="7">{% trans 'No tasks are due for the given date.' %}</td></tr>

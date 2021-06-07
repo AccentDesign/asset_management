@@ -30,7 +30,7 @@
                                 <div class="col-2">{{ task.last_completed|localtime|date|default:'-' }}</div>
                                 <div class="col-2">{{ task.task_priority|default_if_none:'-' }}</div>
                                 <div class="col-2">{{ task.due_date|default:'-' }}</div>
-                                <div class="col-3">{{ task.assigned_to|default:'-' }}</div>
+                                <div class="col-3">{% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}-{% endif %}</div>
                             </div>
                         {% empty %}
                             <div class="row data-row">

@@ -1,11 +1,5 @@
 
-.icon-attention-circled:before { content: '\e800'; } /* '' */
-.icon-plus-circled:before { content: '\e801'; } /* '' */
-.icon-calendar:before { content: '\e802'; } /* '' */
-.icon-user:before { content: '\e803'; } /* '' */
-.icon-right-open:before { content: '\e804'; } /* '' */
 .icon-cancel:before { content: '\e805'; } /* '' */
-.icon-ok-circled:before { content: '\e806'; } /* '' */
 .icon-search:before { content: '\e807'; } /* '' */
 .icon-down-open:before { content: '\e808'; } /* '' */
 .icon-pencil:before { content: '\e809'; } /* '' */

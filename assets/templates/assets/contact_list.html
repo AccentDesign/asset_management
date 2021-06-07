@@ -23,7 +23,7 @@
                             {% for ob in object_list %}
                             <tr>
                                 <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
-                                <td>{% if ob.email %}<a href="mailto://{{ ob.email }}">{{ ob.email }}</a>{% else %}-{% endif %}</td>
+                                <td>{% if ob.email %}<a href="mailto:{{ ob.email }}">{{ ob.email }}</a>{% else %}-{% endif %}</td>
                                 <td>{{ ob.phone_number|default:'-' }}</td>
                                 <td>{{ ob.mobile_number|default:'-' }}</td>
                             </tr>

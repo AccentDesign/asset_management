@@ -90,7 +90,7 @@
                     <p>Asset Type</p>
                     <p class="mb-md">{{ object.asset_type|default_if_none:'-' }}</p>
                     <p>Contact</p>
-                    <p class="mb-md">{{ object.contact|default_if_none:'-' }}</p>
+                    <p class="mb-md">{% if object.contact %}<a href="{{ object.contact.get_absolute_url }}">{{ object.contact }}</a>{% else %}-{% endif %}</p>
                 </div>
             </div>
         </div>

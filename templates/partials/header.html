@@ -7,9 +7,9 @@
 
                     <div class="header-team">
                         <a class="home-link" href="{% url 'home' %}">{% firstof request.user.activated_team 'Asset Management' %}</a>
-                        <div class="menu">
-                            <a class="menu-link"><i class="icon-down-open"></i></a>
-                            <ul class="menu-drop flow-right">
+                        <div class="menu" x-data="{ open: false }">
+                            <a class="menu-link" @click="open = true"><i class="icon-down-open"></i></a>
+                            <ul class="menu-drop flow-right" x-show="open" @click.away="open = false">
                                 {% for team in user.get_teams %}
                                 <li {% if team == request.user.activated_team %}class="active"{% endif %}>
                                     <a href="{% url 'team-activate' team.pk %}">{{ team }}</a>
@@ -30,9 +30,9 @@
                         </div>
                     </form>
 
-                    <div class="user-menu menu">
-                        <a class="menu-link">{{ request.user.get_full_name }}</a>
-                        <ul class="menu-drop flow-left">
+                    <div class="user-menu menu" x-data="{ open: false }">
+                        <a class="menu-link" @click="open = true">{{ request.user.get_full_name }}</a>
+                        <ul class="menu-drop flow-left" x-show="open" @click.away="open = false">
                             {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>{% endif %}
                             <li><a href="{% url 'my_profile' %}">{% trans 'My Profile' %}</a></li>
                             <li><a href="{% url 'password_change' %}">{% trans 'Password Change' %}</a></li>

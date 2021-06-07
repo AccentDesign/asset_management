@@ -1,8 +1,8 @@
 {% if messages %}
 <ul class="alerts">
     {% for message in messages %}
-    <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-        <a href="" class="close"><i class="icon-cancel"></i></a>
+    <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} x-data="{ open: true }" x-show="open">
+        <a href="" class="close" @click="$event.preventDefault(); open = false"><i class="icon-cancel"></i></a>
         {{ message }}
     </li>
     {% endfor %}

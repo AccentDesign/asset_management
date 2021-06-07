@@ -48,10 +48,10 @@ Dropzone.options.filesDropzone = {
                 '<div class="col-10"><a href="' + data.url + '" target="_blank">' + data.name + '</a></div>' +
                 '<div class="col-2">' + data.size + '</div>' +
                 '</div>';
-            var last_row = $($('.data-row').last());
-            last_row.after(html);
-            if (last_row.hasClass('no-results')) {
-                last_row.remove();
+            var last = document.querySelectorAll(".data-row:last-child")[0];
+            last.insertAdjacentHTML('afterend', html);
+            if (last.classList.contains('no-results')) {
+                last.remove();
             }
         });
     }

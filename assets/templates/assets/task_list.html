@@ -6,7 +6,7 @@
 {% block inner_content %}
     <div class="main">
         <div class="main-info">
-            <form method="get" class="filters pull-right">
+            <form id="filter_form" method="get" class="filters pull-right">
                 <div class="input-group w-auto">
                     <div class="input-group-addon">{{ filter_form.due_date.label }}</div>
                     {{ filter_form.due_date }}
@@ -52,8 +52,13 @@
 {% block extra_js %}
     {{ filter_form.media }}
     <script>
-        $('form.filters').on('change', 'input, select', function () {
-            $(this).closest('form').submit();
-        });
+        function submit() {
+            var filter_form = document.getElementById('filter_form');
+            filter_form.submit();
+        }
+        var due_date = document.getElementById('id_due_date');
+        due_date.onchange = submit;
+        var assigned_to = document.getElementById('id_assigned_to');
+        assigned_to.onchange = submit;
     </script>
 {% endblock %}

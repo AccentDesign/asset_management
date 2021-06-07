@@ -2026,7 +2026,6 @@ header .user-menu .menu-drop {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   background: whitesmoke;
   border-radius: 0.25rem;
-  display: none;
   list-style-type: none;
   min-width: 25rem;
   z-index: 10;

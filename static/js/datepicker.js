@@ -1,3 +1,1 @@
-$( function() {
-    $(".datepicker").flatpickr({'dateFormat': 'd/m/Y'});
-});
+flatpickr(".datepicker", {'dateFormat': 'd/m/Y'});

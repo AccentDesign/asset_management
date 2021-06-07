@@ -14,21 +14,21 @@
         </div>
         {% if object %}
             <div class="row">
-                <div class="col">
+                <div class="col" x-data="{ tab: 0 }">
                     <ul class="tabs">
-                        <li data-tab-id="detail" class="active">Detail</li>
-                        <li data-tab-id="history">History <span class="muted">({{ object.history.all|length }})</span></li>
-                        <li data-tab-id="complete">Completion and Notes</li>
+                        <li @click="tab = 0" x-bind:class="{ 'active': tab == 0 }">Detail</li>
+                        <li @click="tab = 1" x-bind:class="{ 'active': tab == 1 }">History <span class="muted">({{ object.history.all|length }})</span></li>
+                        <li @click="tab = 2" x-bind:class="{ 'active': tab == 2 }">Completion and Notes</li>
                     </ul>
                     <form method="post" novalidate>
                         {% csrf_token %}
-                        <div data-tab="detail" class="container">
+                        <div class="container" x-show="tab == 0">
                             <fieldset>
                                 {{ form }}
                             </fieldset>
                             <button class="button button-primary button-xl" type="submit" name="task_update">{% trans 'Save' %}</button>
                         </div>
-                        <table data-tab="history" class="d-hidden">
+                        <table x-show="tab == 1">
                             <thead>
                                 <tr>
                                     <th>{% trans 'Date' %}</th>
@@ -50,7 +50,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <div data-tab="complete" class="container-fluid d-hidden">
+                        <div class="container-fluid" x-show="tab == 2">
                             <fieldset>
                                 {{ history_form }}
                             </fieldset>
@@ -94,6 +94,4 @@
 
 {% block extra_js %}
     {{ form.media }}
-    <script src="{% static 'js/tabs.js' %}"></script>
-    <script>$('.tabs').tabs();</script>
 {% endblock %}

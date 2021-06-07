@@ -1710,46 +1710,6 @@ sup {
   color: #dd4b39;
 }
 
-.dropzone {
-  border: dotted 1px #e6e6e6 !important;
-  min-height: 120px !important;
-  padding: 10px !important;
-}
-
-.dropzone input[type=file] {
-  display: none;
-}
-
-.dropzone .dz-preview {
-  margin: 10px !important;
-}
-
-.dropzone .dz-message {
-  color: #aaaaaa !important;
-  font-size: 2rem !important;
-  margin: 2.4rem 0 !important;
-  padding: 2rem 0 !important;
-}
-
-.dropzone .dz-image {
-  background: whitesmoke !important;
-  border-radius: 0.25rem !important;
-  z-index: 6 !important;
-}
-
-.dropzone .dz-details {
-  z-index: 6 !important;
-}
-
-.dropzone .dz-size {
-  font-size: 1.4rem !important;
-}
-
-.dropzone .dz-success-mark,
-.dropzone .dz-error-mark {
-  z-index: 6 !important;
-}
-
 .helptext {
   display: block;
   font-style: italic;
@@ -1759,14 +1719,6 @@ sup {
 
 .filters input.datepicker {
   width: 9.5rem;
-}
-
-.checkbox {
-  position: relative;
-}
-
-.checkbox label {
-  position: initial;
 }
 
 header {
@@ -1849,8 +1801,6 @@ header .user-menu .menu-drop {
 .main {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   background: white;
-  border: solid 1px #e6e6e6;
-  border-radius: 6px;
   margin-top: 13rem;
   padding-bottom: 10rem;
 }

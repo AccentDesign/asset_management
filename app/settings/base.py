@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'authentication',
 
     'huey.contrib.djhuey',
-    'images',
     'mptt',
     'reversion',
     'simplemde',
@@ -90,6 +89,8 @@ DATABASES = {
         'PASSWORD': environ.get('RDS_PASSWORD'),
     }
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Email

@@ -1,11 +1,8 @@
 from datetime import datetime
-from io import BytesIO
 
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import models
 from django.test import TestCase
-
-from PIL import Image
 
 from assets.models import Asset, AssetType, Task, TaskType, File
 from authentication.models import User, Team
@@ -116,11 +113,5 @@ class AppTestCase(TestCase):
         )[0]
 
     def get_temporary_image(self):
-        io = BytesIO()
-        size = (100, 100)
-        color = (255, 0, 0)
-        image = Image.new("RGB", size, color)
-        image.save(io, format='PNG')
-        image_file = InMemoryUploadedFile(io, None, 'foo.png', 'png', io.__sizeof__(), None)
-        image_file.seek(0)
+        image_file = SimpleUploadedFile('file.jpg', b"file_content", content_type='image/jpeg')
         return image_file

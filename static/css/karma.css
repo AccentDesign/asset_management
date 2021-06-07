@@ -1973,29 +1973,6 @@ header .user-menu .menu-drop {
   top: 5rem;
 }
 
-.avatar {
-  height: 3rem;
-  width: 3rem;
-}
-
-.avatar img {
-  border-radius: 50%;
-  border: solid 1px #e6e6e6;
-  height: 100%;
-  width: 100%;
-}
-
-.avatar .initials {
-  background: whitesmoke;
-  border: solid 1px #e6e6e6;
-  border-radius: 50%;
-  font-size: 2rem;
-  height: 100%;
-  line-height: 3rem;
-  text-align: center;
-  width: 100%;
-}
-
 .main {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   background: white;

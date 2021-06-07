@@ -1,4 +1,4 @@
-{% load i18n app_tags images_tags %}
+{% load i18n app_tags %}
 <header>
     <div class="container-fluid">
         <div class="container">
@@ -31,14 +31,7 @@
                     </form>
 
                     <div class="user-menu menu">
-                        <a class="menu-link">
-                            {% if request.user.picture %}
-                                {% image request.user.picture fill-30x30-c100 as img %}
-                                <div class="avatar"><img src="{{ img.url }}"></div>
-                            {% else %}
-                                <div class="avatar"><div class="initials">{{ request.user.get_initial }}</div></div>
-                            {% endif %}
-                        </a>
+                        <a class="menu-link">{{ request.user.get_full_name }}</a>
                         <ul class="menu-drop flow-left">
                             {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>{% endif %}
                             <li><a href="{% url 'my_profile' %}">{% trans 'My Profile' %}</a></li>

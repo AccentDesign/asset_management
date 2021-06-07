@@ -32,9 +32,6 @@ def section_name(context):
     if url_name in [s.format('contact') for s in url_name_suffixes]:
         return 'contact'
 
-    if url_name in [s.format('file') for s in url_name_suffixes]:
-        return 'file'
-
     if url_name in [s.format('note') for s in url_name_suffixes]:
         return 'note'
 

@@ -17,7 +17,6 @@ class AssetAdmin(VersionAdmin, MPTTModelAdmin):
 admin.site.register(Asset, AssetAdmin)
 admin.site.register(AssetType, VersionAdmin)
 admin.site.register(Contact, VersionAdmin)
-admin.site.register(File, VersionAdmin)
 admin.site.register(Note, VersionAdmin)
 admin.site.register(Status, VersionAdmin)
 

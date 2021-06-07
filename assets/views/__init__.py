@@ -19,10 +19,6 @@ from .contact import (
     ContactUpdate,
     ContactDelete
 )
-from .file import (
-    FileList,
-    FileUpload
-)
 from .note import (
     NoteList,
     NoteCreate,

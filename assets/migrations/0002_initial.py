@@ -74,16 +74,6 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(default=authentication.middleware.current_user.get_current_user, editable=False, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
-            model_name='file',
-            name='team',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
-        ),
-        migrations.AddField(
-            model_name='file',
-            name='uploaded_by',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_user, editable=False, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
             model_name='contact',
             name='team',
             field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),

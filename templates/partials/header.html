@@ -48,7 +48,6 @@
                         <ul class="nav">
                             <li {% if section == 'asset' %}class="active"{% endif %}><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
                             <li {% if section == 'task' %}class="active"{% endif %}><a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a></li>
-                            <li {% if section == 'note' %}class="active"{% endif %}><a href="{% url 'assets:note-list' %}">{% trans 'Notes' %}</a></li>
                             <li {% if section == 'contact' %}class="active"{% endif %}><a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a></li>
                         </ul>
                     {% else %}

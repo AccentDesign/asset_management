@@ -19,12 +19,6 @@ from .contact import (
     ContactUpdate,
     ContactDelete
 )
-from .note import (
-    NoteList,
-    NoteCreate,
-    NoteUpdate,
-    NoteDelete
-)
 from .search import SearchView
 from .task import (
     TaskCreate,

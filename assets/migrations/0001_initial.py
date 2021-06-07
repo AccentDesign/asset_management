@@ -66,22 +66,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Note',
-            fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=255)),
-                ('content', simplemde.fields.SimpleMDEField(blank=True)),
-                ('created_on', models.DateTimeField(auto_now_add=True)),
-                ('updated_on', models.DateTimeField(auto_now=True)),
-            ],
-            options={
-                'ordering': ['title'],
-            },
-            managers=[
-                ('for_team', django.db.models.manager.Manager()),
-            ],
-        ),
-        migrations.CreateModel(
             name='Status',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),

@@ -111,27 +111,3 @@
       address: "Norwich\nNR1",
       team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     }
-
--
-    model: assets.note
-    pk: "57158a39-76ff-417e-8e3d-83ec0422e56b"
-    fields: {
-      title: "Note One",
-      content: "some text",
-      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c",
-      created_on: "2018-01-01T00:00:00.000Z",
-      updated_on: "2018-01-01T00:00:00.000Z",
-      user: "bebe2f97-2f26-4aa9-9494-6f17966ffc24"
-    }
-
--
-    model: assets.note
-    pk: "24f899f6-3faa-4453-bad8-77d182032abf"
-    fields: {
-      title: "Note One",
-      content: "some text",
-      team: "0d9cdca5-16f0-4128-95fd-24690a50695a",
-      created_on: "2018-01-01T00:00:00.000Z",
-      updated_on: "2018-01-01T00:00:00.000Z",
-      user: "920759d1-ce76-40b8-b702-28ace8f9c663"
-    }

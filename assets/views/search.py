@@ -26,12 +26,10 @@ class SearchView(ActivatedTeamRequiredMixin, ListView):
             contact_results = models.Contact.for_team.search(query)
             # TODO: find a way to do the asset.get_ancestors() to avoid the N+1 issue
             task_results = models.Task.for_team.search(query).select_related('asset')
-            note_results = models.Note.for_team.search(query)
             queryset_chain = chain(
                 asset_results,
                 contact_results,
-                task_results,
-                note_results
+                task_results
             )
             qs = sorted(
                 queryset_chain,

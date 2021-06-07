@@ -2,10 +2,6 @@ from django import forms
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
-class CheckboxInput(forms.widgets.CheckboxInput):
-    template_name = 'app/forms/widgets/checkbox_input.html'
-
-
 class ClearableFileInput(forms.widgets.ClearableFileInput):
     template_name = 'app/forms/widgets/clearable_file_input.html'
 

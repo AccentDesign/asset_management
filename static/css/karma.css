@@ -1732,10 +1732,6 @@ sup {
 }
 
 /* '' */
-.button.button-xs {
-  padding: 0 .4rem;
-}
-
 .button.button-xl {
   padding: 1.5rem 1.6rem;
 }
@@ -2000,10 +1996,6 @@ header .user-menu .menu-drop {
   width: 100%;
 }
 
-.login-page {
-  background: whitesmoke;
-}
-
 .main {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   background: white;
@@ -2152,34 +2144,6 @@ header .user-menu .menu-drop {
   left: auto;
   color: #111111;
   padding: 5px;
-}
-
-.panel {
-  border: solid 1px #e6e6e6;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.sidenav {
-  position: fixed;
-  top: 0;
-  right: auto;
-  bottom: auto;
-  left: 0;
-  background: whitesmoke;
-  height: 100%;
-  width: 20rem;
-  overflow-x: hidden;
-  padding: 9rem 2rem 6rem 2rem;
-}
-
-.sidenav .nav {
-  list-style-type: none;
-  margin-bottom: 3rem;
-}
-
-.sidenav .nav li {
-  margin-bottom: 1rem;
 }
 
 td {

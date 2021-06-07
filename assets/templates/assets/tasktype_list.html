@@ -22,7 +22,7 @@
                                 <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
                             </tr>
                             {% empty %}
-                            <tr><td class="muted">{% trans 'No task types have been created,' %} <a class="strong" href="{% url 'assets:task-type-create' %}">{% trans 'create one now.' %}</a></td></tr>
+                            <tr><td class="muted">{% trans 'No task types have been created,' %} <a href="{% url 'assets:task-type-create' %}">{% trans 'create one now.' %}</a></td></tr>
                             {% endfor %}
                         </tbody>
                     </table>

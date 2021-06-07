@@ -34,7 +34,7 @@
                                     </tr>
                                 {% empty %}
                                     <tr>
-                                        <td class="muted" colspan="3">{% trans 'No assets have been created,' %} <a class="strong" href="{% url 'assets:asset-create' %}">{% trans 'create one now.' %}</a></td>
+                                        <td class="muted" colspan="3">{% trans 'No assets have been created,' %} <a href="{% url 'assets:asset-create' %}">{% trans 'create one now.' %}</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

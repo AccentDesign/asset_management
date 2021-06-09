@@ -1,6 +1,7 @@
 import uuid
 from copy import deepcopy
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.urls import reverse_lazy
 
@@ -66,6 +67,12 @@ class Asset(MPTTModel):
         null=True,
         blank=True,
         on_delete=models.SET_NULL
+    )
+    extra_data = models.JSONField(
+        default=dict,
+        null=True,
+        blank=True,
+        encoder=DjangoJSONEncoder,
     )
     parent = TreeForeignKey(
         'self',

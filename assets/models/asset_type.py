@@ -29,6 +29,11 @@ class AssetType(models.Model):
     name = models.CharField(
         max_length=255
     )
+    fields = models.JSONField(
+        default=dict,
+        null=True,
+        blank=True,
+    )
     team = models.ForeignKey(
         'authentication.Team',
         on_delete=models.CASCADE,

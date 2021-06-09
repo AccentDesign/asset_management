@@ -6,11 +6,7 @@
     <div class="main">
         <div class="main-info">
             {% include 'partials/object_intro_header.html' %}
-            {% if parent_asset %}
-                {% include 'assets/partials/breadcrumb.html' with object=parent_asset %}
-            {% elif object %}
-                {% include 'assets/partials/breadcrumb.html' with object=object %}
-            {% endif %}
+            {% include 'assets/partials/breadcrumb.html' with object=object %}
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -26,14 +22,7 @@
                 <div class="col-2">
                     <p>Actions</p>
                     <ul class="list-style-none mb-md">
-                        {% if parent_asset %}
-                            <li><a href="{{ parent_asset.get_nodes_url }}">Cancel</a></li>
-                        {% elif object %}
-                            <li><a href="{{ object.get_nodes_url }}">Cancel</a></li>
-                        {% else %}
-                            <li><a href="{% url 'assets:asset-list' %}">Cancel</a></li>
-                        {% endif %}
-                        {% if object %}<li><a href="{% url 'assets:asset-delete' object.pk %}">Delete</a></li>{% endif %}
+                        <li><a href="{{ object.get_nodes_url }}">Cancel</a></li>
                     </ul>
                 </div>
             </div>

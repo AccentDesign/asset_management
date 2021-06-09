@@ -29,7 +29,8 @@ class TestCreateView(AppTestCase):
     def test_can_create(self):
         self.client.force_login(self.team1.members.first())
         post_data = {
-            'name': 'some name'
+            'name': 'some name',
+            'fields': '{}'
         }
         response = self.client.post(self.url, post_data)
 

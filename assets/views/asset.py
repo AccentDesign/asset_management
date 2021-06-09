@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView, DetailView
 from mptt.exceptions import InvalidMove
 
+from app.forms.formbuilder import FormBuilder
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.forms import AssetCopyForm, AssetForm, AssetMoveForm
 from assets.models import Asset
@@ -112,6 +113,32 @@ class AssetDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSucces
         if self.object.is_child_node():
             return self.object.parent.get_nodes_url()
         return reverse_lazy('assets:asset-list')
+
+
+class AssetExtra(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Asset
+    success_message = 'updated successfully'
+    template_name = 'assets/asset_extra_form.html'
+
+    def get_form_class(self):
+        return FormBuilder(self.object.asset_type.fields).get_form_class()
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        del kwargs['instance']
+        kwargs.update({'initial': self.object.extra_data})
+        return kwargs
+
+    def form_valid(self, form):
+        self.object.extra_data = form.cleaned_data
+        self.object.save()
+        success_message = self.get_success_message(form.cleaned_data)
+        if success_message:
+            messages.success(self.request, success_message)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.object.get_nodes_url()
 
 
 class AssetCopy(ActivatedTeamRequiredMixin, SuccessMessageMixin, FormView):

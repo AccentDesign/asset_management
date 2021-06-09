@@ -81,6 +81,7 @@
                             <li><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
                         {% endif %}
                         <li><a href="{% url 'assets:asset-update' object.pk %}">Edit</a></li>
+                        {% if object.asset_type and object.asset_type.fields %}<li><a href="{% url 'assets:asset-extra' object.pk %}">Edit Extra</a></li>{% endif %}
                         <li><a href="{% url 'assets:asset-copy' object.pk %}">Copy</a></li>
                         <li><a href="{% url 'assets:asset-move' object.pk %}">Move</a></li>
                         <li><a href="{% url 'assets:asset-delete' object.pk %}">Delete</a></li>

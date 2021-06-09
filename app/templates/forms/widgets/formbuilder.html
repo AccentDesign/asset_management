@@ -1,0 +1,125 @@
+<div class="row mb-md"
+    x-data="{
+        fields: {% if widget.value != None %}{{ widget.value }}{% else %}{}{% endif %},
+        new_choice: '',
+        meta: getMeta(),
+        visible: []
+    }"
+>
+    <input type="hidden" x-bind:value="JSON.stringify(fields)" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+    <div class="col">
+        <p class="helptext pt-sm">Add fields below that you want to capture within the asset extra section</p>
+        <template x-for="id in Object.keys(fields)" :key="id">
+            <div class="b-whitesmoke mb-xs p-sm">
+                <div class="row">
+                    <div class="col d-flex">
+                        <a class="mr-auto pointer"
+                            x-text="fields[id].label"
+                            @click.prevent="visible.indexOf(id) >= 0 ? visible = visible.filter((value) => value != id) : visible.push(id)"
+                        ></a>
+                        <span class="mr-sm muted" x-text="meta[fields[id].type].name"></span>
+                        <a class="pointer"
+                            @click.prevent="visible = visible.filter((value) => value != id); delete fields[id];"
+                        ><i class="icon-trash-empty"></i></a>
+                    </div>
+                </div>
+                <div class="pt-sm" x-show="visible.indexOf(id) >= 0">
+                    <label>Label:</label>
+                    <input type="text" x-model="fields[id].label">
+                    <label>Widget:</label>
+                    <select x-model="fields[id].widget">
+                        <option value="">---------</option>
+                        <template x-for="(item, index) in meta[fields[id].type].widgets" :key="index">
+                            <option
+                                x-bind:value="item.type"
+                                x-text="item.name"
+                                x-bind:selected="fields[id].widget === item.type"
+                            ></option>
+                        </template>
+                    </select>
+                    <label>Required:</label>
+                    <label class="checkbox mb-sm pointer">
+                        <i class="c-gray icon-check-empty" x-show="!fields[id].required"></i>
+                        <i class="c-primary icon-ok-squared" x-show="fields[id].required"></i>
+                        <input type="checkbox" x-model="fields[id].required" class="d-hidden">
+                    </label>
+                    <label>Help text:</label>
+                    <input type="text" x-model="fields[id].help_text">
+                    <label>Initial:</label>
+                    <input type="text" x-model="fields[id].initial">
+                    <template x-if="meta[fields[id].type].has_max_digits">
+                        <div>
+                            <label>Max digits:</label>
+                            <input type="number" x-model.number="fields[id].max_digits">
+                        </div>
+                    </template>
+                    <template x-if="meta[fields[id].type].has_decimal_places">
+                        <div>
+                            <label>Decimal places:</label>
+                            <input type="number" x-model.number="fields[id].decimal_places">
+                        </div>
+                    </template>
+                    <template x-if="meta[fields[id].type].has_choices">
+                        <div>
+                            <label>Choices:</label>
+                            <template x-for="(item, index, choices) in fields[id].choices" :key="index">
+                                <div class="input-group">
+                                    <input type="text" x-model="choices[index]">
+                                    <a class="input-group-addon pointer" @click.prevent="fields[id].choices.splice(index, 1);">Remove</a>
+                                </div>
+                            </template>
+                            <div class="input-group">
+                                <input type="text"
+                                    placeholder="Add choice text then press enter"
+                                    x-model="new_choice"
+                                    x-on:keydown.enter.prevent="addChoice(fields[id], new_choice); new_choice = '';"
+                                >
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+    <div class="col-3">
+        <ul class="list-style-none">
+        <template x-for="key in Object.keys(meta)" :key="key">
+            <li class="mb-xs">
+                <a class="button d-block text-left"
+                    x-text="meta[key].name"
+                    @click.prevent="addField(fields, key, visible)"
+                ></a>
+            </li>
+        </template>
+        </ul>
+    </div>
+</div>
+<script>
+    function addChoice(field, choice) {
+        if (choice) {
+            if (field.choices.indexOf(choice) == -1) {
+                field.choices.push(choice);
+            }
+        }
+    }
+    function addField(fields, type, visible) {
+        var data = getNewField();
+        var meta = getMeta();
+        var id = newUUID().toString();
+        data.type = type;
+        if (meta[type].widgets.length == 1) {
+            data.widget = meta[type].widgets[0].type;
+        }
+        fields[id] = data;
+        visible.push(id);
+    }
+    function getNewField() {
+        return {{ field_data_template|safe }};
+    }
+    function newUUID() {
+        return Date.now()
+    }
+    function getMeta() {
+        return {{ metadata|safe }};
+    }
+</script>

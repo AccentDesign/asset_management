@@ -3,6 +3,7 @@ from .asset import (
     AssetForm,
     AssetMoveForm,
 )
+from .asset_type import AssetTypeForm
 from .contact import ContactForm
 from .task import (
     TaskForm,

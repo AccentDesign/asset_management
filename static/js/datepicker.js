@@ -1,1 +1,1 @@
-flatpickr(".datepicker", {'dateFormat': 'd/m/Y'});
+flatpickr(".datepicker", {'dateFormat': 'Y-m-d'});

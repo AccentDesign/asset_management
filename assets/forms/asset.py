@@ -7,8 +7,12 @@ from assets.models import Asset, AssetType, Contact
 class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
-        fields = '__all__'
-        exclude = ('parent', )
+        fields = [
+            'name',
+            'description',
+            'asset_type',
+            'contact',
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

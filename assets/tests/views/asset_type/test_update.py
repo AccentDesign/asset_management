@@ -35,12 +35,13 @@ class TestUpdateView(AppTestCase):
     def test_can_update(self):
         self.client.force_login(self.team1.members.first())
         post_data = {
-            'name': 'some edited name'
+            'name': 'some edited name',
+            'fields': '{}'
         }
         response = self.client.post(self.url, post_data)
 
         # was updated
-        AssetType.objects.get(**post_data, pk=self.object.pk)
+        AssetType.objects.get(name=post_data['name'], pk=self.object.pk)
 
         # redirects to edit url
         self.assertRedirects(response, reverse('assets:asset-type-list'), 302, 200)

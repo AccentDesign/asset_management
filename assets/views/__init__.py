@@ -2,6 +2,7 @@ from .asset import (
     AssetRootList,
     AssetNodeList,
     AssetCreate,
+    AssetExtra,
     AssetUpdate,
     AssetDelete,
     AssetCopy,

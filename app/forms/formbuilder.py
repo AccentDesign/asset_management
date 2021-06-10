@@ -198,4 +198,4 @@ class FormBuilder:
         }
 
     def get_form_class(self):
-        return type(str("FormBuilder"), (FormBuilderBaseForm,), self.formfields)
+        return type(str("AppFormBuilder"), (FormBuilderBaseForm,), self.formfields)

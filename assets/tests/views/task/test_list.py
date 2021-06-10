@@ -12,7 +12,7 @@ class TestListView(AppTestCase):
         self.url = reverse('assets:task-list')
         self.filtered_url = '{}?due_date={}'.format(
             self.url,
-            datetime.today().date().strftime('%d/%m/%Y')
+            datetime.today().date().strftime('%Y-%m-%d')
         )
         self.filtered_url_invalid = '{}?due_date=foo'.format(self.url)
 

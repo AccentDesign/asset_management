@@ -58,7 +58,7 @@ class Asset(MPTTModel):
     )
     asset_type = models.ForeignKey(
         'assets.AssetType',
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
         blank=True
     )
@@ -66,7 +66,7 @@ class Asset(MPTTModel):
         'assets.Contact',
         null=True,
         blank=True,
-        on_delete=models.SET_NULL
+        on_delete=models.PROTECT
     )
     extra_data = models.JSONField(
         default=dict,

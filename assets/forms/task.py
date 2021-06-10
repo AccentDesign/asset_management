@@ -10,12 +10,10 @@ from authentication.models import User
 class TaskForm(forms.ModelForm):
     initial_due_date = forms.DateField(
         widget=DatePicker,
-        input_formats=('%d/%m/%Y', ),
         required=True
     )
     repeat_until = forms.DateField(
         widget=DatePicker,
-        input_formats=('%d/%m/%Y', ),
         required=False
     )
 
@@ -49,7 +47,6 @@ class TaskHistoryForm(forms.ModelForm):
 
 class TaskListFilterForm(forms.Form):
     due_date = forms.DateField(
-        input_formats=('%d/%m/%Y', ),
         widget=DatePicker,
     )
     assigned_to = UserModelChoiceField(

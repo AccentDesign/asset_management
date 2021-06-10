@@ -97,11 +97,11 @@ class TestModel(AppTestCase):
 
     def test_asset_type(self):
         field = Asset._meta.get_field('asset_type')
-        self.assertModelPKField(field, AssetType, null=True, blank=True, on_delete=models.SET_NULL)
+        self.assertModelPKField(field, AssetType, null=True, blank=True, on_delete=models.PROTECT)
 
     def test_contact(self):
         field = Asset._meta.get_field('contact')
-        self.assertModelPKField(field, Contact, null=True, blank=True, on_delete=models.SET_NULL)
+        self.assertModelPKField(field, Contact, null=True, blank=True, on_delete=models.PROTECT)
 
     def test_parent(self):
         field = Asset._meta.get_field('parent')

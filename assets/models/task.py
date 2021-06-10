@@ -109,13 +109,13 @@ class Task(models.Model):
     )
     assigned_to = models.ForeignKey(
         'authentication.User',
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
         blank=True
     )
     task_priority = models.ForeignKey(
         'assets.TaskPriority',
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
         blank=True
     )

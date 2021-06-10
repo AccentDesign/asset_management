@@ -38,7 +38,7 @@ class TestUpdateView(AppTestCase):
             'task_update': '',
             'task_form-name': 'some edited name',
             'task_form-task_type': self.object.task_type_id,
-            'task_form-initial_due_date': self.object.initial_due_date.strftime('%d/%m/%Y'),
+            'task_form-initial_due_date': self.object.initial_due_date.strftime('%Y-%m-%d'),
             'task_form-assigned_to': self.object.assigned_to_id
         }
         response = self.client.post(self.url, post_data)

@@ -97,11 +97,11 @@ class TestModel(AppTestCase):
 
     def test_assigned_to(self):
         field = Task._meta.get_field('assigned_to')
-        self.assertModelPKField(field, User, null=True, blank=True, on_delete=models.SET_NULL)
+        self.assertModelPKField(field, User, null=True, blank=True, on_delete=models.PROTECT)
 
     def test_task_priority(self):
         field = Task._meta.get_field('task_priority')
-        self.assertModelPKField(field, TaskPriority, null=True, blank=True, on_delete=models.SET_NULL)
+        self.assertModelPKField(field, TaskPriority, null=True, blank=True, on_delete=models.PROTECT)
 
     def test_initial_due_date(self):
         field = Task._meta.get_field('initial_due_date')

@@ -24,3 +24,14 @@
   font-size: 2rem;
   margin-left: 0;
 }
+
+.formbuilder {
+  .options-wrapper {
+    position: relative;
+
+    ul {
+      position: sticky;
+      top: 130px;
+    }
+  }
+}

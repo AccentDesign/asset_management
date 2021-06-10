@@ -1741,6 +1741,16 @@ sup {
   margin-left: 0;
 }
 
+.formbuilder .options-wrapper {
+  position: relative;
+}
+
+.formbuilder .options-wrapper ul {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 130px;
+}
+
 header {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   position: fixed;

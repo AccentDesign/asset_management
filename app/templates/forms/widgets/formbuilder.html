@@ -1,4 +1,4 @@
-<div class="row mb-md"
+<div class="row mb-md formbuilder"
     x-data="{
         fields: {% if widget.value != None %}{{ widget.value }}{% else %}{}{% endif %},
         new_choice: '',
@@ -7,7 +7,7 @@
     }"
 >
     <input type="hidden" x-bind:value="JSON.stringify(fields)" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
-    <div class="col">
+    <div class="col fields-wrapper">
         <p class="helptext pt-sm">Add fields below that you want to capture within the asset extra section</p>
         <template x-for="id in Object.keys(fields)" :key="id">
             <div class="b-whitesmoke mb-xs p-sm">
@@ -81,7 +81,7 @@
             </div>
         </template>
     </div>
-    <div class="col-3">
+    <div class="col-3 options-wrapper">
         <ul class="list-style-none">
         <template x-for="key in Object.keys(meta)" :key="key">
             <li class="mb-xs">

@@ -38,10 +38,8 @@
                         </template>
                     </select>
                     <label>Required:</label>
-                    <label class="checkbox mb-sm pointer">
-                        <i class="c-gray icon-check-empty" x-show="!fields[id].required"></i>
-                        <i class="c-primary icon-ok-squared" x-show="fields[id].required"></i>
-                        <input type="checkbox" x-model="fields[id].required" class="d-hidden">
+                    <label class="checkbox">
+                        <input type="checkbox" x-model="fields[id].required">
                     </label>
                     <label>Help text:</label>
                     <input type="text" x-model="fields[id].help_text">

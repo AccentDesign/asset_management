@@ -84,7 +84,7 @@ class FormBuilder:
                 'name': 'BooleanField',
                 'widgets': [
                     {
-                        'type': 'django.forms.widgets.CheckboxInput',
+                        'type': 'app.forms.widgets.CheckboxInput',
                         'name': 'CheckboxInput'
                     },
                 ]
@@ -111,7 +111,7 @@ class FormBuilder:
                         'name': 'Select'
                     },
                     {
-                        'type': 'django.forms.widgets.RadioSelect',
+                        'type': 'app.forms.widgets.RadioSelect',
                         'name': 'RadioSelect'
                     },
                 ]
@@ -168,7 +168,7 @@ class FormBuilder:
                 'has_choices': True,
                 'widgets': [
                     {
-                        'type': 'django.forms.widgets.CheckboxSelectMultiple',
+                        'type': 'app.forms.widgets.CheckboxSelectMultiple',
                         'name': 'CheckboxSelectMultiple'
                     },
                     {

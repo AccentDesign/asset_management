@@ -6,6 +6,18 @@ from django.templatetags.static import static
 from app.forms.formbuilder import FormBuilder
 
 
+class CheckboxInput(forms.widgets.CheckboxInput):
+    def __init__(self, attrs={}, choices=()):
+        attrs['class'] = 'checkbox'
+        super().__init__(attrs)
+
+
+class CheckboxSelectMultiple(forms.widgets.CheckboxSelectMultiple):
+    def __init__(self, attrs={}, choices=()):
+        attrs['class'] = 'checkboxes'
+        super().__init__(attrs)
+
+
 class DatePicker(forms.widgets.DateInput):
     def __init__(self, attrs=None, format=None):
         if not attrs:
@@ -41,3 +53,9 @@ class FormBuilderWidget(forms.widgets.Input):
             'field_data_template': json.dumps(FormBuilder.field_data_template()),
         })
         return context
+
+
+class RadioSelect(forms.widgets.RadioSelect):
+    def __init__(self, attrs={}, choices=()):
+        attrs['class'] = 'radios'
+        super().__init__(attrs)

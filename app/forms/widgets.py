@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.templatetags.static import static
 
@@ -35,7 +37,7 @@ class FormBuilderWidget(forms.widgets.Input):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context.update({
-            'metadata': FormBuilder.metadata,
-            'field_data_template': FormBuilder.field_data_template,
+            'field_meta_data': json.dumps(FormBuilder.field_meta_data()),
+            'field_data_template': json.dumps(FormBuilder.field_data_template()),
         })
         return context

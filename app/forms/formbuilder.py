@@ -1,5 +1,4 @@
 from collections import OrderedDict
-import json
 
 from django import forms
 from django.utils.module_loading import import_string
@@ -66,7 +65,7 @@ class FormBuilder:
 
     @classmethod
     def field_data_template(cls):
-        data = {
+        return {
             'label': '',
             'type': '',
             'widget': '',
@@ -77,11 +76,10 @@ class FormBuilder:
             'decimal_places': None,
             'max_digits': None
         }
-        return json.dumps(data)
 
     @classmethod
-    def metadata(cls):
-        data = {
+    def field_meta_data(cls):
+        return {
             'django.forms.BooleanField': {
                 'name': 'BooleanField',
                 'widgets': [
@@ -198,7 +196,6 @@ class FormBuilder:
                 ]
             },
         }
-        return json.dumps(data)
 
     def get_form_class(self):
         return type(str("FormBuilder"), (FormBuilderBaseForm,), self.formfields)

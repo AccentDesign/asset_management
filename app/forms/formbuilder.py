@@ -2,14 +2,7 @@ from collections import OrderedDict
 import json
 
 from django import forms
-
-
-def import_class(name):
-    components = name.split('.')
-    mod = __import__(components[0])
-    for comp in components[1:]:
-        mod = getattr(mod, comp)
-    return mod
+from django.utils.module_loading import import_string
 
 
 class FormBuilderBaseForm(forms.Form):
@@ -30,7 +23,7 @@ class FormBuilder:
         for key, field in self.fields.items():
 
             # import the field class
-            field_cls = import_class(field['type'])
+            field_cls = import_string(field['type'])
 
             # copy the props
             props = {
@@ -52,7 +45,7 @@ class FormBuilder:
 
             if 'widget' in props:
                 if props['widget']:
-                    props['widget'] = import_class(props['widget'])
+                    props['widget'] = import_string(props['widget'])
                 else:
                     del props['widget']
 

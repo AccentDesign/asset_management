@@ -46,11 +46,20 @@ class FormBuilderWidget(forms.widgets.Input):
     template_name = 'forms/widgets/formbuilder.html'
     input_type = 'text'
 
+    class Media:
+        js = (
+            'https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js',
+        )
+
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context.update({
             'field_meta_data': json.dumps(FormBuilder.field_meta_data()),
             'field_data_template': json.dumps(FormBuilder.field_data_template()),
+            'field_ids': json.dumps([
+                k for k, _
+                in sorted(json.loads(value).items(), key=lambda i: i[1].get('order', 0))
+            ])
         })
         return context
 

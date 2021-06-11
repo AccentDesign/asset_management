@@ -1,25 +1,88 @@
 <div class="row mb-md formbuilder"
-    x-data="{
+    x-data='{
         fields: {% if widget.value != None %}{{ widget.value }}{% else %}{}{% endif %},
-        new_choice: '',
-        meta: getMeta(),
+        field_ids: {{ field_ids|safe }},
+        new_choice: "",
+        meta: {{ field_meta_data|safe }},
+        new_field_data: function() { return {{ field_data_template|safe }}; },
         visible: []
-    }"
+    }'
+    x-init="
+        (function() {
+            new Sortable(document.querySelector('.fields-wrapper'), {
+                handle: '.drag-handle',
+                onSort: function (evt) {
+                    if (evt.newDraggableIndex >= field_ids.length) {
+                        var k = evt.newDraggableIndex - field_ids.length + 1;
+                        while (k--) {
+                            field_ids.push(undefined);
+                        }
+                    }
+                    field_ids.splice(evt.newDraggableIndex, 0, field_ids.splice(evt.oldDraggableIndex, 1)[0]);
+                    $dispatch('rebuild-order');
+                }
+            })
+        })();
+    "
+    @rebuild-order="
+        for (var i = 0; i < field_ids.length; i++) {
+            fields[field_ids[i]].order = i;
+        }
+    "
+    @add-field="
+        var type = $event.detail.type;
+        var data = new_field_data();
+        var id = Date.now().toString();
+        data.type = type;
+        if (meta[type].widgets.length == 1) {
+            data.widget = meta[type].widgets[0].type;
+        }
+        fields[id] = data;
+        visible.push(id);
+        field_ids.push(id);
+        $dispatch('rebuild-order');
+    "
+    @add-choice="
+        var field = fields[$event.detail.field_id];
+        if (new_choice) {
+            if (field.choices.indexOf(new_choice) == -1) {
+                field.choices.push(new_choice);
+            }
+            new_choice = '';
+        }
+    "
+    @remove-field="
+        var field_id = $event.detail.field_id;
+        visible = visible.filter((value) => value != field_id);
+        field_ids = field_ids.filter((value) => value != field_id);
+        delete fields[field_id];
+        $dispatch('rebuild-order');
+    "
+    @toggle-field="
+        var field_id = $event.detail.field_id;
+        if (visible.indexOf(field_id) >= 0) {
+            visible = visible.filter((value) => value != field_id)
+        } else { 
+            visible.push(field_id)
+        }
+    "
 >
     <input type="hidden" x-bind:value="JSON.stringify(fields)" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+    <div class="col-12">
+        <p class="helptext pt-sm">Add any fields you want to capture within the asset extra section, drag to re-arrange their order.</p>
+    </div>
     <div class="col fields-wrapper">
-        <p class="helptext pt-sm">Add fields below that you want to capture within the asset extra section</p>
-        <template x-for="id in Object.keys(fields)" :key="id">
+        <template x-for="id in field_ids" :key="id">
             <div class="b-whitesmoke mb-xs p-sm">
-                <div class="row">
+                <div class="row move drag-handle">
                     <div class="col d-flex">
                         <a class="mr-auto pointer"
                             x-text="fields[id].label"
-                            @click.prevent="visible.indexOf(id) >= 0 ? visible = visible.filter((value) => value != id) : visible.push(id)"
+                            @click.prevent="$dispatch('toggle-field', {field_id: id})"
                         ></a>
                         <span class="mr-sm muted" x-text="meta[fields[id].type].name"></span>
                         <a class="pointer"
-                            @click.prevent="visible = visible.filter((value) => value != id); delete fields[id];"
+                            @click.prevent="$dispatch('remove-field', {field_id: id})"
                         ><i class="icon-trash-empty"></i></a>
                     </div>
                 </div>
@@ -70,7 +133,7 @@
                                 <input type="text"
                                     placeholder="Add choice text then press enter"
                                     x-model="new_choice"
-                                    x-on:keydown.enter.prevent="addChoice(fields[id], new_choice); new_choice = '';"
+                                    @keydown.enter.prevent="$dispatch('add-choice', { field_id: id })"
                                 >
                             </div>
                         </div>
@@ -85,39 +148,10 @@
             <li class="mb-xs">
                 <a class="button d-block text-left"
                     x-text="meta[key].name"
-                    @click.prevent="addField(fields, key, visible)"
+                    @click="$dispatch('add-field', { type: key })"
                 ></a>
             </li>
         </template>
         </ul>
     </div>
 </div>
-<script>
-    function addChoice(field, choice) {
-        if (choice) {
-            if (field.choices.indexOf(choice) == -1) {
-                field.choices.push(choice);
-            }
-        }
-    }
-    function addField(fields, type, visible) {
-        var data = getNewField();
-        var meta = getMeta();
-        var id = newUUID().toString();
-        data.type = type;
-        if (meta[type].widgets.length == 1) {
-            data.widget = meta[type].widgets[0].type;
-        }
-        fields[id] = data;
-        visible.push(id);
-    }
-    function getNewField() {
-        return {{ field_data_template|safe }};
-    }
-    function newUUID() {
-        return Date.now()
-    }
-    function getMeta() {
-        return {{ field_meta_data|safe }};
-    }
-</script>

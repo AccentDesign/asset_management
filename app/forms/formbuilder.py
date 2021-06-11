@@ -19,7 +19,7 @@ class FormBuilder:
         formfields = OrderedDict()
 
         # add each field to the form
-        for key, field in self.fields.items():
+        for key, field in sorted(self.fields.items(), key=lambda i: i[1].get('order', 0)):
 
             # import the field class
             field_cls = import_string(field['type'])
@@ -72,6 +72,7 @@ class FormBuilder:
             'initial': '',
             'help_text': '',
             'required': False,
+            'order': 0,
             'choices': [],
             'decimal_places': None,
             'max_digits': None

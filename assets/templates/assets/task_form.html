@@ -2,19 +2,23 @@
 {% load i18n mptt_tags static tz %}
 {% block page_title %}Tasks{% endblock %}
 {% block body_class %}{% endblock %}
-{% block inner_content %}
-    <div class="main">
-        <div class="main-info">
-            {% include 'partials/object_intro_header.html' %}
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
             {% if asset %}
                 {% include 'assets/partials/breadcrumb.html' with object=asset %}
             {% elif object %}
                 {% include 'assets/partials/breadcrumb.html' with object=object.asset %}
             {% endif %}
         </div>
+    </header>
+{% endblock %}
+{% block inner_content %}
+    <div class="main">
         {% if object %}
             <div class="row">
-                <div class="col" x-data="{ tab: 0 }">
+                <div class="col pl-0" x-data="{ tab: 0 }">
                     <ul class="tabs">
                         <li @click="tab = 0" x-bind:class="{ 'active': tab == 0 }">Detail</li>
                         <li @click="tab = 1" x-bind:class="{ 'active': tab == 1 }">History <span class="muted">({{ object.history.all|length }})</span></li>
@@ -63,31 +67,29 @@
                 </div>
                 <div class="col-2">
                     <p>Actions</p>
-                    <ul class="list-style-none mb-md">
+                    <ul class="list-style-none mb-3">
                         <li><a href="{{ object.asset.get_nodes_url }}">Cancel</a></li>
                         {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
                     </ul>
                 </div>
             </div>
         {% else %}
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <form method="post" novalidate>
-                            {% csrf_token %}
-                            <fieldset>
-                                {{ form }}
-                            </fieldset>
-                            <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
-                        </form>
-                    </div>
-                    <div class="col-2">
-                        <p>Actions</p>
-                        <ul class="list-style-none mb-md">
-                            <li><a href="{{ asset.get_nodes_url }}">Cancel</a></li>
-                            {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <fieldset>
+                            {{ form }}
+                        </fieldset>
+                        <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
+                    </form>
+                </div>
+                <div class="col-2">
+                    <p>Actions</p>
+                    <ul class="list-style-none mb-3">
+                        <li><a href="{{ asset.get_nodes_url }}">Cancel</a></li>
+                        {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
+                    </ul>
                 </div>
             </div>
         {% endif %}

@@ -2,21 +2,7 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 .main {
-  @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, .15));
-  background: color("white");
-  margin-top: 13rem;
-  padding-bottom: 10rem;
-}
-
-.main-info {
-  @include clearfix;
-  padding: 2rem 1.5rem;
-
-  h2 {
-    line-height: $input-height;
-    margin: 0;
-  }
-
+  margin-top: 12.5rem;
 }
 
 .breadcrumb {
@@ -25,10 +11,11 @@
 
   li {
     display: inline-block;
+    font-size: 80%;
   }
 
   li + li:before {
-    @include pseudo($display: inline-block, $pos: relative, $content: ">");
+    @include pseudo($display: inline-block, $pos: relative, $content: "/");
     padding: 0 .5rem 0 .4rem;
   }
 }

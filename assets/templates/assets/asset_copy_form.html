@@ -2,32 +2,34 @@
 {% load i18n mptt_tags static %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
-{% block inner_content %}
-    <div class="main">
-        <div class="main-info">
-            <h2>{% trans 'Copy' %} <small class="muted">{{ asset }}</small></h2>
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
             {% include 'assets/partials/breadcrumb.html' with object=asset %}
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <p>
-                        {% blocktrans with ob=asset %}Please choose the asset in which <em>"{{ ob }}"</em> will be copied into.
-                        Once successful the newly created asset will be opened.{% endblocktrans %}</p>
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-                        <fieldset>
-                            {{ form }}
-                        </fieldset>
-                        <button class="button button-primary button-xl" type="submit">{% trans 'Copy' %}</button>
-                    </form>
-                </div>
-                <div class="col-2">
-                    <p>Actions</p>
-                    <ul class="list-style-none mb-md">
-                        <li><a href="{{ asset.get_nodes_url }}">Cancel</a></li>
-                    </ul>
-                </div>
+    </header>
+{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="row">
+            <div class="col">
+                <p>
+                    {% blocktrans with ob=asset %}Please choose the asset in which <em>"{{ ob }}"</em> will be copied into.
+                    Once successful the newly created asset will be opened.{% endblocktrans %}</p>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <fieldset>
+                        {{ form }}
+                    </fieldset>
+                    <button class="button button-primary button-xl" type="submit">{% trans 'Copy' %}</button>
+                </form>
+            </div>
+            <div class="col-2">
+                <p>Actions</p>
+                <ul class="list-style-none mb-3">
+                    <li><a href="{{ asset.get_nodes_url }}">Cancel</a></li>
+                </ul>
             </div>
         </div>
     </div>

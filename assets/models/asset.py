@@ -104,6 +104,16 @@ class Asset(MPTTModel):
         return reverse_lazy('assets:asset-list-nodes', kwargs={'pk': self.pk})
 
     @property
+    def extra_detail(self):
+        if not self.asset_type:
+            return
+
+        return {
+            v['label']: self.extra_data.get(k)
+            for k, v in self.asset_type.fields.items()
+        }
+
+    @property
     def task_count(self):
         """ Returns the count of tasks for this asset from AssetManager.get_queryset """
 

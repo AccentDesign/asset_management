@@ -2,18 +2,24 @@
 {% load i18n mptt_tags %}
 {% block page_title %}Teams{% endblock %}
 {% block body_class %}{% endblock %}
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
+            <ul class="breadcrumb">
+                <li>Team</li>
+                <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+            </ul>
+        </div>
+    </header>
+{% endblock %}
 {% block inner_content %}
     <div class="main">
-        <div class="main-info">
-            {% include 'partials/object_intro_header.html' with delete=True %}
-        </div>
-        <div class="container-fluid">
-            <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
-            <form method="post" novalidate>
-                {% csrf_token %}
-                {{ form }}
-                <button class="button button-googleplus button-xl" type="submit">{% trans 'Delete' %}</button>
-            </form>
-        </div>
+        <p>{% blocktrans with ob=object %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form }}
+            <button class="button button-red button-xl" type="submit">{% trans 'Delete' %}</button>
+        </form>
     </div>
 {% endblock %}

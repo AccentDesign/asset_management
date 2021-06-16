@@ -2,56 +2,37 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 header {
-  @include box-shadow(0, 1px, 3px, rgba(0, 0, 0, .15));
   @include position(0, 0, auto, 0, fixed);
   background: color("white");
   padding-top: 2rem;
+  padding-bottom: 2rem;
   z-index: zindex("header");
 }
 
-header .header-team {
-  display: inline-block;
-  margin-right: 3rem;
-
-  .home-link {
-    color: inherit;
-    font-size: 2.7rem;
-  }
-
-  .menu > a {
-    color: inherit;
-  }
-
+header .icon-tasks {
+  margin-right: 5rem;
 }
 
 header .nav {
-  list-style-type: none;
-  margin-bottom: 0;
+  margin: 0;
 
   li {
-    border-bottom: solid 2px transparent;
     display: inline-block;
-    margin-bottom: 0;
+    margin-right: 5rem;
   }
 
-  li.active {
-    border-bottom-color: color("primary");
+  li.active a {
+    color: color("black");
   }
 
-  li a {
-    color: color("gray");
+  a {
     display: block;
-    padding: 1rem 3rem;
-  }
-
-  li a:hover {
-    color: color-darken("gray", $darken-hover-percent);
   }
 
 }
 
 header .search-form {
-  margin: 0 0 0 auto;
+  margin: 0 auto 0 auto;
 
   .input-group {
     margin-bottom: 0;
@@ -68,11 +49,11 @@ header .search-form {
 
 }
 
-header .user-menu {
-  margin-left: 3rem;
+header .menu {
+  margin-left: 2rem;
 
   .menu-drop {
-    right: .5rem;
+    right: 0;
     top: 5rem;
   }
 

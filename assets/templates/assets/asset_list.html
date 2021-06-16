@@ -2,57 +2,31 @@
 {% load i18n mptt_tags static %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
+            {% include 'assets/partials/breadcrumb.html' %}
+        </div>
+    </header>
+{% endblock %}
 {% block inner_content %}
     <div class="main">
-        <div class="main-info pb-zero">
-            <div class="row mb-md">
-                <div class="col">
-                    <h2>Assets</h2>
-                    {% include 'assets/partials/breadcrumb.html' %}
+        <div class="row">
+            <div class="col pl-0">
+                <div class="p-1h b-whitesmoke">
+                    <span class="uppercase">{% trans 'Navigation' %}</span>
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <p>Assets</p>
-                    <div class="mb-md">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>{% trans 'Name' %}</th>
-                                    <th>{% trans 'Type' %}</th>
-                                    <th>{% trans 'Tasks' %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for ob in object_list %}
-                                    <tr>
-                                        <td><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></td>
-                                        <td>{{ ob.asset_type|default_if_none:'-' }}</td>
-                                        <td>{{ ob.task_count|default:'-' }}</td>
-                                    </tr>
-                                {% empty %}
-                                    <tr>
-                                        <td class="muted" colspan="3">{% trans 'No assets have been created,' %} <a href="{% url 'assets:asset-create' %}">{% trans 'create one now.' %}</a></td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <p>Actions</p>
-                    <ul class="list-style-none mb-md">
-                        <li><a href="{% url 'assets:asset-create' %}">Add</a></li>
-                    </ul>
-                    <p>Management</p>
-                    <ul class="list-style-none mb-md">
-                        <li><a href="{% url 'assets:asset-type-list' %}">Asset Types</a></li>
-                        <li><a href="{% url 'assets:task-priority-list' %}">Task Priorities</a></li>
-                        <li><a href="{% url 'assets:task-type-list' %}">Task Types</a></li>
-                    </ul>
-                </div>
+        <div class="row">
+            <div class="col pl-0">
+                <ul class="nav-tree">
+                    {% for ob in object_list %}
+                    <li><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></li>
+                    {% endfor %}
+                    <li><a class="button button-secondary uppercase" href="{% url 'assets:asset-create' %}">{% trans 'Add' %}</a></li>
+                </ul>
             </div>
         </div>
     </div>

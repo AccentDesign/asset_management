@@ -1,4 +1,4 @@
-<div class="row mb-md formbuilder"
+<div class="row mb-3 formbuilder"
     x-data='{
         fields: {% if widget.value != None %}{{ widget.value }}{% else %}{}{% endif %},
         field_ids: {{ field_ids|safe }},
@@ -69,24 +69,24 @@
 >
     <input type="hidden" x-bind:value="JSON.stringify(fields)" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
     <div class="col-12">
-        <p class="helptext pt-sm">Add any fields you want to capture within the asset extra section, drag to re-arrange their order.</p>
+        <p class="helptext pt-1h">Add any fields you want to capture within the asset extra section, drag to re-arrange their order.</p>
     </div>
     <div class="col fields-wrapper">
         <template x-for="id in field_ids" :key="id">
-            <div class="b-whitesmoke mb-xs p-sm">
+            <div class="b-whitesmoke mb-h p-1h">
                 <div class="row move drag-handle">
                     <div class="col d-flex">
                         <a class="mr-auto pointer"
                             x-text="fields[id].label"
                             @click.prevent="$dispatch('toggle-field', {field_id: id})"
                         ></a>
-                        <span class="mr-sm muted" x-text="meta[fields[id].type].name"></span>
+                        <span class="mr-1h muted" x-text="meta[fields[id].type].name"></span>
                         <a class="pointer"
                             @click.prevent="$dispatch('remove-field', {field_id: id})"
                         ><i class="icon-trash-empty"></i></a>
                     </div>
                 </div>
-                <div class="pt-sm" x-show="visible.indexOf(id) >= 0">
+                <div class="pt-1h" x-show="visible.indexOf(id) >= 0">
                     <label>Label:</label>
                     <input type="text" x-model="fields[id].label">
                     <label>Widget:</label>
@@ -145,7 +145,7 @@
     <div class="col-3 options-wrapper">
         <ul class="list-style-none">
         <template x-for="key in Object.keys(meta)" :key="key">
-            <li class="mb-xs">
+            <li class="mb-h">
                 <a class="button d-block text-left"
                     x-text="meta[key].name"
                     @click="$dispatch('add-field', { type: key })"

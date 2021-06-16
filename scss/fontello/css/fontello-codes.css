@@ -1,6 +1,10 @@
 
 .icon-trash-empty:before { content: '\e800'; } /* '' */
+.icon-left-open:before { content: '\e801'; } /* '' */
+.icon-cog:before { content: '\e802'; } /* '' */
 .icon-cancel:before { content: '\e805'; } /* '' */
 .icon-search:before { content: '\e807'; } /* '' */
 .icon-down-open:before { content: '\e808'; } /* '' */
 .icon-pencil:before { content: '\e809'; } /* '' */
+.icon-tasks:before { content: '\f0ae'; } /* '' */
+.icon-user-circle:before { content: '\f2bd'; } /* '' */

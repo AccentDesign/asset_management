@@ -2,96 +2,131 @@
 {% load i18n mptt_tags static tz %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
+            {% include 'assets/partials/breadcrumb.html' with object=object %}
+        </div>
+    </header>
+{% endblock %}
 {% block inner_content %}
     <div class="main">
-        <div class="main-info pb-zero">
-            <div class="row mb-md">
-                <div class="col">
-                    <h2>{{ object }}</h2>
-                    {% include 'assets/partials/breadcrumb.html' with object=object %}
+        <div class="row">
+            <div class="col-3 pl-0">
+                <div class="p-1h b-whitesmoke">
+                    <span class="uppercase">{% trans 'Navigation' %}</span>
                 </div>
+                <ul class="nav-tree">
+                    {% if object.is_child_node %}
+                        <li><a href="{{ object.parent.get_nodes_url }}"><i class="icon-left-open"></i> {% trans 'Back' %}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'assets:asset-list' %}"><i class="icon-left-open"></i> {% trans 'Back' %}</a></li>
+                    {% endif %}
+                    {% for ob in object.children.all %}
+                    <li><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></li>
+                    {% endfor %}
+                    <li><a class="button button-secondary uppercase" href="{% url 'assets:asset-child-create' asset_pk=object.pk %}">{% trans 'Add' %}</a></li>
+                </ul>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <p>Description</p>
-                    <p class="mb-md">{{ object.description|default:'-'|linebreaksbr }}</p>
-                    <p>Tasks</p>
-                    <div class="mb-md">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>{% trans 'Name' %}</th>
-                                    <th>{% trans 'Completed' %}</th>
-                                    <th>{% trans 'Priority' %}</th>
-                                    <th>{% trans 'Due Date' %}</th>
-                                    <th>{% trans 'Assigned To' %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for task in object.tasks.all %}
-                                    <tr>
-                                        <td><a href="{% url 'assets:task-update' task.pk %}">{{ task.name }}</a></td>
-                                        <td>{{ task.last_completed|localtime|date|default:'-' }}</td>
-                                        <td>{{ task.task_priority|default_if_none:'-' }}</td>
-                                        <td>{{ task.due_date|default:'-' }}</td>
-                                        <td>{% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
-                                    </tr>
-                                {% empty %}
-                                    <tr>
-                                        <td class="muted" colspan="5">{% trans 'No tasks have been created,' %} <a href="{% url 'assets:asset-task-create' asset_pk=object.pk %}">{% trans 'create one now.' %}</a></td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mb-md">
-                        <p>Child Assets</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>{% trans 'Name' %}</th>
-                                    <th>{% trans 'Type' %}</th>
-                                    <th>{% trans 'Tasks' %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for ob in object.children.all %}
-                                    <tr>
-                                        <td><a href="{{ ob.get_nodes_url }}">{{ ob }}</a></td>
-                                        <td>{{ ob.asset_type|default_if_none:'-' }}</td>
-                                        <td>{{ ob.task_count|default:'-' }}</td>
-                                    </tr>
-                                {% empty %}
-                                    <tr>
-                                        <td class="muted" colspan="3">{% trans 'No assets have been created,' %} <a href="{% url 'assets:asset-child-create' asset_pk=object.pk %}">{% trans 'create one now.' %}</a></td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="col">
+                <div class="p-1h b-whitesmoke d-flex align-items-center">
+                    <span class="uppercase">{% trans 'Detail' %}</span>
+                    <a class="button button-secondary button-xs uppercase ml-auto" href="{% url 'assets:asset-update' object.pk %}">{% trans 'Edit' %}</a>
                 </div>
-                <div class="col-2">
-                    <p>Actions</p>
-                    <ul class="list-style-none mb-md">
-                        {% if object.is_child_node %}
-                            <li><a href="{{ object.parent.get_nodes_url }}">{% trans 'View Parent' %}</a></li>
-                        {% else %}
-                            <li><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
-                        {% endif %}
-                        <li><a href="{% url 'assets:asset-update' object.pk %}">Edit</a></li>
-                        {% if object.asset_type and object.asset_type.fields %}<li><a href="{% url 'assets:asset-extra' object.pk %}">Extra</a></li>{% endif %}
-                        <li><a href="{% url 'assets:asset-copy' object.pk %}">Copy</a></li>
-                        <li><a href="{% url 'assets:asset-move' object.pk %}">Move</a></li>
-                        <li><a href="{% url 'assets:asset-delete' object.pk %}">Delete</a></li>
-                        <li><a href="{% url 'assets:asset-task-create' asset_pk=object.pk %}">Add Task</a></li>
-                        <li><a href="{% url 'assets:asset-child-create' asset_pk=object.pk %}">Add Child Asset</a></li>
-                    </ul>
-                    <p>Asset Type</p>
-                    <p class="mb-md">{{ object.asset_type|default_if_none:'-' }}</p>
-                    <p>Contact</p>
-                    <p class="mb-md">{% if object.contact %}<a href="{{ object.contact.get_absolute_url }}">{{ object.contact }}</a>{% else %}-{% endif %}</p>
+                <div class="row p-1h">
+                    <div class="col-3 muted">{% trans 'Name' %}</div>
+                    <div class="col">{{ object.name }}</div>
+                </div>
+                <div class="row p-1h">
+                    <div class="col-3 muted">{% trans 'Description' %}</div>
+                    <div class="col">{{ object.description|default:'-'|linebreaksbr }}</div>
+                </div>
+                <div class="row p-1h">
+                    <div class="col-3 muted">{% trans 'Asset Type' %}</div>
+                    <div class="col">{{ object.asset_type|default_if_none:'-' }}</div>
+                </div>
+                <div class="row p-1h">
+                    <div class="col-3 muted">{% trans 'Contact' %}</div>
+                    <div class="col">{% if object.contact %}<a href="{{ object.contact.get_absolute_url }}">{{ object.contact }}</a>{% else %}-{% endif %}</div>
+                </div>
+                
+                {% if object.asset_type and object.asset_type.fields %}
+                    <div class="p-1h b-whitesmoke d-flex align-items-center">
+                        <span class="uppercase">{% trans 'Extra Detail' %}</span>
+                        <a class="button button-secondary button-xs uppercase ml-auto" href="{% url 'assets:asset-extra' object.pk %}">{% trans 'Edit' %}</a>
+                    </div>
+                    {% for k, v in object.extra_detail.items %}
+                    <div class="row p-1h">
+                        <div class="col-3 muted">{{ k }}</div>
+                        <div class="col">{{ v|default_if_none:'-' }}</div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="p-1h b-whitesmoke d-flex align-items-center">
+                    <span class="uppercase">{% trans 'Tasks' %}</span>
+                    <a class="button button-secondary button-xs uppercase ml-auto" href="{% url 'assets:asset-task-create' asset_pk=object.pk %}">{% trans 'Add' %}</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Name' %}</th>
+                            <th>{% trans 'Completed' %}</th>
+                            <th>{% trans 'Priority' %}</th>
+                            <th>{% trans 'Due Date' %}</th>
+                            <th>{% trans 'Assigned To' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in object.tasks.all %}
+                            <tr>
+                                <td><a href="{% url 'assets:task-update' task.pk %}">{{ task.name }}</a></td>
+                                <td>{{ task.last_completed|localtime|date|default:'-' }}</td>
+                                <td>{{ task.task_priority|default_if_none:'-' }}</td>
+                                <td>{{ task.due_date|default:'-' }}</td>
+                                <td>{% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
+                            </tr>
+                        {% empty %}
+                            <tr><td colspan="5">{% trans 'No tasks have been created.' %}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="border border-radius">
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-1h d-flex align-items-center border-bottom">
+                                <div>
+                                    <strong>{% trans 'Move this record' %}</strong><br>
+                                    <span>{% trans 'Move this and all of its contents.' %}</span>
+                                </div>
+                                <a class="button button-secondary uppercase ml-auto" href="{% url 'assets:asset-move' object.pk %}">{% trans 'Move' %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-1h d-flex align-items-center border-bottom">
+                                <div>
+                                    <strong>{% trans 'Copy this record' %}</strong><br>
+                                    <span>{% trans 'Copy this and all of its contents.' %}</span>
+                                </div>
+                                <a class="button button-secondary uppercase ml-auto" href="{% url 'assets:asset-copy' object.pk %}">{% trans 'Copy' %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="p-1h d-flex align-items-center">
+                                <div>
+                                    <strong>{% trans 'Delete this record' %}</strong><br>
+                                    <span>{% trans 'Once you delete, there is no going back. Please be certain.' %}</span>
+                                </div>
+                                <a class="button button-red uppercase ml-auto" href="{% url 'assets:asset-delete' object.pk %}">{% trans 'Delete this record' %}</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,52 +2,56 @@
 {% load i18n static tz %}
 {% block page_title %}Tasks{% endblock %}
 {% block body_class %}{% endblock %}
-
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'assets:task-list' %}">Tasks</a></li>
+            </ul>
+        </div>
+    </header>
+{% endblock %}
 {% block inner_content %}
     <div class="main">
-        <div class="main-info">
-            <form id="filter_form" method="get" class="filters pull-right">
-                <div class="input-group w-auto">
-                    <div class="input-group-addon">{{ filter_form.due_date.label }}</div>
-                    {{ filter_form.due_date }}
-                </div>
-                <div class="input-group w-auto">
-                    <div class="input-group-addon">{{ filter_form.assigned_to.label }}</div>
-                    {{ filter_form.assigned_to }}
-                </div>
-            </form>
-            <h2>{% trans 'Tasks' %}</h2>
-        </div>
-        <div class="container-fluid">
-            <table>
-                <thead>
-                    <tr>
-                        <th>{% trans 'Name' %}</th>
-                        <th>{% trans 'Asset' %}</th>
-                        <th>{% trans 'Completed' %}</th>
-                        <th>{% trans 'Due Date' %}</th>
-                        <th>{% trans 'Schedule' %}</th>
-                        <th>{% trans 'Priority' %}</th>
-                        <th>{% trans 'Assigned To' %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for ob in object_list %}
-                    <tr>
-                        <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
-                        <td><a href="{{ ob.asset.get_nodes_url }}">{{ ob.asset }}</a></td>
-                        <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
-                        <td>{{ ob.due_date|default:'-' }}</td>
-                        <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
-                        <td>{{ ob.task_priority|default_if_none:'-' }}</td>
-                        <td>{% if ob.assigned_to %}{{ ob.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
-                    </tr>
-                    {% empty %}
-                    <tr><td class="muted" colspan="7">{% trans 'No tasks are due for the given date.' %}</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <form id="filter_form" method="get" class="filters pull-right">
+            <div class="input-group w-auto">
+                <div class="input-group-addon">{{ filter_form.due_date.label }}</div>
+                {{ filter_form.due_date }}
+            </div>
+            <div class="input-group w-auto">
+                <div class="input-group-addon">{{ filter_form.assigned_to.label }}</div>
+                {{ filter_form.assigned_to }}
+            </div>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Asset' %}</th>
+                    <th>{% trans 'Completed' %}</th>
+                    <th>{% trans 'Due Date' %}</th>
+                    <th>{% trans 'Schedule' %}</th>
+                    <th>{% trans 'Priority' %}</th>
+                    <th>{% trans 'Assigned To' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ob in object_list %}
+                <tr>
+                    <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
+                    <td><a href="{{ ob.asset.get_nodes_url }}">{{ ob.asset }}</a></td>
+                    <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
+                    <td>{{ ob.due_date|default:'-' }}</td>
+                    <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
+                    <td>{{ ob.task_priority|default_if_none:'-' }}</td>
+                    <td>{% if ob.assigned_to %}{{ ob.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
+                </tr>
+                {% empty %}
+                <tr><td class="muted" colspan="7">{% trans 'No tasks are due for the given date.' %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 

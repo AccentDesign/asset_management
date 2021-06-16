@@ -2,53 +2,33 @@
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // Typography
-$base-font-family:              'Open Sans', sans-serif;
-$base-font-size:                13px;
-$code-font-family:              'Inconsolata', monospace;
-
-$heading-font-weight:           400;
+$base-font-family:              'Roboto', sans-serif;
 
 // Colours
 $colors: (
   "white":                      rgb(255, 255, 255),
   "primary":                    rgb(55, 157, 235),
-  "whitesmoke":                 rgb(245, 245, 245),
-  "googleplus":                 rgb(221, 75, 57),
+  "whitesmoke":                 rgb(247, 247, 247),
+  "red":                        rgb(255, 65, 54),
   "olive":                      rgb(61, 153, 112),
 );
-
-$body-background:               rgb(246, 248, 249);
-$font-color:                    rgb(62, 62, 62);
 
 // Buttons
 $button-font-size:              1.3rem;
 $buttons: (
-    googleplus:     map-get($colors, "googleplus")      map-get($colors, "white"),
-    olive:          map-get($colors, "olive")           map-get($colors, "white")
+    red:            map-get($colors, "red")      map-get($colors, "white"),
+    olive:          map-get($colors, "olive")    map-get($colors, "white")
 );
 
 // Forms
 $input-use-full-width:          true;
-$input-font-size:               1.3rem;
 
 // Tables
-$table-margin-bottom:           0;
-$table-cell-padding:            .85rem 1.5rem .85rem 0;
-$table-font-size:               100%;
+$table-cell-padding:            1rem 1.5rem;
 
 // z-indexes
 $z-layers: (
   "menu": 10,
   "alerts": 9,
-  "header": 8,
-  "dropzone": 6
+  "header": 8
 );
-
-// Checkboxes and Radios
-//––––––––––––––––––––––––––––––––––––––––––––––––––
-
-$checkbox-checked-color:        map-get($colors, "primary");
-$checkbox-font-weight:          400;
-$checkbox-size:                 2.4rem;
-$checkbox-tick-width:           .3rem;
-$radio-dot-spacing:             .4rem;

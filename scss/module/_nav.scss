@@ -1,0 +1,17 @@
+.nav-tree {
+  list-style: none;
+
+  li {
+      padding: 1.5rem;
+  }
+
+  li:not(:last-child) {
+    border-bottom: solid 1px $border-color;
+  }
+
+  li a i::before {
+    width: auto;
+    margin-left: 0;
+  }
+
+}

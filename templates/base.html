@@ -10,15 +10,23 @@
         {% block extra_css %}{% endblock %}
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     </head>
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="preload-transitions {% block body_class %}{% endblock %}">
         {% block full_outer_content %}
-            {% include 'partials/header.html' %}
-            {% include 'partials/messages.html' %}
-            <div class="container">
+            {% block header_content %}
+                <header>{% include 'partials/header.html' %}</header>
+            {% endblock %}
+            <div class="container-fluid">
                 {% block inner_content %}{% endblock %}
             </div>
+            {% include 'partials/messages.html' %}
             {% include 'partials/footer.html' %}
         {% endblock %}
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded",function(){
+                let node = document.querySelector(".preload-transitions");
+                node.classList.remove("preload-transitions");
+            });
+        </script>
         {% block extra_js %}{% endblock %}
     </body>
 </html>

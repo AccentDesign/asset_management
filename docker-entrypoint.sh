@@ -1,13 +1,9 @@
 #!/bin/sh
 set -e
 
-export PGPASSWORD=$RDS_PASSWORD
-
-while ! psql -h $RDS_HOSTNAME -d $RDS_DB_NAME -p $RDS_PORT -U $RDS_USERNAME -c "SELECT version();" > /dev/null 2>&1; do
-    echo 'Waiting for connection with db...'
-    sleep 1;
-done;
-echo 'Connected to db...';
+if [ "x$DJANGO_MANAGEPY_WAITFORDB" = 'xon' ]; then
+    python manage.py wait_for_db
+fi
 
 if [ "x$DJANGO_MANAGEPY_MIGRATE" = 'xon' ]; then
     python manage.py migrate --noinput

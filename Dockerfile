@@ -11,10 +11,7 @@ ADD         requirements /build/requirements/
 RUN         set -ex \
             && apk update \
             && apk add --no-cache \
-                # postgres
                 libpq \
-                postgresql-client \
-                # misc
                 make \
                 supervisor \
             && apk add --no-cache --virtual .build-deps \
@@ -24,7 +21,6 @@ RUN         set -ex \
                 linux-headers \
                 musl-dev \
                 postgresql-dev \
-                python3-dev \
             && pip install --no-cache-dir -r $REQUIREMENTS_FILE \
             && apk del .build-deps
 
@@ -63,7 +59,8 @@ ENV         UWSGI_WSGI_FILE=app/wsgi.py \
             UWSGI_WSGI_ENV_BEHAVIOR=holy
 
 # Docker entrypoint:
-ENV         DJANGO_MANAGEPY_MIGRATE=on \
+ENV         DJANGO_MANAGEPY_WAITFORDB=on \
+            DJANGO_MANAGEPY_MIGRATE=on \
             DJANGO_MANAGEPY_COLLECTSTATIC=on
 
 ENTRYPOINT  ["/code/docker-entrypoint.sh"]

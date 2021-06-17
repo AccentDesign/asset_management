@@ -34,7 +34,7 @@
                             <td>{{ ob.mobile_number|default:'-' }}</td>
                         </tr>
                         {% empty %}
-                        <tr><td class="muted" colspan="4">{% trans 'No contacts have been created,' %} <a href="{% url 'assets:contact-create' %}">{% trans 'create one now.' %}</a></td></tr>
+                        <tr><td colspan="4">{% trans 'No contacts have been created.' %}</td></tr>
                         {% endfor %}
                     </tbody>
                 </table>

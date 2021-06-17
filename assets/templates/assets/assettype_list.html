@@ -28,7 +28,7 @@
                             <td><a href="{{ ob.get_absolute_url }}">{{ ob }}</a></td>
                         </tr>
                         {% empty %}
-                        <tr><td>{% trans 'No assets types have been created,' %} <a href="{% url 'assets:asset-type-create' %}">{% trans 'create one now.' %}</a></td></tr>
+                        <tr><td>{% trans 'No assets types have been created.' %}</td></tr>
                         {% endfor %}
                     </tbody>
                 </table>

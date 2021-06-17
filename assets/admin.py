@@ -7,10 +7,6 @@ from assets.models import *
 
 
 class AssetAdmin(VersionAdmin, MPTTModelAdmin):
-    list_display = [
-        '__str__',
-        'task_count'
-    ]
     change_list_template = 'admin/mptt_reversion_change_list.html'
 
 

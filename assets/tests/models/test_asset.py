@@ -131,18 +131,6 @@ class TestModel(AppTestCase):
             reverse('assets:asset-list-nodes', kwargs={'pk': self.team1_asset.pk})
         )
 
-    def test_task_count(self):
-        self.assertEqual(self.team1_asset.task_count, 0)
-
-        Task.objects.create(
-            asset=self.team1_asset,
-            name='Task',
-            task_type_id='03630124-7745-422f-8024-549de2f613b1',
-            initial_due_date=datetime.today().date()
-        )
-
-        self.assertEqual(self.team1_asset.task_count, 1)
-
     def test_copy(self):
         Task.objects.create(
             asset=self.team1_asset,

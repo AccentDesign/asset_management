@@ -15,9 +15,7 @@ class AssetManager(TreeManager):
     def get_queryset(self):
         """ Returns the base queryset with additional properties """
 
-        qs = super().get_queryset().annotate(
-            qs_task_count=models.Count('tasks')
-        )
+        qs = super().get_queryset()
 
         team = get_current_team()
 
@@ -112,15 +110,6 @@ class Asset(MPTTModel):
             v['label']: self.extra_data.get(k)
             for k, v in self.asset_type.fields.items()
         }
-
-    @property
-    def task_count(self):
-        """ Returns the count of tasks for this asset from AssetManager.get_queryset """
-
-        if hasattr(self, 'qs_task_count'):
-            return getattr(self, 'qs_task_count')
-
-        return self.tasks.count()
 
     def copy(self, **kwargs):
         """ Copy this asset and it's tasks """

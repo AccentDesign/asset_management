@@ -59,7 +59,7 @@
                     {% for k, v in object.extra_detail.items %}
                     <div class="row p-1h">
                         <div class="col-3 muted">{{ k }}</div>
-                        <div class="col">{{ v|default_if_none:'-' }}</div>
+                        <div class="col">{{ v|default_if_none:'-'|linebreaksbr }}</div>
                     </div>
                     {% endfor %}
                 {% endif %}

@@ -121,20 +121,23 @@
                         </div>
                     </template>
                     <template x-if="meta[fields[id].type].has_choices">
-                        <div>
-                            <label>Choices:</label>
-                            <template x-for="(item, index, choices) in fields[id].choices" :key="index">
+                        <div class="row">
+                            <div class="col-8">
+                                <label>Choices:</label>
+                                <template x-for="(item, index, choices) in fields[id].choices" :key="index">
+                                    <div class="input-group">
+                                        <input type="text" x-model="choices[index]">
+                                        <a class="input-group-addon button button-secondary" @click.prevent="fields[id].choices.splice(index, 1);">Delete</a>
+                                    </div>
+                                </template>
                                 <div class="input-group">
-                                    <input type="text" x-model="choices[index]">
-                                    <a class="input-group-addon pointer" @click.prevent="fields[id].choices.splice(index, 1);">Remove</a>
+                                    <input type="text"
+                                        placeholder="Add choice text then press enter"
+                                        x-model="new_choice"
+                                        @keydown.enter.prevent="$dispatch('add-choice', { field_id: id })"
+                                    >
+                                    <a class="input-group-addon button button-secondary" @click.prevent="$dispatch('add-choice', { field_id: id })">Add Choice</a>
                                 </div>
-                            </template>
-                            <div class="input-group">
-                                <input type="text"
-                                    placeholder="Add choice text then press enter"
-                                    x-model="new_choice"
-                                    @keydown.enter.prevent="$dispatch('add-choice', { field_id: id })"
-                                >
                             </div>
                         </div>
                     </template>

@@ -50,9 +50,11 @@ class FormBuilder:
 
             if issubclass(field_cls, forms.ChoiceField):
                 if len(field['choices']) > 0:
-                    props['choices'] = ((c, c) for c in field['choices'])
+                    props['choices'] = [(c, c) for c in field['choices']]
                 else:
-                    props['choices'] = ()
+                    props['choices'] = []
+                if issubclass(props['widget'], forms.widgets.Select):
+                    props['choices'].insert(0, (None, '---------'))
 
             if issubclass(field_cls, forms.DecimalField):
                 props['max_digits'] = field.get('max_digits', 0)

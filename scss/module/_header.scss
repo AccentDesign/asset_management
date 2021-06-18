@@ -14,10 +14,13 @@ header .icon-tasks {
 }
 
 header .nav {
-  margin: 0;
+  margin-bottom: 0;
 
   li {
     display: inline-block;
+  }
+
+  li:not(:last-child) {
     margin-right: 5rem;
   }
 
@@ -32,6 +35,8 @@ header .nav {
 }
 
 header .search-form {
+  margin-bottom: 0;
+
   .input-group {
     margin-bottom: 0;
   }

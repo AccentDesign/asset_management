@@ -1795,11 +1795,14 @@ header .icon-tasks {
 }
 
 header .nav {
-  margin: 0;
+  margin-bottom: 0;
 }
 
 header .nav li {
   display: inline-block;
+}
+
+header .nav li:not(:last-child) {
   margin-right: 5rem;
 }
 
@@ -1809,6 +1812,10 @@ header .nav li.active a {
 
 header .nav a {
   display: block;
+}
+
+header .search-form {
+  margin-bottom: 0;
 }
 
 header .search-form .input-group {

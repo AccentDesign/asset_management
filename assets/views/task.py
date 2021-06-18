@@ -1,6 +1,6 @@
 from app.views.mixins import DeleteSuccessMessageMixin, ProtectedDeleteMixin
 from assets.models.asset import Asset
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -20,7 +20,7 @@ class TaskList(ActivatedCollectionRequiredMixin, ListView):
     def get_filter_form(self):
         if 'due_date' in self.request.GET:
             return TaskListFilterForm(self.request.GET)
-        return TaskListFilterForm({'due_date': datetime.now().date()})
+        return TaskListFilterForm({'due_date': datetime.now().date() + timedelta(days=14)})
 
     def get_queryset(self):
         filters = self.get_filter_form()

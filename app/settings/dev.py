@@ -28,6 +28,11 @@ MIDDLEWARE += [
 
 AUTH_PASSWORD_VALIDATORS = []
 
+if sys.argv[1:2] == ['test']:
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    ]
+
 
 # email
 

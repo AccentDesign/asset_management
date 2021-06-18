@@ -1811,10 +1811,6 @@ header .nav a {
   display: block;
 }
 
-header .search-form {
-  margin: 0 auto 0 auto;
-}
-
 header .search-form .input-group {
   margin-bottom: 0;
 }

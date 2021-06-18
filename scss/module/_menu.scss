@@ -42,11 +42,4 @@
     padding: 1rem 1.5rem 1rem 0;
   }
 
-  li.active:before {
-    @include pseudo($content: '\e806');
-    color: color("green");
-    font-family: 'fontello';
-    left: 1rem;
-  }
-
 }

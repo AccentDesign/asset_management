@@ -1934,15 +1934,6 @@ header .menu .menu-drop {
   padding: 1rem 1.5rem 1rem 0;
 }
 
-.menu-drop li.active:before {
-  position: absolute;
-  display: block;
-  content: "";
-  color: #2ecc40;
-  font-family: 'fontello';
-  left: 1rem;
-}
-
 .alerts {
   position: fixed;
   top: auto;

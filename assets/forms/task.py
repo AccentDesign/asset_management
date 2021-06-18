@@ -3,7 +3,7 @@ from django import forms
 from app.forms.fields import UserModelChoiceField
 from app.forms.widgets import DatePicker
 from assets.models import Task, TaskHistory, TaskPriority, TaskType
-from authentication.middleware.current_user import get_current_team
+from authentication.middleware.current_user import get_current_collection
 from authentication.models import User
 
 
@@ -23,9 +23,9 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['assigned_to'].queryset = get_current_team().members
-        self.fields['task_priority'].queryset = TaskPriority.for_team
-        self.fields['task_type'].queryset = TaskType.for_team
+        self.fields['assigned_to'].queryset = get_current_collection().members
+        self.fields['task_priority'].queryset = TaskPriority.for_collection
+        self.fields['task_type'].queryset = TaskType.for_collection
 
 
 class TaskHistoryForm(forms.ModelForm):
@@ -42,7 +42,7 @@ class TaskHistoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['task'].queryset = Task.for_team
+        self.fields['task'].queryset = Task.for_collection
 
 
 class TaskListFilterForm(forms.Form):
@@ -56,4 +56,4 @@ class TaskListFilterForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['assigned_to'].queryset = get_current_team().members
+        self.fields['assigned_to'].queryset = get_current_collection().members

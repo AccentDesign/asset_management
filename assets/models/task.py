@@ -17,7 +17,7 @@ from dateutil.rrule import (
     YEARLY
 )
 
-from authentication.middleware.current_user import get_current_team
+from authentication.middleware.current_user import get_current_collection
 
 
 class TaskManager(models.Manager):
@@ -31,10 +31,10 @@ class TaskManager(models.Manager):
             )
         )
 
-        team = get_current_team()
+        collection = get_current_collection()
 
-        if team:
-            qs = qs.filter(asset__team=team)
+        if collection:
+            qs = qs.filter(asset__collection=collection)
 
         return qs
 
@@ -146,7 +146,7 @@ class Task(models.Model):
         editable=False
     )
 
-    for_team = TaskManager()
+    for_collection = TaskManager()
     objects = models.Manager()
 
     class Meta:

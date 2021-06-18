@@ -2,10 +2,10 @@ from itertools import chain
 from django.views.generic import ListView
 
 from assets import models
-from authentication.views.mixins import ActivatedTeamRequiredMixin
+from authentication.views.mixins import ActivatedCollectionRequiredMixin
 
 
-class SearchView(ActivatedTeamRequiredMixin, ListView):
+class SearchView(ActivatedCollectionRequiredMixin, ListView):
     template_name = 'assets/search.html'
     paginate_by = 50
     count = 0
@@ -22,10 +22,10 @@ class SearchView(ActivatedTeamRequiredMixin, ListView):
         query = self.request.GET.get('q')
 
         if query:
-            asset_results = models.Asset.for_team.search(query)
-            contact_results = models.Contact.for_team.search(query)
+            asset_results = models.Asset.for_collection.search(query)
+            contact_results = models.Contact.for_collection.search(query)
             # TODO: find a way to do the asset.get_ancestors() to avoid the N+1 issue
-            task_results = models.Task.for_team.search(query).select_related('asset')
+            task_results = models.Task.for_collection.search(query).select_related('asset')
             queryset_chain = chain(
                 asset_results,
                 contact_results,

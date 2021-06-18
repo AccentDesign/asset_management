@@ -21,12 +21,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='tasktype',
             name='team',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
+            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_collection, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
         ),
         migrations.AddField(
             model_name='taskpriority',
             name='team',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
+            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_collection, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
         ),
         migrations.AddField(
             model_name='taskhistory',
@@ -66,12 +66,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contact',
             name='team',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
+            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_collection, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
         ),
         migrations.AddField(
             model_name='assettype',
             name='team',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
+            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_collection, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
         ),
         migrations.AddField(
             model_name='asset',
@@ -91,7 +91,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='asset',
             name='team',
-            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_team, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
+            field=models.ForeignKey(default=authentication.middleware.current_user.get_current_collection, editable=False, on_delete=django.db.models.deletion.CASCADE, to='authentication.team'),
         ),
         migrations.AlterUniqueTogether(
             name='tasktype',

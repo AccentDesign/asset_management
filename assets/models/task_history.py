@@ -4,15 +4,15 @@ from django.db import models, transaction
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from authentication.middleware.current_user import get_current_user, get_current_team
+from authentication.middleware.current_user import get_current_user, get_current_collection
 
 
 class TaskHistoryManager(models.Manager):
     def get_queryset(self):
         qs = super().get_queryset()
-        team = get_current_team()
-        if team:
-            qs = qs.filter(task__asset__team=team)
+        collection = get_current_collection()
+        if collection:
+            qs = qs.filter(task__asset__collection=collection)
         return qs
 
 
@@ -47,7 +47,7 @@ class TaskHistory(models.Model):
         auto_now_add=True
     )
 
-    for_team = TaskHistoryManager()
+    for_collection = TaskHistoryManager()
     objects = models.Manager()
 
     class Meta:

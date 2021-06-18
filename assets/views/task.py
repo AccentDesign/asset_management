@@ -10,10 +10,10 @@ from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from assets.forms import TaskForm, TaskHistoryForm, TaskListFilterForm
 from assets.models import Task, Status
-from authentication.views.mixins import ActivatedTeamRequiredMixin
+from authentication.views.mixins import ActivatedCollectionRequiredMixin
 
 
-class TaskList(ActivatedTeamRequiredMixin, ListView):
+class TaskList(ActivatedCollectionRequiredMixin, ListView):
     model = Task
     template_name = 'assets/task_list.html'
 
@@ -26,12 +26,12 @@ class TaskList(ActivatedTeamRequiredMixin, ListView):
         filters = self.get_filter_form()
 
         if filters.is_valid():
-            qs = Task.for_team.due_by_date(
+            qs = Task.for_collection.due_by_date(
                 date=filters.cleaned_data['due_date'],
                 assigned_to=filters.cleaned_data.get('assigned_to')
             )
         else:
-            qs = Task.for_team.due_by_date()
+            qs = Task.for_collection.due_by_date()
 
         return qs
 
@@ -43,7 +43,7 @@ class TaskList(ActivatedTeamRequiredMixin, ListView):
         return context
 
 
-class TaskCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskCreate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
     prefix = 'task_form'
@@ -77,7 +77,7 @@ class TaskCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
         return self.object.asset.get_nodes_url()
 
 
-class TaskUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     prefix = 'task_form'
@@ -125,7 +125,7 @@ class TaskUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.object.asset.get_nodes_url()
 
 
-class TaskDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+class TaskDelete(ActivatedCollectionRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = Task
 
     def get_success_url(self):

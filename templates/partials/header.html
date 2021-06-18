@@ -6,7 +6,7 @@
 
             <i class="icon-tasks"></i>
 
-            {% if request.user.activated_team %}
+            {% if request.user.activated_collection %}
                 {% section_name as section %}
                 <ul class="nav">
                     <li {% if section == 'asset' %}class="active"{% endif %}><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
@@ -15,7 +15,7 @@
                 </ul>
             {% else %}
                 <ul class="nav">
-                    <li><a href="{% url 'team-create' %}">Create a new team</a></li>
+                    <li><a href="{% url 'collection-create' %}">Create a new collection</a></li>
                 </ul>
             {% endif %}
 
@@ -26,20 +26,20 @@
                 </div>
             </form>
 
-            <div class="team-menu menu" x-data="{ open: false }">
-                <a class="menu-link" @click="open = true">{% firstof request.user.activated_team 'Asset Management' %} <i class="icon-down-open"></i></a>
+            <div class="collection-menu menu" x-data="{ open: false }">
+                <a class="menu-link" @click="open = true">{% firstof request.user.activated_collection 'Asset Management' %} <i class="icon-down-open"></i></a>
                 <ul class="menu-drop flow-left" x-show="open" @click.away="open = false">
-                    {% for team in user.get_teams %}
-                    <li {% if team == request.user.activated_team %}class="active"{% endif %}>
-                        <a href="{% url 'team-activate' team.pk %}">{{ team }}</a>
-                        {% if team.admin == request.user %}
-                            <a class="pull-right" href="{% url 'team-update' team.pk %}"><i class="icon-pencil"></i></a>
+                    {% for collection in user.get_collections %}
+                    <li {% if collection == request.user.activated_collection %}class="active"{% endif %}>
+                        <a href="{% url 'collection-activate' collection.pk %}">{{ collection }}</a>
+                        {% if collection.admin == request.user %}
+                            <a class="pull-right" href="{% url 'collection-update' collection.pk %}"><i class="icon-pencil"></i></a>
                         {% endif %}
                     </li>
                     {% empty %}
-                    <li>{% trans 'No teams exist' %}</li>
+                    <li>{% trans 'No collections exist' %}</li>
                     {% endfor %}
-                    <li><a href="{% url 'team-create' %}">Create a new team</a></li>
+                    <li><a href="{% url 'collection-create' %}">Create a new collection</a></li>
                 </ul>
             </div>
 

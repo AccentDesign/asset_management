@@ -9,7 +9,7 @@ from django.urls import reverse
 
 from assets.models import Asset, Task, TaskPriority, TaskType
 from assets.models.task import TaskManager
-from authentication.models import Team, User
+from authentication.models import Collection, User
 from tests.test_case import AppTestCase
 
 
@@ -19,52 +19,52 @@ class TestManager(AppTestCase):
     def test_default_manager(self):
         self.assertTrue(isinstance(Task._default_manager, TaskManager))
 
-    def test_queryset_filters_by_team(self):
+    def test_queryset_filters_by_collection(self):
         Task.objects.create(
             name='Task 1',
             task_type_id='03630124-7745-422f-8024-549de2f613b1',
-            asset=self.team1_asset,
+            asset=self.collection1_asset,
             initial_due_date=date(2018, 1, 1)
         )
         Task.objects.create(
             name='Task',
             task_type_id='22f9d510-7ffc-4ed1-adf7-d511a79ecab1',
-            asset=self.team2_asset,
+            asset=self.collection2_asset,
             initial_due_date=date(2018, 1, 1)
         )
 
-        with mock.patch('assets.models.task.get_current_team', return_value=self.team1):
-            qs = Task.for_team.get_queryset()
+        with mock.patch('assets.models.task.get_current_collection', return_value=self.collection1):
+            qs = Task.for_collection.get_queryset()
             self.assertEqual(qs.count(), 1)
-            self.assertEqual(qs.get().asset.team, self.team1)
+            self.assertEqual(qs.get().asset.collection, self.collection1)
 
-        with mock.patch('assets.models.task.get_current_team', return_value=self.team2):
-            qs = Task.for_team.get_queryset()
+        with mock.patch('assets.models.task.get_current_collection', return_value=self.collection2):
+            qs = Task.for_collection.get_queryset()
             self.assertEqual(qs.count(), 1)
-            self.assertEqual(qs.get().asset.team, self.team2)
+            self.assertEqual(qs.get().asset.collection, self.collection2)
 
     def test_search(self):
         Task.objects.create(
             name='Task 1',
             task_type_id='03630124-7745-422f-8024-549de2f613b1',
-            asset=self.team1_asset,
+            asset=self.collection1_asset,
             initial_due_date=date(2018, 1, 1)
         )
 
         search_terms = ['Task', 'Root Asset', 'Task Type 1']
 
-        with mock.patch('assets.models.task.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.task.get_current_collection', return_value=self.collection1):
             # blank returns all results
-            self.assertEqual(Task.for_team.search('').count(), 1)
+            self.assertEqual(Task.for_collection.search('').count(), 1)
 
-            # found for team one when active
+            # found for collection one when active
             for term in search_terms:
-                self.assertEqual(Task.for_team.search(term).count(), 1)
+                self.assertEqual(Task.for_collection.search(term).count(), 1)
 
-        with mock.patch('assets.models.task.get_current_team', return_value=self.team2):
-            # not found for team two as not their task
+        with mock.patch('assets.models.task.get_current_collection', return_value=self.collection2):
+            # not found for collection two as not their task
             for term in search_terms:
-                self.assertEqual(Task.for_team.search(term).count(), 0)
+                self.assertEqual(Task.for_collection.search(term).count(), 0)
 
 
 class TestModel(AppTestCase):
@@ -146,7 +146,7 @@ class TestModel(AppTestCase):
         )
 
     def test_schedule_text(self):
-        task = self.team1_task
+        task = self.collection1_task
 
         self.assertIsNone(task.schedule_text)
 

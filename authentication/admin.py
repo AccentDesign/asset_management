@@ -10,12 +10,12 @@ from authentication.models import *
 admin.site.register(Session)
 
 
-class TeamAdmin(VersionAdmin):
+class CollectionAdmin(VersionAdmin):
     list_display = ('__str__', 'admin', 'created_on', )
     filter_horizontal = ('members', 'guests', )
 
 
-admin.site.register(Team, TeamAdmin)
+admin.site.register(Collection, CollectionAdmin)
 
 
 class UserAdmin(VersionAdmin, BaseUserAdmin):
@@ -27,7 +27,7 @@ class UserAdmin(VersionAdmin, BaseUserAdmin):
         ('Personal info', {'fields': ('first_name', 'last_name', )}),
         ('Important dates', {'fields': ('last_login', )}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', )}),
-        ('Team', {'fields': ('activated_team', )}),
+        ('Collection', {'fields': ('activated_collection', )}),
     )
     add_fieldsets = (
         (None, {'fields': ('email', 'password1', 'password2', )}),

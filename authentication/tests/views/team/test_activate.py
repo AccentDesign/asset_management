@@ -8,8 +8,8 @@ class TestActivateView(AppTestCase):
 
     def setUp(self):
         self.user = self.create_user()
-        self.team1.members.add(self.user)
-        self.url = reverse('team-activate', kwargs={'pk': self.team1.pk})
+        self.collection1.members.add(self.user)
+        self.url = reverse('collection-activate', kwargs={'pk': self.collection1.pk})
 
     def test_login_required(self):
         response = self.client.get(self.url)
@@ -20,21 +20,21 @@ class TestActivateView(AppTestCase):
         self.client.force_login(self.user)
         response = self.client.get(self.url)
 
-        # sets the active team
+        # sets the active collection
         self.user.refresh_from_db()
-        self.assertEqual(self.user.activated_team, self.team1)
+        self.assertEqual(self.user.activated_collection, self.collection1)
 
         # redirects to home
         self.assertRedirects(response, reverse('home'), 302, 200)
 
-    def test_cannot_activate_a_team_when_not_a_member(self):
+    def test_cannot_activate_a_collection_when_not_a_member(self):
         self.client.force_login(self.user)
-        url = reverse('team-activate', kwargs={'pk': self.team2.pk})
+        url = reverse('collection-activate', kwargs={'pk': self.collection2.pk})
         response = self.client.get(url)
 
-        # does not set the active team
+        # does not set the active collection
         self.user.refresh_from_db()
-        self.assertIsNone(self.user.activated_team)
+        self.assertIsNone(self.user.activated_collection)
 
         # redirects to home
         self.assertRedirects(response, reverse('home'), 302, 200)

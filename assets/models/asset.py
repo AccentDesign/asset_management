@@ -7,10 +7,10 @@ from django.urls import reverse_lazy
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
 
-from .mixins import TeamManager, TeamMixin
+from .mixins import CollectionManager, CollectionMixin
 
 
-class AssetManager(TeamManager, TreeManager):
+class AssetManager(CollectionManager, TreeManager):
     def search(self, query=None):
         """ Returns the search results for the main site search """
 
@@ -29,7 +29,7 @@ class AssetManager(TeamManager, TreeManager):
         return qs
 
 
-class Asset(TeamMixin, MPTTModel):
+class Asset(CollectionMixin, MPTTModel):
     name = models.CharField(
         max_length=255
     )
@@ -62,7 +62,7 @@ class Asset(TeamMixin, MPTTModel):
         related_name='children'
     )
 
-    for_team = AssetManager()
+    for_collection = AssetManager()
     objects = TreeManager()
 
     class MPTTMeta:
@@ -95,7 +95,7 @@ class Asset(TeamMixin, MPTTModel):
             description=self.description,
             asset_type=self.asset_type,
             contact=self.contact,
-            team=self.team,
+            collection=self.collection,
             parent=kwargs.get('parent', self.parent)
         )
 

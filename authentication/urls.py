@@ -9,9 +9,9 @@ urlpatterns = [
          PasswordResetView.as_view(html_email_template_name='emails/password_reset_email.html'),
          name='password_reset'),
     path('my-profile/', views.ProfileUpdate.as_view(), name='my_profile'),
-    path('teams/create/', views.TeamCreate.as_view(), name='team-create'),
-    path('teams/<uuid:pk>/activate/', views.TeamActivate.as_view(), name='team-activate'),
-    path('teams/<uuid:pk>/update/', views.TeamUpdate.as_view(), name='team-update'),
-    path('teams/<uuid:pk>/delete/', views.TeamDelete.as_view(), name='team-delete'),
+    path('collections/create/', views.CollectionCreate.as_view(), name='collection-create'),
+    path('collections/<uuid:pk>/activate/', views.CollectionActivate.as_view(), name='collection-activate'),
+    path('collections/<uuid:pk>/update/', views.CollectionUpdate.as_view(), name='collection-update'),
+    path('collections/<uuid:pk>/delete/', views.CollectionDelete.as_view(), name='collection-delete'),
     path('', include('django.contrib.auth.urls')),
 ]

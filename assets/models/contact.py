@@ -1,10 +1,10 @@
 from django.db import models
 from django.urls import reverse_lazy
 
-from .mixins import TeamManager, TeamMixin
+from .mixins import CollectionManager, CollectionMixin
 
 
-class ContactManager(TeamManager):
+class ContactManager(CollectionManager):
     def search(self, query=None):
         """ Returns the search results for the main site search """
 
@@ -26,7 +26,7 @@ class ContactManager(TeamManager):
         return qs
 
 
-class Contact(TeamMixin):
+class Contact(CollectionMixin):
     name = models.CharField(
         max_length=255
     )
@@ -51,7 +51,7 @@ class Contact(TeamMixin):
         blank=True
     )
 
-    for_team = ContactManager()
+    for_collection = ContactManager()
     objects = models.Manager()
 
     class Meta:

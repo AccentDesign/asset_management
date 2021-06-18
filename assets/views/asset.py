@@ -10,10 +10,10 @@ from app.forms.formbuilder import FormBuilder
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.forms import AssetCopyForm, AssetForm, AssetMoveForm
 from assets.models import Asset
-from authentication.views.mixins import ActivatedTeamRequiredMixin
+from authentication.views.mixins import ActivatedCollectionRequiredMixin
 
 
-class AssetRootList(ActivatedTeamRequiredMixin, ListView):
+class AssetRootList(ActivatedCollectionRequiredMixin, ListView):
     model = Asset
 
     def get_queryset(self):
@@ -26,7 +26,7 @@ class AssetRootList(ActivatedTeamRequiredMixin, ListView):
         )
 
 
-class AssetNodeList(ActivatedTeamRequiredMixin, DetailView):
+class AssetNodeList(ActivatedCollectionRequiredMixin, DetailView):
     model = Asset
     template_name = 'assets/asset_list_nodes.html'
 
@@ -42,7 +42,7 @@ class AssetNodeList(ActivatedTeamRequiredMixin, DetailView):
         )
 
 
-class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
+class AssetCreate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Asset
     form_class = AssetForm
     success_message = 'created successfully'
@@ -82,7 +82,7 @@ class AssetCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse_lazy('assets:asset-list')
 
 
-class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+class AssetUpdate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
     form_class = AssetForm
     success_message = 'updated successfully'
@@ -105,7 +105,7 @@ class AssetUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.object.get_nodes_url()
 
 
-class AssetDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+class AssetDelete(ActivatedCollectionRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = Asset
     success_url = reverse_lazy('assets:asset-list')
 
@@ -115,7 +115,7 @@ class AssetDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSucces
         return reverse_lazy('assets:asset-list')
 
 
-class AssetExtra(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+class AssetExtra(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
     success_message = 'updated successfully'
     template_name = 'assets/asset_extra_form.html'
@@ -141,7 +141,7 @@ class AssetExtra(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.object.get_nodes_url()
 
 
-class AssetCopy(ActivatedTeamRequiredMixin, SuccessMessageMixin, FormView):
+class AssetCopy(ActivatedCollectionRequiredMixin, SuccessMessageMixin, FormView):
     form_class = AssetCopyForm
     object = None
     template_name = 'assets/asset_copy_form.html'
@@ -178,7 +178,7 @@ class AssetCopy(ActivatedTeamRequiredMixin, SuccessMessageMixin, FormView):
         return self.object.get_nodes_url()
 
 
-class AssetMove(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+class AssetMove(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Asset
     form_class = AssetMoveForm
     template_name = 'assets/asset_move_form.html'

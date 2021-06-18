@@ -23,17 +23,17 @@ def get_current_user():
     return None
 
 
-def get_current_team():
+def get_current_collection():
     user = get_current_user()
     if user and user.is_authenticated:
-        return user.activated_team
+        return user.activated_collection
     return None
 
 
-def set_current_team(request, team_id):
-    request.user.activated_team = None
-    team_qs = request.user.get_teams().filter(pk=team_id)
-    if team_qs.exists():
-        request.user.activated_team = team_qs.get()
+def set_current_collection(request, collection_id):
+    request.user.activated_collection = None
+    collection_qs = request.user.get_collections().filter(pk=collection_id)
+    if collection_qs.exists():
+        request.user.activated_collection = collection_qs.get()
 
     request.user.save()

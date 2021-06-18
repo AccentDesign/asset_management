@@ -7,7 +7,7 @@
       last_name: "One",
       password: "pbkdf2_sha256$120000$Lm5F44xHBZBt$jWh6JwAVoU4A0iwpOxmwKVdo7hWqxtxzalBWkWa/hd0=",
       is_active: true,
-      activated_team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c",
+      activated_collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c",
       date_joined: "2018-01-01T00:00:00.000Z"
     }
 
@@ -20,15 +20,15 @@
       last_name: "Two",
       password: "pbkdf2_sha256$120000$Lm5F44xHBZBt$jWh6JwAVoU4A0iwpOxmwKVdo7hWqxtxzalBWkWa/hd0=",
       is_active: true,
-      activated_team: "0d9cdca5-16f0-4128-95fd-24690a50695a",
+      activated_collection: "0d9cdca5-16f0-4128-95fd-24690a50695a",
       date_joined: "2018-01-01T00:00:00.000Z"
     }
 
 -
-    model: authentication.team
+    model: authentication.collection
     pk: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
     fields: {
-      title: "Team One",
+      title: "Collection One",
       admin: "bebe2f97-2f26-4aa9-9494-6f17966ffc24",
       members: ["bebe2f97-2f26-4aa9-9494-6f17966ffc24"],
       guests: [],
@@ -36,10 +36,10 @@
     }
 
 -
-    model: authentication.team
+    model: authentication.collection
     pk: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     fields: {
-      title: "Team Two",
+      title: "Collection Two",
       admin: "920759d1-ce76-40b8-b702-28ace8f9c663",
       members: ["920759d1-ce76-40b8-b702-28ace8f9c663"],
       guests: [],
@@ -51,7 +51,7 @@
     pk: "1bd257c8-babe-4393-b15c-79be926a5805"
     fields: {
       name: "Asset Type 1",
-      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+      collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
     }
 
 -
@@ -59,7 +59,7 @@
     pk: "fe8aa6e1-93b9-480e-bc82-fcce14b707f6"
     fields: {
       name: "Asset Type 1",
-      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+      collection: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     }
 
 -
@@ -67,7 +67,7 @@
     pk: "9d75733b-acb8-47b1-a39d-6042c24661a6"
     fields: {
       name: "Priority 1",
-      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+      collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
     }
 
 -
@@ -75,7 +75,7 @@
     pk: "dd20bb92-d0ff-472b-8863-d3c58a872a7f"
     fields: {
       name: "Priority 1",
-      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+      collection: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     }
 
 -
@@ -83,7 +83,7 @@
     pk: "03630124-7745-422f-8024-549de2f613b1"
     fields: {
       name: "Task Type 1",
-      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+      collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
     }
 
 -
@@ -91,7 +91,7 @@
     pk: "22f9d510-7ffc-4ed1-adf7-d511a79ecab1"
     fields: {
       name: "Task Type 1",
-      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+      collection: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     }
 
 -
@@ -100,7 +100,7 @@
     fields: {
       name: "Contact One",
       address: "Norwich\nNR1",
-      team: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+      collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
     }
 
 -
@@ -109,5 +109,5 @@
     fields: {
       name: "Contact One",
       address: "Norwich\nNR1",
-      team: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+      collection: "0d9cdca5-16f0-4128-95fd-24690a50695a"
     }

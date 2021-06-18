@@ -6,8 +6,8 @@ from django.urls import reverse
 
 from assets.models import AssetType
 from assets.models.asset_type import AssetTypeManager
-from authentication.middleware.current_user import get_current_team
-from authentication.models import Team
+from authentication.middleware.current_user import get_current_collection
+from authentication.models import Collection
 from tests.test_case import AppTestCase
 
 
@@ -17,16 +17,16 @@ class TestManager(AppTestCase):
     def test_default_manager(self):
         self.assertTrue(isinstance(AssetType._default_manager, AssetTypeManager))
 
-    def test_queryset_filters_by_team(self):
-        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
-            qs = AssetType.for_team.get_queryset()
+    def test_queryset_filters_by_collection(self):
+        with mock.patch('assets.models.mixins.get_current_collection', return_value=self.collection1):
+            qs = AssetType.for_collection.get_queryset()
             self.assertEqual(qs.count(), 1)
-            self.assertEqual(qs.get().team, self.team1)
+            self.assertEqual(qs.get().collection, self.collection1)
 
-        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
-            qs = AssetType.for_team.get_queryset()
+        with mock.patch('assets.models.mixins.get_current_collection', return_value=self.collection2):
+            qs = AssetType.for_collection.get_queryset()
             self.assertEqual(qs.count(), 1)
-            self.assertEqual(qs.get().team, self.team2)
+            self.assertEqual(qs.get().collection, self.collection2)
 
 
 class TestModel(AppTestCase):
@@ -44,10 +44,10 @@ class TestModel(AppTestCase):
         self.assertModelField(field, models.CharField)
         self.assertEqual(field.max_length, 255)
 
-    def test_team(self):
-        field = AssetType._meta.get_field('team')
-        self.assertModelPKField(field, Team, on_delete=models.CASCADE)
-        self.assertEqual(field.default, get_current_team)
+    def test_collection(self):
+        field = AssetType._meta.get_field('collection')
+        self.assertModelPKField(field, Collection, on_delete=models.CASCADE)
+        self.assertEqual(field.default, get_current_collection)
 
     # meta
 
@@ -55,7 +55,7 @@ class TestModel(AppTestCase):
         self.assertEqual(AssetType._meta.ordering, ['name'])
 
     def test_unique_together(self):
-        self.assertEqual(AssetType._meta.unique_together, (('team', 'name', ), ))
+        self.assertEqual(AssetType._meta.unique_together, (('collection', 'name', ), ))
 
     # properties
 

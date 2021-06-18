@@ -1,14 +1,14 @@
 from django.db import models
 from django.urls import reverse_lazy
 
-from .mixins import TeamManager, TeamMixin
+from .mixins import CollectionManager, CollectionMixin
 
 
-class TaskPriorityManager(TeamManager):
+class TaskPriorityManager(CollectionManager):
     pass
 
 
-class TaskPriority(TeamMixin):
+class TaskPriority(CollectionMixin):
     name = models.CharField(
         max_length=255
     )
@@ -16,12 +16,12 @@ class TaskPriority(TeamMixin):
         default=0,
     )
 
-    for_team = TaskPriorityManager()
+    for_collection = TaskPriorityManager()
     objects = models.Manager()
 
     class Meta:
         ordering = ['display_order']
-        unique_together = ('team', 'name', )
+        unique_together = ('collection', 'name', )
         verbose_name_plural = 'task priorities'
 
     def __str__(self):

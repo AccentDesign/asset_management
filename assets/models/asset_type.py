@@ -1,14 +1,14 @@
 from django.db import models
 from django.urls import reverse_lazy
 
-from .mixins import TeamManager, TeamMixin
+from .mixins import CollectionManager, CollectionMixin
 
 
-class AssetTypeManager(TeamManager):
+class AssetTypeManager(CollectionManager):
     pass
 
 
-class AssetType(TeamMixin):
+class AssetType(CollectionMixin):
     name = models.CharField(
         max_length=255
     )
@@ -18,12 +18,12 @@ class AssetType(TeamMixin):
         blank=True,
     )
 
-    for_team = AssetTypeManager()
+    for_collection = AssetTypeManager()
     objects = models.Manager()
 
     class Meta:
         ordering = ['name']
-        unique_together = ('team', 'name', )
+        unique_together = ('collection', 'name', )
 
     def get_absolute_url(self):
         return reverse_lazy('assets:asset-type-update', kwargs={'pk': self.pk})

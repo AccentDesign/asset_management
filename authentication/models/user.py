@@ -67,8 +67,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(
         auto_now_add=True
     )
-    activated_team = models.ForeignKey(
-        'authentication.Team',
+    activated_collection = models.ForeignKey(
+        'authentication.Collection',
         on_delete=models.SET_NULL,
         null=True,
         blank=True
@@ -96,13 +96,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         return self.first_name
 
-    def get_teams(self):
-        """ Returns all the teams the user can access """
+    def get_collections(self):
+        """ Returns all the collections the user can access """
 
-        from authentication.models import Team
+        from authentication.models import Collection
 
         return (
-            Team.objects
+            Collection.objects
             .filter(models.Q(admin=self) | models.Q(members=self) | models.Q(guests=self))
             .distinct()
             .order_by('title')

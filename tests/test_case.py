@@ -5,7 +5,7 @@ from django.db import models
 from django.test import TestCase
 
 from assets.models import Asset, AssetType, Task, TaskType
-from authentication.models import User, Team
+from authentication.models import User, Collection
 
 
 class AppTestCase(TestCase):
@@ -49,51 +49,51 @@ class AppTestCase(TestCase):
     # qs helpers
 
     @property
-    def team1(self):
-        return Team.objects.get(pk='8b52b24a-84c9-40ff-9d19-e09845e1a44c')
+    def collection1(self):
+        return Collection.objects.get(pk='8b52b24a-84c9-40ff-9d19-e09845e1a44c')
 
     @property
-    def team2(self):
-        return Team.objects.get(pk='0d9cdca5-16f0-4128-95fd-24690a50695a')
+    def collection2(self):
+        return Collection.objects.get(pk='0d9cdca5-16f0-4128-95fd-24690a50695a')
 
     @property
-    def team1_asset(self):
-        asset_type = AssetType.objects.get(team=self.team1)
+    def collection1_asset(self):
+        asset_type = AssetType.objects.get(collection=self.collection1)
         return Asset.objects.get_or_create(
             name='Root Asset',
             asset_type=asset_type,
-            team=self.team1
+            collection=self.collection1
         )[0]
 
     @property
-    def team2_asset(self):
-        asset_type = AssetType.objects.get(team=self.team2)
+    def collection2_asset(self):
+        asset_type = AssetType.objects.get(collection=self.collection2)
         return Asset.objects.get_or_create(
             name='Root Asset',
             asset_type=asset_type,
-            team=self.team2
+            collection=self.collection2
         )[0]
 
     @property
-    def team1_task(self):
-        task_type = TaskType.objects.get(team=self.team1)
+    def collection1_task(self):
+        task_type = TaskType.objects.get(collection=self.collection1)
         return Task.objects.get_or_create(
             name='Task 1',
             task_type=task_type,
-            asset=self.team1_asset,
+            asset=self.collection1_asset,
             initial_due_date=datetime.today().date(),
-            assigned_to=self.team1.members.first()
+            assigned_to=self.collection1.members.first()
         )[0]
 
     @property
-    def team2_task(self):
-        task_type = TaskType.objects.get(team=self.team2)
+    def collection2_task(self):
+        task_type = TaskType.objects.get(collection=self.collection2)
         return Task.objects.get_or_create(
             name='Task 1',
             task_type=task_type,
-            asset=self.team2_asset,
+            asset=self.collection2_asset,
             initial_due_date=datetime.today().date(),
-            assigned_to=self.team2.members.first()
+            assigned_to=self.collection2.members.first()
         )[0]
 
     def get_temporary_image(self):

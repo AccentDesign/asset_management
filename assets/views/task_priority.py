@@ -4,27 +4,27 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
 from assets.models import TaskPriority
-from authentication.views.mixins import ActivatedTeamRequiredMixin
+from authentication.views.mixins import ActivatedCollectionRequiredMixin
 
 
-class TaskPriorityList(ActivatedTeamRequiredMixin, ListView):
+class TaskPriorityList(ActivatedCollectionRequiredMixin, ListView):
     model = TaskPriority
 
 
-class TaskPriorityCreate(ActivatedTeamRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskPriorityCreate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, CreateView):
     model = TaskPriority
     fields = '__all__'
     success_message = 'created successfully'
     success_url = reverse_lazy('assets:task-priority-list')
 
 
-class TaskPriorityUpdate(ActivatedTeamRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskPriorityUpdate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TaskPriority
     fields = '__all__'
     success_message = 'updated successfully'
     success_url = reverse_lazy('assets:task-priority-list')
 
 
-class TaskPriorityDelete(ActivatedTeamRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+class TaskPriorityDelete(ActivatedCollectionRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
     model = TaskPriority
     success_url = reverse_lazy('assets:task-priority-list')

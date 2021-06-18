@@ -1,24 +1,24 @@
 from django.db import models
 from django.urls import reverse_lazy
 
-from .mixins import TeamManager, TeamMixin
+from .mixins import CollectionManager, CollectionMixin
 
 
-class TaskTypeManager(TeamManager):
+class TaskTypeManager(CollectionManager):
     pass
 
 
-class TaskType(TeamMixin):
+class TaskType(CollectionMixin):
     name = models.CharField(
         max_length=255
     )
 
-    for_team = TaskTypeManager()
+    for_collection = TaskTypeManager()
     objects = models.Manager()
 
     class Meta:
         ordering = ['name']
-        unique_together = ('team', 'name', )
+        unique_together = ('collection', 'name', )
 
     def __str__(self):
         return self.name

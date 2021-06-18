@@ -1,2 +1,2 @@
 from .profile import MyProfileForm
-from .team import TeamForm
+from .collection import CollectionForm

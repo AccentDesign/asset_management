@@ -16,8 +16,8 @@ class AssetForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['asset_type'].queryset = AssetType.for_team
-        self.fields['contact'].queryset = Contact.for_team
+        self.fields['asset_type'].queryset = AssetType.for_collection
+        self.fields['contact'].queryset = Contact.for_collection
 
 
 class AssetCopyForm(forms.Form):
@@ -26,19 +26,19 @@ class AssetCopyForm(forms.Form):
         help_text='Enter a new name for the asset.'
     )
     parent_asset = TreeNodeChoiceField(
-        queryset=Asset.for_team,
+        queryset=Asset.for_collection,
         required=False,
         empty_label='Make it a root level asset'
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['parent_asset'].queryset = Asset.for_team
+        self.fields['parent_asset'].queryset = Asset.for_collection
 
 
 class AssetMoveForm(forms.ModelForm):
     parent = TreeNodeChoiceField(
-        queryset=Asset.for_team,
+        queryset=Asset.for_collection,
         required=False,
         empty_label='Make it a root level asset'
     )
@@ -53,4 +53,4 @@ class AssetMoveForm(forms.ModelForm):
         # cannot be moved to one of its descendants.
         descendants = self.instance.get_descendants(include_self=True)
         descendant_ids = descendants.values_list('id', flat=True)
-        self.fields['parent'].queryset = Asset.for_team.exclude(id__in=descendant_ids)
+        self.fields['parent'].queryset = Asset.for_collection.exclude(id__in=descendant_ids)

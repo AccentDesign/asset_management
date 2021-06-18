@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from authentication.models import Team
+from authentication.models import Collection
 from tests.test_case import AppTestCase
 
 
@@ -8,7 +8,7 @@ class TestCreateView(AppTestCase):
 
     def setUp(self):
         self.user = self.create_user()
-        self.url = reverse('team-create')
+        self.url = reverse('collection-create')
 
     def test_login_required(self):
         response = self.client.get(self.url)
@@ -28,11 +28,11 @@ class TestCreateView(AppTestCase):
         response = self.client.post(self.url, post_data)
 
         # was created and admin set
-        team = Team.objects.get(
+        collection = Collection.objects.get(
             title=post_data['title'],
             admin=self.user,
             members=self.user
         )
 
         # redirects to activate url
-        self.assertRedirects(response, reverse('team-activate', kwargs={'pk': team.pk}), 302, 302)
+        self.assertRedirects(response, reverse('collection-activate', kwargs={'pk': collection.pk}), 302, 302)

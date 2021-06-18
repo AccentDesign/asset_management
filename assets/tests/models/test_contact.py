@@ -6,8 +6,8 @@ from django.urls import reverse
 
 from assets.models import Contact
 from assets.models.contact import ContactManager
-from authentication.middleware.current_user import get_current_team
-from authentication.models import Team
+from authentication.middleware.current_user import get_current_collection
+from authentication.models import Collection
 from tests.test_case import AppTestCase
 
 
@@ -17,34 +17,34 @@ class TestManager(AppTestCase):
     def test_default_manager(self):
         self.assertTrue(isinstance(Contact._default_manager, ContactManager))
 
-    def test_queryset_filters_by_team(self):
-        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
-            qs = Contact.for_team.get_queryset()
+    def test_queryset_filters_by_collection(self):
+        with mock.patch('assets.models.mixins.get_current_collection', return_value=self.collection1):
+            qs = Contact.for_collection.get_queryset()
             self.assertEqual(qs.count(), 1)
-            self.assertEqual(qs.get().team, self.team1)
+            self.assertEqual(qs.get().collection, self.collection1)
 
-        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
-            qs = Contact.for_team.get_queryset()
+        with mock.patch('assets.models.mixins.get_current_collection', return_value=self.collection2):
+            qs = Contact.for_collection.get_queryset()
             self.assertEqual(qs.count(), 1)
-            self.assertEqual(qs.get().team, self.team2)
+            self.assertEqual(qs.get().collection, self.collection2)
 
     def test_search(self):
         search_terms = ['Contact', 'One']
 
-        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.mixins.get_current_collection', return_value=self.collection1):
             # blank returns all results
-            self.assertEqual(Contact.for_team.search('').count(), 1)
+            self.assertEqual(Contact.for_collection.search('').count(), 1)
 
-            # found for team one when active
+            # found for collection one when active
             for term in search_terms:
-                self.assertEqual(Contact.for_team.search(term).count(), 1)
+                self.assertEqual(Contact.for_collection.search(term).count(), 1)
 
-        Contact.objects.filter(team=self.team2).delete()
+        Contact.objects.filter(collection=self.collection2).delete()
 
-        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
-            # not found for team two as not their asset
+        with mock.patch('assets.models.mixins.get_current_collection', return_value=self.collection2):
+            # not found for collection two as not their asset
             for term in search_terms:
-                self.assertEqual(Contact.for_team.search(term).count(), 0)
+                self.assertEqual(Contact.for_collection.search(term).count(), 0)
 
 
 class TestModel(AppTestCase):
@@ -88,10 +88,10 @@ class TestModel(AppTestCase):
         field = Contact._meta.get_field('notes')
         self.assertModelField(field, models.TextField, blank=True)
 
-    def test_team(self):
-        field = Contact._meta.get_field('team')
-        self.assertModelPKField(field, Team, on_delete=models.CASCADE)
-        self.assertEqual(field.default, get_current_team)
+    def test_collection(self):
+        field = Contact._meta.get_field('collection')
+        self.assertModelPKField(field, Collection, on_delete=models.CASCADE)
+        self.assertEqual(field.default, get_current_collection)
 
     # properties
 

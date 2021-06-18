@@ -1,7 +1,7 @@
 from .profile import ProfileUpdate
-from .team import (
-    TeamActivate,
-    TeamCreate,
-    TeamUpdate,
-    TeamDelete
+from .collection import (
+    CollectionActivate,
+    CollectionCreate,
+    CollectionUpdate,
+    CollectionDelete
 )

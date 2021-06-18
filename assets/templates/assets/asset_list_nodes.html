@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n mptt_tags static tz %}
+{% load app_tags i18n mptt_tags static tz %}
 {% block page_title %}Assets{% endblock %}
 {% block body_class %}{% endblock %}
 {% block header_content %}
@@ -59,7 +59,13 @@
                     {% for k, v in object.extra_detail.items %}
                     <div class="row p-1h">
                         <div class="col-3 muted">{{ k }}</div>
-                        <div class="col">{{ v|default_if_none:'-'|linebreaksbr }}</div>
+                        {% if v|klass == 'list' %}
+                            <div class="col">{{ v|default:'-'|join:', ' }}</div>
+                        {% elif v|klass == 'string' %}
+                            <div class="col">{{ v|default:'-'|linebreaksbr }}</div>
+                        {% else %}
+                            <div class="col">{{ v|default_if_none:'-' }}</div>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 {% endif %}

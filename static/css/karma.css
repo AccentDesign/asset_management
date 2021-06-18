@@ -2089,6 +2089,10 @@ header .menu .menu-drop {
   margin-right: 1.5rem;
 }
 
+.nowrap {
+  word-wrap: none;
+}
+
 /* karma-css utilities */
 .align-top {
   vertical-align: top;

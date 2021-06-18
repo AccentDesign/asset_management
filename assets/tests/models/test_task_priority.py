@@ -44,6 +44,16 @@ class TestModel(AppTestCase):
         self.assertModelField(field, models.CharField)
         self.assertEqual(field.max_length, 255)
 
+    def test_badge_colour(self):
+        field = TaskPriority._meta.get_field('badge_colour')
+        self.assertModelField(field, models.CharField)
+        self.assertEqual(field.max_length, 7)
+
+    def test_font_colour(self):
+        field = TaskPriority._meta.get_field('font_colour')
+        self.assertModelField(field, models.CharField)
+        self.assertEqual(field.max_length, 7)
+
     def test_collection(self):
         field = TaskPriority._meta.get_field('collection')
         self.assertModelPKField(field, Collection, on_delete=models.CASCADE)

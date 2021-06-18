@@ -79,9 +79,9 @@
                         <tr>
                             <th>{% trans 'Name' %}</th>
                             <th class="nowrap">{% trans 'Last Completed' %}</th>
-                            <th>{% trans 'Priority' %}</th>
                             <th class="nowrap">{% trans 'Due Date' %}</th>
                             <th class="nowrap">{% trans 'Assigned To' %}</th>
+                            <th>{% trans 'Priority' %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,9 +89,9 @@
                             <tr>
                                 <td><a href="{% url 'assets:task-update' task.pk %}">{{ task.name }}</a></td>
                                 <td>{{ task.last_completed|localtime|date|default:'-' }}</td>
-                                <td>{{ task.task_priority|default_if_none:'-' }}</td>
                                 <td>{{ task.due_date|default:'-' }}</td>
                                 <td>{% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
+                                <td><span class="badge" style="background-color: {{ task.task_priority.badge_colour }}; color: {{ task.task_priority.font_colour }};">{{ task.task_priority|default_if_none:'-' }}</span></td>
                             </tr>
                         {% empty %}
                             <tr><td colspan="5">{% trans 'No tasks have been created.' %}</td></tr>

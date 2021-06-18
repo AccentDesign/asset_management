@@ -16,6 +16,15 @@
 
 // fields
 
+input[type="color"] {
+  @include input;
+  @include input-size($padding-y: 0.1rem, $padding-x: 0.1rem);
+  @include input-focus;
+
+  height: $input-height;
+  width: 10rem;
+}
+
 .filters input.datepicker {
   width: 10rem;
 }

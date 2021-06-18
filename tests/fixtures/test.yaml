@@ -67,7 +67,10 @@
     pk: "9d75733b-acb8-47b1-a39d-6042c24661a6"
     fields: {
       name: "Priority 1",
-      collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c"
+      collection: "8b52b24a-84c9-40ff-9d19-e09845e1a44c",
+      badge_colour: "#ffffff",
+      font_colour: "#000000",
+      display_order: 0
     }
 
 -
@@ -75,7 +78,10 @@
     pk: "dd20bb92-d0ff-472b-8863-d3c58a872a7f"
     fields: {
       name: "Priority 1",
-      collection: "0d9cdca5-16f0-4128-95fd-24690a50695a"
+      collection: "0d9cdca5-16f0-4128-95fd-24690a50695a",
+      badge_colour: "#ffffff",
+      font_colour: "#000000",
+      display_order: 1
     }
 
 -

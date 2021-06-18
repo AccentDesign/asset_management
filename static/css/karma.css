@@ -1727,6 +1727,12 @@ sup {
 }
 
 /* '' */
+.badge {
+  border-radius: .9rem;
+  font-size: 1.4rem;
+  padding: .2rem .8rem;
+}
+
 .button.button-xs {
   padding: .2rem .8rem;
 }
@@ -1744,6 +1750,30 @@ sup {
   font-style: italic;
   margin: -1rem 0 1.5rem 0;
   opacity: .7;
+}
+
+input[type="color"] {
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  color: #3e3e3e;
+  font-weight: 400;
+  font-family: inherit;
+  line-height: 1.5;
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 0.25rem;
+  box-shadow: none;
+  transition: background linear 0.18s, border-color linear 0.18s;
+  padding: 0.1rem 0.1rem;
+  font-size: 1.5rem;
+  height: calc(3.85rem + 2px);
+  width: 10rem;
+}
+
+input[type="color"]:focus {
+  background: white;
+  border-color: #379deb;
+  outline: 0;
 }
 
 .filters input.datepicker {

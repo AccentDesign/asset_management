@@ -32,8 +32,8 @@
                     <th class="nowrap">{% trans 'Last Completed' %}</th>
                     <th class="nowrap">{% trans 'Due Date' %}</th>
                     <th>{% trans 'Schedule' %}</th>
-                    <th>{% trans 'Priority' %}</th>
                     <th class="nowrap">{% trans 'Assigned To' %}</th>
+                    <th>{% trans 'Priority' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,8 +44,8 @@
                     <td>{{ ob.last_completed|localtime|date|default:'-' }}</td>
                     <td>{{ ob.due_date|default:'-' }}</td>
                     <td>{{ ob.schedule_text|default_if_none:'-' }}</td>
-                    <td>{{ ob.task_priority|default_if_none:'-' }}</td>
                     <td>{% if ob.assigned_to %}{{ ob.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
+                    <td><span class="badge" style="background-color: {{ ob.task_priority.badge_colour }}; color: {{ ob.task_priority.font_colour }};">{{ ob.task_priority|default_if_none:'-' }}</span></td>
                 </tr>
                 {% empty %}
                 <tr><td class="muted" colspan="7">{% trans 'No tasks are due for the given date.' %}</td></tr>

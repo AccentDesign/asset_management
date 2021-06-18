@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from app.views.mixins import ProtectedDeleteMixin, DeleteSuccessMessageMixin
+from assets.forms import TaskPriorityForm
 from assets.models import TaskPriority
 from authentication.views.mixins import ActivatedCollectionRequiredMixin
 
@@ -13,14 +14,14 @@ class TaskPriorityList(ActivatedCollectionRequiredMixin, ListView):
 
 class TaskPriorityCreate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, CreateView):
     model = TaskPriority
-    fields = '__all__'
+    form_class = TaskPriorityForm
     success_message = 'created successfully'
     success_url = reverse_lazy('assets:task-priority-list')
 
 
 class TaskPriorityUpdate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TaskPriority
-    fields = '__all__'
+    form_class = TaskPriorityForm
     success_message = 'updated successfully'
     success_url = reverse_lazy('assets:task-priority-list')
 

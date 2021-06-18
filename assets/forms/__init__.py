@@ -10,3 +10,4 @@ from .task import (
     TaskHistoryForm,
     TaskListFilterForm,
 )
+from .task_priority import TaskPriorityForm

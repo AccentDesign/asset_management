@@ -15,6 +15,14 @@ class TaskPriority(CollectionMixin):
     display_order = models.PositiveIntegerField(
         default=0,
     )
+    badge_colour = models.CharField(
+        max_length=7,
+        default='#f0f0f0',
+    )
+    font_colour = models.CharField(
+        max_length=7,
+        default='#3e3e3e',
+    )
 
     for_collection = TaskPriorityManager()
     objects = models.Manager()

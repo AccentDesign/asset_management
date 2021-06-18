@@ -30,6 +30,8 @@ class TestCreateView(AppTestCase):
         self.client.force_login(self.collection1.members.first())
         post_data = {
             'name': 'some name',
+            'badge_colour': '#ffffff',
+            'font_colour': '#000000',
             'display_order': 1,
         }
         response = self.client.post(self.url, post_data)

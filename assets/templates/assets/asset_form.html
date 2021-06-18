@@ -24,6 +24,9 @@
                         {{ form }}
                     </fieldset>
                     <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
+                    {% if not object %}
+                    <button class="button button-primary button-xl" type="submit" name="save_and_open">{% trans 'Save and open' %}</button>
+                    {% endif %}
                 </form>
             </div>
             <div class="col-2">

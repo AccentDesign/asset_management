@@ -78,6 +78,8 @@ class AssetCreate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, CreateV
 
     def get_success_url(self):
         if self.object.is_child_node():
+            if 'save_and_open' in self.request.POST:
+                return self.object.get_nodes_url()
             return self.object.parent.get_nodes_url()
         return reverse_lazy('assets:asset-list')
 

@@ -20,7 +20,8 @@ class TaskList(ActivatedCollectionRequiredMixin, ListView):
     def get_filter_form(self):
         if 'due_date' in self.request.GET:
             return TaskListFilterForm(self.request.GET)
-        return TaskListFilterForm({'due_date': datetime.now().date() + timedelta(days=14)})
+        due_date = datetime.now().date() + timedelta(days=14)
+        return TaskListFilterForm({'due_date': due_date})
 
     def get_queryset(self):
         filters = self.get_filter_form()

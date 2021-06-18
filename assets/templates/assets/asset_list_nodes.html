@@ -91,7 +91,7 @@
                                 <td>{{ task.last_completed|localtime|date|default:'-' }}</td>
                                 <td>{{ task.due_date|default:'-' }}</td>
                                 <td>{% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}-{% endif %}</td>
-                                <td><span class="badge" style="background-color: {{ task.task_priority.badge_colour }}; color: {{ task.task_priority.font_colour }};">{{ task.task_priority|default_if_none:'-' }}</span></td>
+                                <td>{% include 'assets/partials/priority_badge.html' with priority=task.task_priority %}</td>
                             </tr>
                         {% empty %}
                             <tr><td colspan="5">{% trans 'No tasks have been created.' %}</td></tr>

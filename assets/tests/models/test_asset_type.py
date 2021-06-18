@@ -18,12 +18,12 @@ class TestManager(AppTestCase):
         self.assertTrue(isinstance(AssetType._default_manager, AssetTypeManager))
 
     def test_queryset_filters_by_team(self):
-        with mock.patch('assets.models.asset_type.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
             qs = AssetType.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team1)
 
-        with mock.patch('assets.models.asset_type.get_current_team', return_value=self.team2):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
             qs = AssetType.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team2)

@@ -37,12 +37,12 @@ class TestManager(AppTestCase):
             team=self.team2
         )
 
-        with mock.patch('assets.models.asset.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
             qs = Asset.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get(), asset_for_team_1)
 
-        with mock.patch('assets.models.asset.get_current_team', return_value=self.team2):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
             qs = Asset.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get(), asset_for_team_2)
@@ -58,7 +58,7 @@ class TestManager(AppTestCase):
 
         search_terms = ['Root', 'Some', 'Contact One', 'Asset Type 1']
 
-        with mock.patch('assets.models.asset.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
             # blank returns all results
             self.assertEqual(Asset.for_team.search('').count(), 1)
 
@@ -66,7 +66,7 @@ class TestManager(AppTestCase):
             for term in search_terms:
                 self.assertEqual(Asset.for_team.search(term).count(), 1)
 
-        with mock.patch('assets.models.asset.get_current_team', return_value=self.team2):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
             # not found for team two as not their asset
             for term in search_terms:
                 self.assertEqual(Asset.for_team.search(term).count(), 0)

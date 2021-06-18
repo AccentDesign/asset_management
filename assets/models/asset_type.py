@@ -1,31 +1,14 @@
-import uuid
-
 from django.db import models
 from django.urls import reverse_lazy
 
-from authentication.middleware.current_user import get_current_team
+from .mixins import TeamManager, TeamMixin
 
 
-class AssetTypeManager(models.Manager):
-    def get_queryset(self):
-        """ Returns the base queryset with additional properties """
-
-        qs = super().get_queryset()
-
-        team = get_current_team()
-
-        if team:
-            qs = qs.filter(team=team)
-
-        return qs
+class AssetTypeManager(TeamManager):
+    pass
 
 
-class AssetType(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+class AssetType(TeamMixin):
     name = models.CharField(
         max_length=255
     )
@@ -33,12 +16,6 @@ class AssetType(models.Model):
         default=dict,
         null=True,
         blank=True,
-    )
-    team = models.ForeignKey(
-        'authentication.Team',
-        on_delete=models.CASCADE,
-        editable=False,
-        default=get_current_team
     )
 
     for_team = AssetTypeManager()

@@ -9,15 +9,10 @@ from authentication.middleware.current_user import get_current_user, get_current
 
 class TaskHistoryManager(models.Manager):
     def get_queryset(self):
-        """ Returns the base queryset with additional properties """
-
         qs = super().get_queryset()
-
         team = get_current_team()
-
         if team:
             qs = qs.filter(task__asset__team=team)
-
         return qs
 
 

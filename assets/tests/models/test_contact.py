@@ -18,12 +18,12 @@ class TestManager(AppTestCase):
         self.assertTrue(isinstance(Contact._default_manager, ContactManager))
 
     def test_queryset_filters_by_team(self):
-        with mock.patch('assets.models.contact.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
             qs = Contact.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team1)
 
-        with mock.patch('assets.models.contact.get_current_team', return_value=self.team2):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
             qs = Contact.for_team.get_queryset()
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs.get().team, self.team2)
@@ -31,7 +31,7 @@ class TestManager(AppTestCase):
     def test_search(self):
         search_terms = ['Contact', 'One']
 
-        with mock.patch('assets.models.contact.get_current_team', return_value=self.team1):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team1):
             # blank returns all results
             self.assertEqual(Contact.for_team.search('').count(), 1)
 
@@ -41,7 +41,7 @@ class TestManager(AppTestCase):
 
         Contact.objects.filter(team=self.team2).delete()
 
-        with mock.patch('assets.models.contact.get_current_team', return_value=self.team2):
+        with mock.patch('assets.models.mixins.get_current_team', return_value=self.team2):
             # not found for team two as not their asset
             for term in search_terms:
                 self.assertEqual(Contact.for_team.search(term).count(), 0)

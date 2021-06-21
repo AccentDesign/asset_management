@@ -87,7 +87,7 @@
                     <tbody>
                         {% for task in object.tasks.all %}
                             <tr>
-                                <td><a href="{% url 'assets:task-update' task.pk %}">{{ task.name }}</a></td>
+                                <td><a href="{% url 'assets:task-detail' task.pk %}">{{ task.name }}</a></td>
                                 <td>{{ task.last_completed|localtime|date|default:'-' }}</td>
                                 <td>{{ task.due_date|default:'-' }}</td>
                                 <td>{% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}-{% endif %}</td>

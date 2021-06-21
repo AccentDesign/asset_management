@@ -26,6 +26,7 @@ urlpatterns = [
     path('contacts/<uuid:pk>/delete/', views.ContactDelete.as_view(), name='contact-delete'),
     path('search/', views.SearchView.as_view(), name='search'),
     path('tasks/', views.TaskList.as_view(), name='task-list'),
+    path('tasks/<uuid:pk>/', views.TaskDetail.as_view(), name='task-detail'),
     path('tasks/<uuid:pk>/update/', views.TaskUpdate.as_view(), name='task-update'),
     path('tasks/<uuid:pk>/delete/', views.TaskDelete.as_view(), name='task-delete'),
     path('task-priorities/', views.TaskPriorityList.as_view(), name='task-priority-list'),

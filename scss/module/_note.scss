@@ -1,0 +1,31 @@
+.note {
+
+  .note-content {
+    background-color: color("whitesmoke");
+    padding: 1rem;
+    margin-bottom: .5rem;
+  }
+
+  .note-flag {
+    @include position($top: -10px, $left: 20px);
+
+    background: color("olive");
+    color: color("white");
+    border-radius: 10px;
+    padding: .1rem .8rem;
+    font-size: 1rem;
+  }
+
+  &.note-completed .note-content {
+    border: 1px solid color("olive");
+  }
+
+  &.note-right .note-user {
+    text-align: right;
+  }
+
+  &.note-right .note-flag {
+    @include position($top: -10px, $right: 20px);
+  }
+
+}

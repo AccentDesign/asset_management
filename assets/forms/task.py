@@ -30,7 +30,7 @@ class TaskForm(forms.ModelForm):
 
 class TaskHistoryForm(forms.ModelForm):
     notes = forms.CharField(
-        widget=forms.widgets.Textarea
+        widget=forms.widgets.Textarea(attrs={'rows': 4})
     )
 
     class Meta:

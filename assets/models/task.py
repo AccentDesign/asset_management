@@ -156,7 +156,7 @@ class Task(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse_lazy('assets:task-update', kwargs={'pk': self.pk})
+        return reverse_lazy('assets:task-detail', kwargs={'pk': self.pk})
 
     @property
     def now(self):

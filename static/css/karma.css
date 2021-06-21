@@ -2008,6 +2008,41 @@ header .menu .menu-drop {
   margin-left: 0;
 }
 
+.note .note-content {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-bottom: .5rem;
+}
+
+.note .note-flag {
+  position: absolute;
+  top: -10px;
+  right: auto;
+  bottom: auto;
+  left: 20px;
+  background: #3d9970;
+  color: white;
+  border-radius: 10px;
+  padding: .1rem .8rem;
+  font-size: 1rem;
+}
+
+.note.note-completed .note-content {
+  border: 1px solid #3d9970;
+}
+
+.note.note-right .note-user {
+  text-align: right;
+}
+
+.note.note-right .note-flag {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  bottom: auto;
+  left: auto;
+}
+
 .tabs {
   border-bottom: solid 1px #e6e6e6;
   list-style-type: none;
@@ -2107,6 +2142,10 @@ header .menu .menu-drop {
 
 .mb-h {
   margin-bottom: .5rem;
+}
+
+.mb-1h {
+  margin-bottom: 1.5rem;
 }
 
 .mb-3 {

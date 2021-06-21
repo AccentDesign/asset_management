@@ -16,83 +16,28 @@
 {% endblock %}
 {% block inner_content %}
     <div class="main">
-        {% if object %}
-            <div class="row">
-                <div class="col pl-0" x-data="{ tab: 0 }">
-                    <ul class="tabs">
-                        <li @click="tab = 0" x-bind:class="{ 'active': tab == 0 }">Detail</li>
-                        <li @click="tab = 1" x-bind:class="{ 'active': tab == 1 }">History <span class="muted">({{ object.history.all|length }})</span></li>
-                        <li @click="tab = 2" x-bind:class="{ 'active': tab == 2 }">Completion and Notes</li>
-                    </ul>
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-                        <div class="container-fluid" x-show="tab == 0">
-                            <fieldset>
-                                {{ form }}
-                            </fieldset>
-                            <button class="button button-primary button-xl" type="submit" name="task_update">{% trans 'Save' %}</button>
-                        </div>
-                        <div class="container-fluid" x-show="tab == 1">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>{% trans 'Date' %}</th>
-                                        <th>{% trans 'Notes' %}</th>
-                                        <th>{% trans 'User' %}</th>
-                                        <th>{% trans 'Status' %}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for ob in object.history.all %}
-                                    <tr>
-                                        <td class="align-top nowrap">{{ ob.date|localtime|date }}<br>{{ ob.date|localtime|date:'P' }}</td>
-                                        <td class="align-top">{{ ob.notes|linebreaks|default:'-' }}</td>
-                                        <td class="align-top">{% if ob.user %}{{ ob.user.get_full_name }}{% else %}-{% endif %}</td>
-                                        <td class="align-top">{{ ob.status|default_if_none:'-' }}</td>
-                                    </tr>
-                                    {% empty %}
-                                    <tr><td colspan="4">{% trans 'No history for the task.' %}</td></tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="container-fluid" x-show="tab == 2">
-                            <fieldset>
-                                {{ history_form }}
-                            </fieldset>
-                            <button class="button button-primary button-xl" type="submit" name="history_notes">{% trans 'Just add notes' %}</button>
-                            <button class="button button-olive button-xl pull-right" type="submit" name="history_complete">{% trans 'Add notes and complete task' %}</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-2">
-                    <p>Actions</p>
-                    <ul class="list-style-none mb-3">
-                        <li><a href="{{ object.asset.get_nodes_url }}">Cancel</a></li>
-                        {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
-                    </ul>
-                </div>
+        <div class="row">
+            <div class="col">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <fieldset>
+                        {{ form }}
+                    </fieldset>
+                    <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
+                </form>
             </div>
-        {% else %}
-            <div class="row">
-                <div class="col">
-                    <form method="post" novalidate>
-                        {% csrf_token %}
-                        <fieldset>
-                            {{ form }}
-                        </fieldset>
-                        <button class="button button-primary button-xl" type="submit">{% trans 'Save' %}</button>
-                    </form>
-                </div>
-                <div class="col-2">
-                    <p>Actions</p>
-                    <ul class="list-style-none mb-3">
+            <div class="col-2">
+                <p>Actions</p>
+                <ul class="list-style-none mb-3">
+                    {% if object %}
+                        <li><a href="{{ object.get_absolute_url }}">Cancel</a></li>
+                        <li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>
+                    {% else %}
                         <li><a href="{{ asset.get_nodes_url }}">Cancel</a></li>
-                        {% if object %}<li><a href="{% url 'assets:task-delete' object.pk %}">Delete</a></li>{% endif %}
-                    </ul>
-                </div>
+                    {% endif %}
+                </ul>
             </div>
-        {% endif %}
+        </div>
     </div>
 {% endblock %}
 

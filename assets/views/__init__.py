@@ -24,6 +24,7 @@ from .search import SearchView
 from .task import (
     TaskCreate,
     TaskDelete,
+    TaskDetail,
     TaskList,
     TaskUpdate
 )

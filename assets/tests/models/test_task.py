@@ -142,7 +142,7 @@ class TestModel(AppTestCase):
         pk = 'fe8aa6e1-93b9-480e-bc82-fcce14b707f6'
         self.assertEqual(
             Task(pk=pk).get_absolute_url(),
-            reverse('assets:task-update', kwargs={'pk': pk})
+            reverse('assets:task-detail', kwargs={'pk': pk})
         )
 
     def test_schedule_text(self):

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from assets.forms import TaskForm, TaskHistoryForm, TaskListFilterForm
 from assets.models import Task, Status
@@ -78,52 +78,47 @@ class TaskCreate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, CreateVi
         return self.object.asset.get_nodes_url()
 
 
-class TaskUpdate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskDetail(ActivatedCollectionRequiredMixin, SuccessMessageMixin, DetailView):
     model = Task
-    form_class = TaskForm
-    prefix = 'task_form'
-    success_message = 'updated successfully'
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.prefetch_related('history__user')
 
     def get_history_form(self):
         if self.request.method == 'POST':
-            return TaskHistoryForm(self.request.POST, prefix='history_form')
-        return TaskHistoryForm(initial={'task': self.object}, prefix='history_form')
+            return TaskHistoryForm(self.request.POST)
+        return TaskHistoryForm(initial={'task': self.object})
 
     def get_context_data(self, **kwargs):
-        if 'history_form' not in kwargs:
-            kwargs['history_form'] = self.get_history_form()
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_history_form()
         return super().get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        form = self.get_form()
-        history_form = self.get_history_form()
+        form = self.get_history_form()
 
-        if 'task_update' in self.request.POST and form.is_valid():
-            return self.form_valid(form)
-
-        if 'history_notes' in self.request.POST and history_form.is_valid():
-            history_form.save()
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if 'complete' in self.request.POST:
+                status, _ = Status.objects.get_or_create(name='Completed')
+                instance.status = status
+            instance.save()
             messages.success(request, 'notes added successfully')
             return HttpResponseRedirect(self.get_success_url())
-
-        if 'history_complete' in self.request.POST and history_form.is_valid():
-            status, created = Status.objects.get_or_create(name='Completed')
-            history_form.instance.status = status
-            history_form.save()
-            messages.success(request, 'completed successfully')
-            return HttpResponseRedirect(self.get_success_url())
-
-        context = self.get_context_data(form=form, history_form=history_form)
-        return self.render_to_response(context)
+        else:
+            context = self.get_context_data(form=form)
+            return self.render_to_response(context)
 
     def get_success_url(self):
-        return self.object.asset.get_nodes_url()
+        return self.object.get_absolute_url()
+
+
+class TaskUpdate(ActivatedCollectionRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    success_message = 'updated successfully'
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
 
 class TaskDelete(ActivatedCollectionRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):

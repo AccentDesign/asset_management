@@ -86,39 +86,51 @@
                     </div>
                 </div>
                 <div class="pt-1h" x-show="visible.indexOf(id) >= 0">
-                    <label>Label:</label>
-                    <input type="text" x-model="fields[id].label">
-                    <label>Widget:</label>
-                    <select x-model="fields[id].widget">
-                        <option value="">---------</option>
-                        <template x-for="(item, index) in meta[fields[id].type].widgets" :key="index">
-                            <option
-                                x-bind:value="item.type"
-                                x-text="item.name"
-                                x-bind:selected="fields[id].widget === item.type"
-                            ></option>
-                        </template>
-                    </select>
-                    <label>Required:</label>
-                    <label class="checkbox">
-                        <input type="checkbox" x-model="fields[id].required">
-                    </label>
+                    <div class="row">
+                        <div class="col">
+                            <label>Label:</label>
+                            <input type="text" x-model="fields[id].label">
+                        </div>
+                        <div class="col">
+                            <label>Widget:</label>
+                            <select x-model="fields[id].widget">
+                                <option value="">---------</option>
+                                <template x-for="(item, index) in meta[fields[id].type].widgets" :key="index">
+                                    <option
+                                        x-bind:value="item.type"
+                                        x-text="item.name"
+                                        x-bind:selected="fields[id].widget === item.type"
+                                    ></option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Initial:</label>
+                            <input type="text" x-model="fields[id].initial">
+                        </div>
+                        <div class="col">
+                            <label>Required:</label>
+                            <input type="checkbox" x-model.boolean="fields[id].required">
+                        </div>
+                    </div>
                     <label>Help text:</label>
                     <input type="text" x-model="fields[id].help_text">
-                    <label>Initial:</label>
-                    <input type="text" x-model="fields[id].initial">
-                    <template x-if="'max_digits' in meta[fields[id].type].attrs">
-                        <div>
-                            <label>Max digits:</label>
-                            <input type="number" x-model.number="fields[id].max_digits">
-                        </div>
-                    </template>
-                    <template x-if="'decimal_places' in meta[fields[id].type].attrs">
-                        <div>
-                            <label>Decimal places:</label>
-                            <input type="number" x-model.number="fields[id].decimal_places">
-                        </div>
-                    </template>
+                    <div class="row">
+                        <template x-if="'max_digits' in meta[fields[id].type].attrs">
+                            <div class="col">
+                                <label>Max digits:</label>
+                                <input type="number" x-model.number="fields[id].max_digits">
+                            </div>
+                        </template>
+                        <template x-if="'decimal_places' in meta[fields[id].type].attrs">
+                            <div class="col">
+                                <label>Decimal places:</label>
+                                <input type="number" x-model.number="fields[id].decimal_places">
+                            </div>
+                        </template>
+                    </div>
                     <template x-if="'choices' in meta[fields[id].type].attrs">
                         <div class="row">
                             <div class="col-8">

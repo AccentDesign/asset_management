@@ -4,7 +4,6 @@
         field_ids: {{ field_ids|safe }},
         new_choice: "",
         meta: {{ field_meta_data|safe }},
-        new_field_data: function() { return {{ field_data_template|safe }}; },
         visible: []
     }'
     x-init="
@@ -31,7 +30,7 @@
     "
     @add-field="
         var type = $event.detail.type;
-        var data = new_field_data();
+        var data = JSON.parse(JSON.stringify(meta[type].attrs));
         var id = Date.now().toString();
         data.type = type;
         if (meta[type].widgets.length == 1) {
@@ -108,19 +107,19 @@
                     <input type="text" x-model="fields[id].help_text">
                     <label>Initial:</label>
                     <input type="text" x-model="fields[id].initial">
-                    <template x-if="meta[fields[id].type].has_max_digits">
+                    <template x-if="'max_digits' in meta[fields[id].type].attrs">
                         <div>
                             <label>Max digits:</label>
                             <input type="number" x-model.number="fields[id].max_digits">
                         </div>
                     </template>
-                    <template x-if="meta[fields[id].type].has_decimal_places">
+                    <template x-if="'decimal_places' in meta[fields[id].type].attrs">
                         <div>
                             <label>Decimal places:</label>
                             <input type="number" x-model.number="fields[id].decimal_places">
                         </div>
                     </template>
-                    <template x-if="meta[fields[id].type].has_choices">
+                    <template x-if="'choices' in meta[fields[id].type].attrs">
                         <div class="row">
                             <div class="col-8">
                                 <label>Choices:</label>

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.module_loading import import_string
 
 from app.forms import widgets
@@ -36,6 +37,13 @@ class BaseField:
         base_attrs = self.attrs()
         base_attrs.update(attrs)
         return self.field_class(**base_attrs)
+
+    def validate_attrs(self, attrs):
+        try:
+            self.field(attrs)
+        except Exception:
+            err = f"{attrs['label']} has invalid options please check and try again"
+            raise ValidationError(err)
 
 
 class BooleanField(BaseField):
@@ -171,8 +179,11 @@ class FormBuilder:
             # if there are choices and its a select add a blank option
             if 'choices' in props:
                 props['choices'] = [(c, c) for c in props['choices']]
-                if issubclass(props['widget'], forms.widgets.Select):
+                if props['widget'] and issubclass(props['widget'], forms.widgets.Select):
                     props['choices'].insert(0, (None, '---------'))
+
+            # validate the fields attrs can build a field
+            field_cls().validate_attrs(props)
 
             # add the field to the form
             formfields[key] = field_cls().field(props)
@@ -188,3 +199,11 @@ class FormBuilder:
 
     def get_form_class(self):
         return type(str("AppFormBuilder"), (FormBuilderBaseForm,), self.formfields)
+
+    def validate(self):
+        # just get the form fields, if a validation error is raised
+        # then reraise it else let it die as its code related
+        try:
+            self.formfields
+        except ValidationError as e:
+            raise e

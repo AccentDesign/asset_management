@@ -170,6 +170,7 @@ class FormBuilder:
 
             # if there are choices and its a select add a blank option
             if 'choices' in props:
+                props['choices'] = [(c, c) for c in props['choices']]
                 if issubclass(props['widget'], forms.widgets.Select):
                     props['choices'].insert(0, (None, '---------'))
 

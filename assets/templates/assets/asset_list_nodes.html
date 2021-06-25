@@ -61,6 +61,8 @@
                         <div class="col-3 muted">{{ k }}</div>
                         {% if v|klass == 'list' %}
                             <div class="col">{{ v|default:'-'|join:', ' }}</div>
+                        {% elif v|klass == 'bool' %}
+                            <div class="col">{{ v|yesno:"Yes,No,-" }}</div>
                         {% elif v|klass == 'str' %}
                             <div class="col">{{ v|default:'-'|linebreaksbr }}</div>
                         {% else %}

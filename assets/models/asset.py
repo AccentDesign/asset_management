@@ -22,7 +22,8 @@ class AssetManager(CollectionManager, TreeManager):
                     models.Q(name__icontains=term) |
                     models.Q(description__icontains=term) |
                     models.Q(asset_type__name__icontains=term) |
-                    models.Q(contact__name__icontains=term)
+                    models.Q(contact__name__icontains=term) |
+                    models.Q(extra_data__icontains=term)
                 )
                 all_filters = all_filters & or_lookup
             qs = qs.filter(all_filters).distinct()

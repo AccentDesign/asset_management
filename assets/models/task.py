@@ -50,6 +50,7 @@ class TaskManager(models.Manager):
                     models.Q(description__icontains=term) |
                     models.Q(asset__name__icontains=term) |
                     models.Q(asset__description__icontains=term) |
+                    models.Q(asset__extra_data__icontains=term) |
                     models.Q(task_type__name__icontains=term) |
                     models.Q(assigned_to__first_name__icontains=term) |
                     models.Q(assigned_to__last_name__icontains=term)

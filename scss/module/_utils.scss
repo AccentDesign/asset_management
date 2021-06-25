@@ -51,6 +51,10 @@
 
 // margin
 
+.mt-h {
+  margin-top: .5rem;
+}
+
 .mt-2 {
   margin-top: 2rem;
 }
@@ -79,4 +83,10 @@
 
 .nowrap {
   word-wrap: none;
+}
+
+// background
+
+.b-success {
+  background-color: color-lighten("green", 35%);
 }

@@ -2131,6 +2131,10 @@ header .menu .menu-drop {
   padding-right: 1.5rem;
 }
 
+.mt-h {
+  margin-top: .5rem;
+}
+
 .mt-2 {
   margin-top: 2rem;
 }
@@ -2157,6 +2161,10 @@ header .menu .menu-drop {
 
 .nowrap {
   word-wrap: none;
+}
+
+.b-success {
+  background-color: #bcf0c2;
 }
 
 /* karma-css utilities */

@@ -1,4 +1,5 @@
 from .asset import Asset
+from .asset_file import AssetFile
 from .asset_type import AssetType
 from .contact import Contact
 from .status import Status

@@ -15,6 +15,7 @@ urlpatterns = [
     path('assets/<uuid:pk>/extra/', views.AssetExtra.as_view(), name='asset-extra'),
     path('assets/<uuid:pk>/move/', views.AssetMove.as_view(), name='asset-move'),
     path('assets/<uuid:asset_pk>/assets/create/', views.AssetCreate.as_view(), name='asset-child-create'),
+    path('assets/<uuid:asset_pk>/files/upload/', views.AssetFileUpload.as_view(), name='asset-file-upload'),
     path('assets/<uuid:asset_pk>/tasks/create/', views.TaskCreate.as_view(), name='asset-task-create'),
     path('asset-types/', views.AssetTypeList.as_view(), name='asset-type-list'),
     path('asset-types/create/', views.AssetTypeCreate.as_view(), name='asset-type-create'),

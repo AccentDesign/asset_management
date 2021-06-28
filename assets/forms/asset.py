@@ -30,6 +30,9 @@ class AssetCopyForm(forms.Form):
         required=False,
         empty_label='Make it a root level asset'
     )
+    include_descendants = forms.BooleanField(
+        required=False
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

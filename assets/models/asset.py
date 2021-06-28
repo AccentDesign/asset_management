@@ -109,6 +109,10 @@ class Asset(CollectionMixin, MPTTModel):
             new_task.asset = asset
             new_task.save()
 
+        if kwargs.get('include_descendants', False):
+            for child in self.get_children().exclude(pk=asset.pk):
+                child.copy(parent=asset, include_descendants=True)
+
         return asset
 
     copy.alters_data = True

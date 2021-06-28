@@ -97,6 +97,7 @@ class Asset(CollectionMixin, MPTTModel):
             asset_type=self.asset_type,
             contact=self.contact,
             collection=self.collection,
+            extra_data=self.extra_data,
             parent=kwargs.get('parent', self.parent)
         )
 

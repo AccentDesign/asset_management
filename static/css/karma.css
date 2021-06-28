@@ -1807,6 +1807,14 @@ input[type="color"]:focus {
   top: 130px;
 }
 
+progress[value] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 5px;
+}
+
 header {
   position: fixed;
   top: 0;

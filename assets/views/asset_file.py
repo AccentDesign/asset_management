@@ -36,4 +36,4 @@ class AssetFileUpload(ActivatedCollectionRequiredMixin, View):
             'url': file.fileurl(),
             'size': filesizeformat(file.filesize())
         }
-        return self.render_json_response(response_dict, status=200)
+        return self.render_json_response(response_dict, status=201)

@@ -135,20 +135,26 @@
                         document.querySelector('#upload_form input[name=file').value = null;
                     }
                     
+                    function transferFailed(event) {
+                        console.log(event);
+                        uploaded_progress = 0;
+                    }
+                    
                     request.upload.addEventListener('progress', progressHandler, false);
                     request.addEventListener('load', completeHandler, false);
+                    request.addEventListener('error', transferFailed);
 
                     request.open('POST', '{% url 'assets:asset-file-upload' object.pk %}');
                     request.send(formData);
                 ">
                     <div class="p-1h b-whitesmoke d-flex align-items-center">
                         <span class="uppercase">{% trans 'Files' %}</span>
-                        <form id="upload_form" name="id_upload_form" class="margin-zero ml-auto" enctype="multipart/form-data">
+                        <form id="upload_form" name="id_upload_form" class="margin-zero ml-auto d-flex align-items-center" enctype="multipart/form-data">
                             {% csrf_token %}
                             <template x-if="uploaded_progress > 0">
                                 <progress class="mr-1h" id="file" x-bind:value="uploaded_progress" max="100"></progress>
                             </template>
-                            <label class="button button-secondary button-xs uppercase" for="file">{% trans 'Upload' %}</label>
+                            <label class="button button-secondary button-xs uppercase margin-zero" for="file">{% trans 'Upload' %}</label>
                             <input type="file" id="file" name="file" class="d-hidden" @change="$dispatch('upload')">
                         </form>
                     </div>

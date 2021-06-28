@@ -54,3 +54,9 @@ input[type="color"] {
     }
   }
 }
+
+progress[value] {
+  appearance: none;
+  width: 100px;
+  height: 5px;
+}

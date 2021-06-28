@@ -8,7 +8,10 @@ from .asset import (
     AssetCopy,
     AssetMove
 )
-from .asset_file import AssetFileUpload
+from .asset_file import (
+    AssetFileDelete,
+    AssetFileUpload
+)
 from .asset_type import (
     AssetTypeList,
     AssetTypeCreate,

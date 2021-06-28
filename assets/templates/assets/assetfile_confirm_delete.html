@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load i18n mptt_tags %}
+{% block page_title %}Files{% endblock %}
+{% block body_class %}{% endblock %}
+{% block header_content %}
+    <header>
+        {% include 'partials/header.html' %}
+        <div class="container-fluid mt-2">
+            {% include 'assets/partials/breadcrumb.html' with object=object.asset %}
+        </div>
+    </header>
+{% endblock %}
+{% block inner_content %}
+    <div class="main">
+        <div class="row">
+            <div class="col">
+                {% if protected %}
+                    <p>{% blocktrans with ob=object %}Deleting <em>"{{ ob }}"</em> would first require deleting the following protected related objects:{% endblocktrans %}</p>
+                    <ul>
+                        {% for item in protected %}
+                            <li>{{ item.verbose_name|capfirst }}: <a href="{{ item.object.get_absolute_url }}">{{ item.object }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>{% blocktrans with ob=object.filename %}Please confirm you wish to delete <em>"{{ ob }}"</em>{% endblocktrans %}</p>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form }}
+                        <button class="button button-red button-xl" type="submit">{% trans 'Delete' %}</button>
+                    </form>
+                {% endif %}
+            </div>
+            <div class="col-2">
+                <p>Actions</p>
+                <ul class="list-style-none mb-3">
+                    <li><a href="{{ object.asset.get_nodes_url }}">Cancel</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -104,12 +104,14 @@
                 <div x-data="{
                     files: [
                         {% for file in object.files.all %} {
+                            pk: '{{ file.pk }}',
                             name: '{{ file.filename }}',
                             url: '{{ file.fileurl }}',
                             size: '{{ file.filesize|filesizeformat }}'
                         },{% endfor %}
                     ],
-                    uploaded: false
+                    uploaded: false,
+                    uploaded_progress: 0
                 }"
                 @upload="
                     var formData = new FormData();
@@ -117,15 +119,25 @@
                     formData.append('csrfmiddlewaretoken', document.querySelector('#upload_form input[name=csrfmiddlewaretoken').value);
                     
                     var request = new XMLHttpRequest();
-                    request.onreadystatechange = function() {
-                        if (request.readyState == 4 && request.status == 200) {
-                            var response = JSON.parse(request.responseText);
-                            files.unshift(response);
-                            uploaded = true;
-                            setTimeout(() => uploaded = false, 2000);
-                            document.querySelector('#upload_form input[name=file').value = null;
-                        }
-                    };
+
+                    function progressHandler(event) {
+                        uploaded_progress = Math.round((event.loaded / event.total) * 100);
+                    }
+
+                    function completeHandler(event) {
+                        var response = JSON.parse(event.target.responseText);
+                        files.unshift(response);
+                        uploaded = true;
+                        setTimeout(() => {
+                            uploaded = false;
+                            uploaded_progress = 0;
+                        }, 2000);
+                        document.querySelector('#upload_form input[name=file').value = null;
+                    }
+                    
+                    request.upload.addEventListener('progress', progressHandler, false);
+                    request.addEventListener('load', completeHandler, false);
+
                     request.open('POST', '{% url 'assets:asset-file-upload' object.pk %}');
                     request.send(formData);
                 ">
@@ -133,6 +145,9 @@
                         <span class="uppercase">{% trans 'Files' %}</span>
                         <form id="upload_form" name="id_upload_form" class="margin-zero ml-auto" enctype="multipart/form-data">
                             {% csrf_token %}
+                            <template x-if="uploaded_progress > 0">
+                                <progress class="mr-1h" id="file" x-bind:value="uploaded_progress" max="100"></progress>
+                            </template>
                             <label class="button button-secondary button-xs uppercase" for="file">{% trans 'Upload' %}</label>
                             <input type="file" id="file" name="file" class="d-hidden" @change="$dispatch('upload')">
                         </form>
@@ -142,16 +157,18 @@
                             <tr>
                                 <th>{% trans 'Name' %}</th>
                                 <th class="text-right">{% trans 'Size' %}</th>
+                                <th class="w-1"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <template x-if="files.length == 0">
-                                <tr><td colspan="5">{% trans 'No files have been uploaded.' %}</td></tr>
+                                <tr><td colspan="3">{% trans 'No files have been uploaded.' %}</td></tr>
                             </template>
                             <template x-for="(file, index) in files" :key="index">
                                 <tr :class="{ 'b-success': uploaded == true && index == 0 }">
                                     <td><a target="_blank" x-bind:href="file.url" x-text="file.name"></a></td>
                                     <td class="text-right" x-text="file.size"><a x-bind:href="file.url" x-text="file.name"></a></td>
+                                    <td class="text-right"><a x-bind:href="'/asset-files/' + file.pk + '/delete/'"><i class="icon-trash-empty"></i></a></td>
                                 </tr>
                             </template>
                         </tbody>

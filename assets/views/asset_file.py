@@ -6,9 +6,18 @@ from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import filesizeformat
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View
+from django.views.generic import DeleteView
 
+from app.views.mixins import DeleteSuccessMessageMixin, ProtectedDeleteMixin
 from assets.models import Asset, AssetFile
 from authentication.views.mixins import ActivatedCollectionRequiredMixin
+
+
+class AssetFileDelete(ActivatedCollectionRequiredMixin, ProtectedDeleteMixin, DeleteSuccessMessageMixin, DeleteView):
+    model = AssetFile
+
+    def get_success_url(self):
+        return self.object.asset.get_nodes_url()
 
 
 class AssetFileUpload(ActivatedCollectionRequiredMixin, View):
@@ -22,6 +31,7 @@ class AssetFileUpload(ActivatedCollectionRequiredMixin, View):
         asset = get_object_or_404(Asset, pk=kwargs.get('asset_pk'))
         file = AssetFile.objects.create(file=request.FILES['file'], asset=asset)
         response_dict = {
+            'pk': file.pk,
             'name': file.filename(),
             'url': file.fileurl(),
             'size': filesizeformat(file.filesize())

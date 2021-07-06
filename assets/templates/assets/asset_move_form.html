@@ -18,7 +18,12 @@
                 <form method="post" novalidate>
                     {% csrf_token %}
                     <fieldset>
-                        {{ form }}
+                        {{ form.non_field_errors }}
+                              
+                        {{ form.parent.label_tag }}
+                        {{ form.parent.errors }}
+                        {{ form.parent }}
+                        <div id="tree" class="mb-1h"></div>
                     </fieldset>
                     <button class="button button-primary button-xl" type="submit">{% trans 'Move' %}</button>
                 </form>
@@ -31,4 +36,31 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'ext/tree/tree.css' %}">
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'ext/tree/tree.js' %}"></script>
+<script>
+    var parent = document.getElementById('{{ form.parent.id_for_label }}');
+    parent.className = 'd-hidden';
+    var tree = new Tree(document.getElementById('tree'), { navigate: true });
+    tree.on('select', e => parent.value = e.dataset.id);
+    var structure = [
+        { 
+            id: '',
+            selected: true,
+            name: 'Root Level Asset'
+        }, {% recursetree form.parent.field.queryset.all %}
+        {
+            id: '{{ node.id }}',
+            name: '{{ node.name }}', {% if not node.is_leaf_node %}
+            type: Tree.FOLDER,
+            children: [{{ children }}]{% endif %}
+        },
+    {% endrecursetree %}];
+    tree.json(structure);
+</script>
 {% endblock %}

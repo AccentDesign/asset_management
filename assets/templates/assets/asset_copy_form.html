@@ -20,7 +20,25 @@
                 <form method="post" novalidate>
                     {% csrf_token %}
                     <fieldset>
-                        {{ form }}
+                        
+                        {{ form.non_field_errors }}
+
+                        {{ form.new_name.label_tag }}
+                        {{ form.new_name.errors }}
+                        {{ form.new_name }}
+                        {% if form.new_name.help_text %}
+                        <span class="helptext">{{ form.new_name.help_text|safe }}</span>
+                        {% endif %}
+                        
+                        {{ form.parent_asset.label_tag }}
+                        {{ form.parent_asset.errors }}
+                        {{ form.parent_asset }}
+                        <div id="tree" class="mb-1h"></div>
+
+                        {{ form.include_descendants.label_tag }}
+                        {{ form.include_descendants.errors }}
+                        {{ form.include_descendants }}
+    
                     </fieldset>
                     <button class="button button-primary button-xl" type="submit">{% trans 'Copy' %}</button>
                 </form>
@@ -33,4 +51,31 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'ext/tree/tree.css' %}">
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'ext/tree/tree.js' %}"></script>
+<script>
+    var parent = document.getElementById('{{ form.parent_asset.id_for_label }}');
+    parent.className = 'd-hidden';
+    var tree = new Tree(document.getElementById('tree'), { navigate: true });
+    tree.on('select', e => parent.value = e.dataset.id);
+    var structure = [
+        { 
+            id: '',
+            selected: true,
+            name: 'Root Level Asset'
+        }, {% recursetree form.parent_asset.field.queryset.all %}
+        {
+            id: '{{ node.id }}',
+            name: '{{ node.name }}', {% if not node.is_leaf_node %}
+            type: Tree.FOLDER,
+            children: [{{ children }}]{% endif %}
+        },
+    {% endrecursetree %}];
+    tree.json(structure);
+</script>
 {% endblock %}

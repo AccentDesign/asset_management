@@ -28,7 +28,7 @@ class AssetCopyForm(forms.Form):
     parent_asset = TreeNodeChoiceField(
         queryset=Asset.for_collection,
         required=False,
-        empty_label='Make it a root level asset'
+        empty_label='Root Level Asset'
     )
     include_descendants = forms.BooleanField(
         required=False
@@ -43,7 +43,7 @@ class AssetMoveForm(forms.ModelForm):
     parent = TreeNodeChoiceField(
         queryset=Asset.for_collection,
         required=False,
-        empty_label='Make it a root level asset'
+        empty_label='Root Level Asset',
     )
 
     class Meta:

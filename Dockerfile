@@ -13,7 +13,6 @@ RUN         set -ex \
             && apk add --no-cache \
                 libpq \
                 make \
-                supervisor \
             && apk add --no-cache --virtual .build-deps \
                 gcc \
                 git \

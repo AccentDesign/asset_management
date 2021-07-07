@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
+    path('explorer/', include('explorer.urls')),
     path('', HomeView.as_view(), name='home'),
     path('', include('assets.urls'))
 ]

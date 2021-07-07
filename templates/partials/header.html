@@ -12,6 +12,7 @@
                     <li {% if section == 'asset' %}class="active"{% endif %}><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
                     <li {% if section == 'task' %}class="active"{% endif %}><a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a></li>
                     <li {% if section == 'contact' %}class="active"{% endif %}><a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a></li>
+                    <li><a target="_blank" href="{% url 'explorer_index' %}">{% trans 'SQL Explorer' %}</a></li>
                 </ul>
             {% else %}
                 <ul class="nav mr-auto">

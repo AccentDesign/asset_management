@@ -2,6 +2,7 @@ boto3
 django
 django-mptt
 django-reversion
+django-sql-explorer
 django-storages
 huey[backends]
 psycopg2-binary

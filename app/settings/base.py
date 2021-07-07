@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'assets',
     'authentication',
 
+    'explorer',
     'huey.contrib.djhuey',
     'mptt',
     'reversion',
@@ -86,6 +87,17 @@ DATABASES = {
         'NAME': environ.get('RDS_DB_NAME'),
         'USER': environ.get('RDS_USERNAME'),
         'PASSWORD': environ.get('RDS_PASSWORD'),
+    },
+    'readonly': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': environ.get('RDS_HOSTNAME'),
+        'PORT': environ.get('RDS_PORT'),
+        'NAME': environ.get('RDS_DB_NAME'),
+        'USER': environ.get('RDS_USERNAME'),
+        'PASSWORD': environ.get('RDS_PASSWORD'),
+        'OPTIONS': {
+            'options': '-c default_transaction_read_only=on'
+        },
     }
 }
 
@@ -210,6 +222,16 @@ HUEY = {
         'health_check_interval': 1,  # Check worker health every second.
     },
 }
+
+
+# sql explorer
+EXPLORER_CONNECTIONS = {'Default': 'readonly'}
+EXPLORER_DEFAULT_CONNECTION = 'readonly'
+EXPLORER_SCHEMA_INCLUDE_TABLE_PREFIXES = (
+    'assets',
+    'authentication_collection',
+)
+EXPLORER_SCHEMA_INCLUDE_VIEWS = True
 
 
 # Sentry - if its installed and we have a dsn in the environment

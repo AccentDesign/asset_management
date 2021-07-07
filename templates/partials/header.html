@@ -12,7 +12,7 @@
                     <li {% if section == 'asset' %}class="active"{% endif %}><a href="{% url 'assets:asset-list' %}">{% trans 'Assets' %}</a></li>
                     <li {% if section == 'task' %}class="active"{% endif %}><a href="{% url 'assets:task-list' %}">{% trans 'Tasks' %}</a></li>
                     <li {% if section == 'contact' %}class="active"{% endif %}><a href="{% url 'assets:contact-list' %}">{% trans 'Contacts' %}</a></li>
-                    <li><a target="_blank" href="{% url 'explorer_index' %}">{% trans 'SQL Explorer' %}</a></li>
+                    {% if user.is_staff %}<li><a target="_blank" href="{% url 'explorer_index' %}">{% trans 'SQL Explorer' %}</a></li>{% endif %}
                 </ul>
             {% else %}
                 <ul class="nav mr-auto">
@@ -50,6 +50,7 @@
                     <div class="settings-menu menu" x-data="{ open: false }">
                         <a class="menu-link" @click="open = true"><i class="icon-cog"></i></a>
                         <ul class="menu-drop flow-left" x-show="open" @click.away="open = false">
+                            {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>{% endif %}
                             <li><a href="{% url 'assets:asset-type-list' %}">{% trans 'Asset Types' %}</a></li>
                             <li><a href="{% url 'assets:task-priority-list' %}">{% trans 'Task Priorities' %}</a></li>
                             <li><a href="{% url 'assets:task-type-list' %}">{% trans 'Task Types' %}</a></li>
@@ -59,7 +60,6 @@
                 <div class="user-menu menu" x-data="{ open: false }">
                     <a class="menu-link" @click="open = true"><i class="icon-user-circle"></i></a>
                     <ul class="menu-drop flow-left" x-show="open" @click.away="open = false">
-                        {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">{% trans 'Admin' %}</a></li>{% endif %}
                         <li><a href="{% url 'my_profile' %}">{% trans 'My Profile' %}</a></li>
                         <li><a href="{% url 'password_change' %}">{% trans 'Password Change' %}</a></li>
                         <li><a href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>

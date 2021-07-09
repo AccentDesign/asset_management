@@ -1,5 +1,6 @@
 from copy import deepcopy
 
+from django.contrib.postgres.indexes import GinIndex
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.urls import reverse_lazy
@@ -65,6 +66,14 @@ class Asset(CollectionMixin, MPTTModel):
 
     for_collection = AssetManager()
     objects = TreeManager()
+
+    class Meta:
+        indexes = [
+            GinIndex(
+                fields=['extra_data'],
+                name='extra_data_gin',
+            )
+        ]
 
     class MPTTMeta:
         order_insertion_by = ['name']

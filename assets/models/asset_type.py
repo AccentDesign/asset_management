@@ -1,3 +1,4 @@
+from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 from django.urls import reverse_lazy
 
@@ -22,6 +23,12 @@ class AssetType(CollectionMixin):
     objects = models.Manager()
 
     class Meta:
+        indexes = [
+            GinIndex(
+                fields=['fields'],
+                name='fields_gin',
+            )
+        ]
         ordering = ['name']
         unique_together = ('collection', 'name', )
 
